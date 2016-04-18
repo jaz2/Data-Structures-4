@@ -39,7 +39,13 @@ public class MemoryManager {
     	boolean found = false;
     	for (int i = 0; i <= freeList.length() && found == false; i++)
     	{
-    		if (b.size <= freeList.moveToPos(i))
+    		if (b.length <= freeList.get(i).sz)
+    		{
+    			found = true;
+    			short size = ByteBuffer.wrap(mm).getShort(handle - 2);
+    	    	byte[] b = new byte[size];
+    	    	System.arraycopy(mm, handle, b, 0, size);
+    		}
     	}
     	//find the one that is greater than or equal to
     }//extend memory to buffersize 

@@ -10,7 +10,7 @@
 public class FreeBlock {
 	
 	/**
-	 * The size
+	 * The size of message
 	 */
 	public int sz;
 	
