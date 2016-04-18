@@ -28,9 +28,9 @@ public class ListTest {
     public void testgetName()
     {
         List l = new List();
-        l.insert(new Point("a", 12, 6));
-        l.insert(new Point("b", 13, 6));
-        l.getName(null, new Point("a", 12, 6));
+        l.insert(new FreeBlock(12, 6));
+        l.insert(new FreeBlock(13, 9));
+        //l.getName(null, new FreeBlock("a", 12, 6));
         assertEquals(l.length(), 1);
     } 
 
@@ -41,9 +41,9 @@ public class ListTest {
     public void testgetNameNotThere()
     {
         List l = new List();
-        l.insert(new Point("a", 12, 6));
-        l.insert(new Point("b", 13, 6));
-        l.getName(null, new Point("c", 14, 6));
+        l.insert(new FreeBlock(12, 6));
+        l.insert(new FreeBlock(13, 5));
+        l.getName(null, new FreeBlock("c", 14, 6));
         assertEquals(l.length(), 2);
     }
 
@@ -54,9 +54,9 @@ public class ListTest {
     public void testgetNameByNameNotThere()
     {
         List l = new List();
-        l.insert(new Point("a", 12, 6));
-        l.insert(new Point("b", 13, 6));
-        l.getName("c", new Point("c", 14, 6));
+        l.insert(new FreeBlock("a", 12, 6));
+        l.insert(new FreeBlock("b", 13, 6));
+        l.getName("c", new FreeBlock("c", 14, 6));
         assertEquals(l.length(), 2);
     }
 
@@ -67,9 +67,9 @@ public class ListTest {
     public void testgetNameByName2()
     {
         List l = new List();
-        l.insert(new Point("a", 12, 6));
-        l.insert(new Point("b", 13, 6)); 
-        l.getName("b", new Point("b", 13, 6));
+        l.insert(new FreeBlock( 12, 6));
+        l.insert(new FreeBlock("b", 13, 6)); 
+        l.getName("b", new FreeBlock(13, 6));
         assertEquals(l.length(), 1);
     }
 
@@ -80,9 +80,9 @@ public class ListTest {
     public void testgetNameByName4()
     {
         List l = new List();
-        l.insert(new Point("a", 12, 6));
-        l.insert(new Point("b", 13, 6)); 
-        l.getName("a", new Point("a", 12, 6));
+        l.insert(new FreeBlock("a", 12, 6));
+        l.insert(new FreeBlock("b", 13, 6)); 
+        l.getName("a", new FreeBlock("a", 12, 6));
         assertEquals(l.length(), 1);
     }
 
@@ -93,10 +93,10 @@ public class ListTest {
     public void testgetNameByName3()
     {
         List l = new List();
-        l.insert(new Point("a", 12, 6));
-        l.insert(new Point("c", 12, 6)); 
-        l.insert(new Point("b", 13, 6)); 
-        l.getName("a", new Point("a", 12, 6));
+        l.insert(new FreeBlock("a", 12, 6));
+        l.insert(new FreeBlock("c", 12, 6)); 
+        l.insert(new FreeBlock("b", 13, 6)); 
+        l.getName("a", new FreeBlock("a", 12, 6));
         assertEquals(l.length(), 2);
     }
 
