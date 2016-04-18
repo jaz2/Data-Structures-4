@@ -77,6 +77,11 @@ public class SkipList<K extends Comparable<K>, E> {
      * The head node
      */
     public int head;
+    
+    /**
+     * The null handle
+     */
+    public static int fly;
 
     /**
      * For the random 
@@ -88,11 +93,13 @@ public class SkipList<K extends Comparable<K>, E> {
      */
     public SkipList()
     { 
-        head = 0;    
-        head.forward[0] = null; //check if this is correct
+    	fly = 0;
+        //head = 0;    
+        head = fly; //check if this is correct
         level = 0;
         rnd = new Random();
         size = 0;
+        
     }
 
     /** 
@@ -124,7 +131,7 @@ public class SkipList<K extends Comparable<K>, E> {
                 SkipList.SkipNode.class, level + 1);   
         SkipNode x = head;        // Start at header node   
         for (int i = level; i >= 0; i--) { // Find insert position     
-            while ((x.forward[i] != null) && 
+            while ((x.forward[i] != fly) && 
                     (k.compareTo((x.forward[i]).element().key()) > 0))       
                 x = x.forward[i];   
             update[i] = x;               // Track end at level i   
@@ -152,7 +159,7 @@ public class SkipList<K extends Comparable<K>, E> {
                 SkipList.SkipNode.class, level + 1);
         for (int i = level; i >= 0; i--)  
         { // For each level...     
-            while ((x.forward[i] != null) &&            
+            while ((x.forward[i] != fly) &&            
                     (key.compareTo(x.forward[i].
                             element().key()) > 0)) // go forward
             {
@@ -243,7 +250,7 @@ public class SkipList<K extends Comparable<K>, E> {
         boolean found = false;   
         SkipNode x = head;                     // Dummy header node   
         for (int i = level; i >= 0; i--)           // For each level...     
-            while ((x.forward[i] != null) &&            
+            while ((x.forward[i] != fly) &&            
                     (key.compareTo(x.forward[i].
                             element().key()) > 0)) // go forward       
                 x = x.forward[i];              // Go one last step   
@@ -254,7 +261,7 @@ public class SkipList<K extends Comparable<K>, E> {
             found = true;
             System.out.println("(" + x.element.toString() + ")");
             //look ahead at level 0 printing as long as it is an equal key
-            if (x.forward[0] != null)
+            if (x.forward[0] != fly)
             {
                 x = x.forward[0];
                 while (x != null && key.equals(x.element.key()))
@@ -323,6 +330,7 @@ public class SkipList<K extends Comparable<K>, E> {
                 node = node.forward[0];
             } 
             System.out.println("SkipList size is: " + size);
+            System.out.println("Freelist Blocks: \n(0, " + size + ")");
         }
     }
 
