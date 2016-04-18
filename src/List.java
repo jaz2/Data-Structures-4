@@ -55,7 +55,7 @@ public class List {
      * @param i the position 
      * @return the FreeBlock at the pos
      */
-    public FreeBlock moveToPos(int i)
+    public FreeBlock get(int i)
     {
         return l[i];
     }
