@@ -8,6 +8,11 @@
  *
  */
 public class MemoryManager {
+	
+	/**
+	 * The array to store freelist blocks
+	 */
+	public byte[] mm;
 
     /**
      * The constructor
@@ -15,6 +20,11 @@ public class MemoryManager {
      */
     public MemoryManager(int size)
     {
-        System.out.println("Freelist Blocks: \n(0, " + size + ")");
+    	mm = new byte[size];      
     } //for second milestone just create an array
+    
+    public void insert(byte x)
+    {
+    	
+    }
 } //don't need to connect it to BP for milestone 2
