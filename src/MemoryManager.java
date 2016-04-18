@@ -15,6 +15,8 @@ public class MemoryManager {
 	 * The array to store freelist blocks
 	 */
 	public byte[] mm;
+	
+	public List freeList;
 
     /**
      * The constructor
@@ -22,7 +24,10 @@ public class MemoryManager {
      */
     public MemoryManager(int size)
     {
-    	mm = new byte[size];      
+    	mm = new byte[size];
+    	freeList = new List();
+    	FreeBlock fb = new FreeBlock(size, 0);
+    	freeList.insert(fb);
     } //for second milestone just create an array
     
     /**
@@ -31,7 +36,12 @@ public class MemoryManager {
      */
     public void insert(byte[] b)
     {
-    	if () //find the one that is greater than or equal to
+    	boolean found = false;
+    	for (int i = 0; i <= freeList.length() && found == false; i++)
+    	{
+    		if (b.size <= freeList.moveToPos(i))
+    	}
+    	//find the one that is greater than or equal to
     }//extend memory to buffersize 
     //so at first just have 1 huge block
     //can start at the beginning
