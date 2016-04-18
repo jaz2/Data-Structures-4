@@ -42,9 +42,12 @@ public class MemoryManager {
     		if (b.length <= freeList.get(i).sz)
     		{
     			found = true;
-    			short size = ByteBuffer.wrap(mm).getShort(handle - 2);
-    	    	byte[] b = new byte[size];
-    	    	System.arraycopy(mm, handle, b, 0, size);
+    			ByteBuffer.wrap(mm).putShort(freeList.get(i).p, (short) b.length);
+    	    	System.arraycopy(b, 0, mm, freeList.get(i).p + 2, b.length);
+    	    	
+    	    	FreeBlock f = new FreeBlock(freeList.get(i).sz - (b.length - 2), 
+    	    			freeList.get(i).p + b.length + 2);
+    	    	freeList.remove(freeList.get(i));
     		}
     	}
     	//find the one that is greater than or equal to
