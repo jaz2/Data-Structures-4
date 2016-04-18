@@ -25,7 +25,7 @@ public class SkipList<K extends Comparable<K>, E> {
         /**
          * forward array
          */
-        public SkipNode[] forward;
+        public int[] forward;
 
         /**
          * the element 
@@ -41,8 +41,7 @@ public class SkipList<K extends Comparable<K>, E> {
         public SkipNode(KVPair<K, E> it, int level)
         {
             element = it;
-            forward = (SkipNode[]) Array.newInstance(
-                    SkipList.SkipNode.class, level + 1);
+            forward =  new int[level + 1];
         }
 
         /**
@@ -77,7 +76,7 @@ public class SkipList<K extends Comparable<K>, E> {
     /**
      * The head node
      */
-    public SkipNode head;
+    public int head;
 
     /**
      * For the random 
@@ -89,7 +88,7 @@ public class SkipList<K extends Comparable<K>, E> {
      */
     public SkipList()
     { 
-        head = new SkipNode(null, 0);    
+        head = 0;    
         head.forward[0] = null; //check if this is correct
         level = 0;
         rnd = new Random();
