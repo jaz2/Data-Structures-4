@@ -25,6 +25,11 @@ public class MemoryManager {
 	 * Keeps track of size
 	 */
 	public int sz;
+	
+	/**
+	 * Keeps track of things in array
+	 */
+	public int count;
 
 	/**
 	 * The constructor
@@ -37,6 +42,7 @@ public class MemoryManager {
 		freeList = new List();
 		FreeBlock fb = new FreeBlock(size, 0);
 		freeList.insert(fb);
+		count = 0;
 	} //for second milestone just create an array
 
 	/**
@@ -45,47 +51,67 @@ public class MemoryManager {
 	 */
 	public int insert(byte[] b)
 	{
-		boolean found = false;
+		//check if b.length is 
 		int position = 0;
-		for (int i = 0; i <= freeList.length() && found == false; i++)
+		if (count + b.length  + 2 <= mm.length)
 		{
-			if (b.length <= freeList.get(i).sz)
-			{
-				found = true;
-				position = freeList.get(i).p;
-				ByteBuffer.wrap(mm).putShort(freeList.get(i).p, (short) b.length);
-				System.arraycopy(b, 0, mm, freeList.get(i).p + 2, b.length);
-
-				FreeBlock f = new FreeBlock(freeList.get(i).sz - (b.length - 2), 
-						freeList.get(i).p + b.length + 2);				
-				freeList.remove(freeList.get(i));
-				freeList.insert(f);
-			}
+			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+			System.arraycopy(b, 0, mm, b.length + 2, b.length);
+			count = count + b.length + 2;
+			position = b.length;
 		}
-		if (found == false)
+		else 
 		{
-			int endPos = freeList.get(freeList.length() - 1).p;
-			int endSize = freeList.get(freeList.length() - 1).sz;
-			//make more mem
-			if (endPos + endSize == mm.length)
-			{
-				FreeBlock nu = new FreeBlock(sz + endSize, endPos);
-				freeList.remove(freeList.get(freeList.length() - 1));
-				freeList.insert(nu);
-			}
-			else
-			{
-				FreeBlock n2 = new FreeBlock(sz, mm.length);				
-				freeList.insert(n2);
-			}
-			byte[] m2 = new byte[mm.length + sz];
-			System.arraycopy(mm, 0, m2, 0, mm.length);
-			mm = m2; 
+			byte[] nu = new byte[mm.length + sz];
+			System.arraycopy(mm, 0, nu, 0, mm.length);
+			mm = nu; 
 			
-			ByteBuffer.wrap(mm).putShort(freeList.get(freeList.length() - 1).p, (short) b.length);
-			System.arraycopy(b, 0, mm, freeList.get(freeList.length() - 1).p + 2, b.length);
-			position = freeList.get(freeList.length() - 1).p;
+			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+			System.arraycopy(b, 0, mm, b.length + 2, b.length);
+			count = count + b.length + 2;
+			position = b.length;
 		}
+//		boolean found = false;
+//		int position = 0;
+//		for (int i = 0; i <= freeList.length() && found == false; i++)
+//		{
+//			if (b.length <= freeList.get(i).sz)
+//			{
+//				found = true;
+//				position = freeList.get(i).p;
+//				ByteBuffer.wrap(mm).putShort(freeList.get(i).p, (short) b.length);
+//				System.arraycopy(b, 0, mm, freeList.get(i).p + 2, b.length);
+//
+//				FreeBlock f = new FreeBlock(freeList.get(i).sz - (b.length - 2), 
+//						freeList.get(i).p + b.length + 2);				
+//				freeList.remove(freeList.get(i));
+//				freeList.insert(f);
+//			}
+//		}
+//		if (found == false)
+//		{
+//			int endPos = freeList.get(freeList.length() - 1).p;
+//			int endSize = freeList.get(freeList.length() - 1).sz;
+//			//make more mem
+//			if (endPos + endSize == mm.length)
+//			{
+//				FreeBlock nu = new FreeBlock(sz + endSize, endPos);
+//				freeList.remove(freeList.get(freeList.length() - 1));
+//				freeList.insert(nu);
+//			}
+//			else
+//			{
+//				FreeBlock n2 = new FreeBlock(sz, mm.length);				
+//				freeList.insert(n2);
+//			}
+//			byte[] m2 = new byte[mm.length + sz];
+//			System.arraycopy(mm, 0, m2, 0, mm.length);
+//			mm = m2; 
+//			
+//			ByteBuffer.wrap(mm).putShort(freeList.get(freeList.length() - 1).p, (short) b.length);
+//			System.arraycopy(b, 0, mm, freeList.get(freeList.length() - 1).p + 2, b.length);
+//			position = freeList.get(freeList.length() - 1).p;
+//		}
 		return position;
 		//find the one that is greater than or equal to
 	}//extend memory to buffersize 

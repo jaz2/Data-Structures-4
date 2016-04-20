@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import student.TestCase;
 
 /**
@@ -17,8 +19,9 @@ public class RectangleDiskTest extends TestCase {
      * This method gets you credit for testing a bad
      * set of parameters and for initializing the
      * Driver class.
+     * @throws IOException 
      */
-    public void testBadParams() {
+    public void testBadParams() throws IOException {
         RectangleDisk rectDisk = new RectangleDisk();
         assertNotNull(rectDisk);
         String[] params = { "bad", "params" };
@@ -32,8 +35,9 @@ public class RectangleDiskTest extends TestCase {
     /**
      * This method gets you credit for testing a good
      * set of parameters.
+     * @throws IOException 
      */
-    public void testGoodParams() {
+    public void testGoodParams() throws IOException {
         String[] params = { "commands.txt", "dataFile.dat", "5", "4096" };
         RectangleDisk.main(params);
         assertFuzzyEquals("Found expected parameter list.", 
