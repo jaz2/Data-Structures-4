@@ -26,7 +26,7 @@ public class RectangleDisk {
      * @param args The command line arguments.
      * @throws IOException 
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         if (args.length != 4) {
             System.out.println("Usage: RectangleDisk <commandfile> "
                 + "<diskFile> <numBuffs> <buffSize>");

@@ -30,7 +30,6 @@ public class CommandProcessor {
      * @param file
      *            the file name
      * @throws IOException 
-     * @throws ClassNotFoundException 
      */
     public CommandProcessor(File file) throws ClassNotFoundException, IOException {
         in = new Scanner(file);
@@ -144,7 +143,7 @@ public class CommandProcessor {
                 else // case where it's remove name
                 {
                     String id = in.next().toString();
-                    db.skip.removeByName(id);
+                   // db.skip.removeByName(id);
                 }
             } 
             else if (str.contains("regionsearch"))

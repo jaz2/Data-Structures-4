@@ -87,7 +87,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */ 
-    public boolean insert(KVPair<K, E> it) throws ClassNotFoundException, IOException {   
+    public boolean insert(KVPair<K, E> it) throws IOException, ClassNotFoundException {   
         int newLevel = randomLevel();   
         Comparable<K> k = it.key();  
         if (level < newLevel)     
@@ -259,7 +259,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void adjustHead(int lev) throws ClassNotFoundException, IOException
+    public void adjustHead(int lev) throws IOException, ClassNotFoundException
     {
         @SuppressWarnings("unchecked")
         int[] nu = new int[lev + 1];
@@ -282,7 +282,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void dump() throws ClassNotFoundException, IOException
+    public void dump() throws IOException, ClassNotFoundException
     {
         if (size == 0)
         {
@@ -317,7 +317,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws ClassNotFoundException
      * @throws IOException
      */
-    public SkipNode getNode(int n) throws ClassNotFoundException, IOException
+    public SkipNode getNode(int n) throws IOException, ClassNotFoundException
     {
     	return ((SkipNode)getObject(n));
     }
@@ -328,7 +328,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public Object getObject(int n) throws ClassNotFoundException, IOException
+    public Object getObject(int n) throws IOException, ClassNotFoundException
     {
     	return Serializer.deserialize(m.getNode(n));
     }
@@ -339,7 +339,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public int insertObject(Object o) throws ClassNotFoundException, IOException
+    public int insertObject(Object o) throws IOException
     {
     	return m.insert(Serializer.serialize(o));
     }
@@ -351,7 +351,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public int update(int n) throws ClassNotFoundException, IOException
+    public int update(int n) throws IOException
     {
     	return insertObject(getObject(n));    	
     }

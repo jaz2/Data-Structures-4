@@ -50,7 +50,7 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException
      */
     @Test
-    public void testInsOutXGreat() throws IOException
+    public void testInsOutXGreat() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1025 1 2 4";
         File f = new File("test.txt");
@@ -68,7 +68,7 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException 
      */
     @Test
-    public void testInsertOutOfBoundsXLess() throws IOException
+    public void testInsertOutOfBoundsXLess() throws IOException, ClassNotFoundException
     {
         String s = "insert a -1 1 2 4";
         File f = new File("test.txt");
