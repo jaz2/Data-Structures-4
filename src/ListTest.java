@@ -107,6 +107,7 @@ public class ListTest {
     public void testList()
     {
     	List l = new List();
+    	assertTrue(l.isEmpty());
     	l.insert(new FreeBlock(400, 400));
     	assertFalse(l.isEmpty());
     	assertEquals(1, l.length());
