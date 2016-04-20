@@ -84,8 +84,10 @@ public class SkipList<K extends Comparable<K>, E> {
      * Insert a KVPair into the skiplist 
      * @param it the element
      * @return the values
+     * @throws IOException 
+     * @throws ClassNotFoundException 
      */ 
-    public boolean insert(KVPair<K, E> it) {   
+    public boolean insert(KVPair<K, E> it) throws ClassNotFoundException, IOException {   
         int newLevel = randomLevel();   
         Comparable<K> k = it.key();  
         if (level < newLevel)     
@@ -95,14 +97,20 @@ public class SkipList<K extends Comparable<K>, E> {
         int x = head;        // Start at header node   
         for (int i = level; i >= 0; i--) { // Find insert position     
             while (((((SkipNode)getObject(x)).forward[i] != fly) && 
-                    (k.compareTo((((SkipNode)getObject((x.forward[i]))).element().key()) > 0))       
-                x = x.forward[i];   
+                    (k.compareTo(
+                    		(((KVPair<K, E>)getObject(((SkipNode)getObject
+                    				(((SkipNode)getObject((x))).forward[i])).element())).key())) > 0)))
+            		       
+                x = getNode(x).forward[i];   
             update[i] = x;               // Track end at level i   
         }   
-        x = new SkipNode(it, newLevel);   
-        for (int i = 0; i <= newLevel; i++) {      // Splice into list     
-            x.forward[i] = update[i].forward[i]; // Who x points to     
-            update[i].forward[i] = x;            // Who y points to   
+        int kv = insertObject(it);
+        x = insertObject(new SkipNode(kv, newLevel));   
+        for (int i = 0; i <= newLevel; i++) 
+        {      // Splice into list     
+        	getNode(x).forward[i] = getNode(update[i]).forward[i]; // Who x points to     
+        	getNode(x).forward[i] = update(getNode(x).forward[i]);
+        	getNode(update[i]).forward[i] = update(x);            // Who y points to   
         }   
         size++;                       // Increment dictionary size
         return true; 
@@ -255,24 +263,26 @@ public class SkipList<K extends Comparable<K>, E> {
     {
         @SuppressWarnings("unchecked")
         int[] nu = new int[lev + 1];
-        for (int i = 0; i < ((SkipNode)getObject(head)).forward.length; i++)
+        for (int i = 0; i < getNode(head).forward.length; i++)
         {
-            nu[i] = ((SkipNode)getObject(head)).forward[i];
+            nu[i] = getNode(head).forward[i];
         }
-        for (int i = ((SkipNode)getObject(head)).forward.length; i < lev; i++)
+        for (int i = getNode(head).forward.length; i < lev; i++)
         {
             nu[i] = fly;
         }
-        ((SkipNode)getObject(head)).forward = nu;
-        head = insertObject((SkipNode)getObject(head));
+        getNode(head).forward = nu;
+        head = update(head);
         level = lev;
     }
 
     /**
      * Prints out each SkipNode from left to right
      * and returns the value and number of pointers
+     * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public void dump()
+    public void dump() throws ClassNotFoundException, IOException
     {
         if (size == 0)
         {
@@ -283,20 +293,33 @@ public class SkipList<K extends Comparable<K>, E> {
         else 
         {
             System.out.println("SkipList dump: ");
-            System.out.println("Node has depth " + head.getLevel() +
+            System.out.println("Node has depth " + ((SkipNode)getObject(head)).getLevel() +
                     ", Value (null)");
 
-            SkipNode node = head;
+            int node = head;
             for (int i = 1; i <= size + 0; i++)
             {
-                System.out.println("Node has depth " + node.getLevel() +
-                        ", Value (" + node.forward[0].element.key() + ", "
-                        + node.forward[0].element.value().toString() + ")");
-                node = node.forward[0];
+                System.out.println("Node has depth " + getNode(node).getLevel() +
+                        ", Value (" + (((KVPair<K, E>) getObject((getNode(getNode(node).forward[0]).element))).key() + ", "
+                        + ((KVPair<K, E>) getObject((getNode(getNode(node).forward[0]).element))).value().toString() + ")"));
+                node = getNode(node).forward[0];
+                node = update(node);
             } 
             System.out.println("SkipList size is: " + size);
-            System.out.println("Freelist Blocks: \n(0, " + size + ")");
+            System.out.println("Freelist Blocks: \n(0, " + RectangleDisk.bufSize + ")");
         }
+    }
+    
+    /**
+     * To make an int a skipNode
+     * @param n the handle
+     * @return the skipnode
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
+    public SkipNode getNode(int n) throws ClassNotFoundException, IOException
+    {
+    	return ((SkipNode)getObject(n));
     }
     
     /**
@@ -322,6 +345,18 @@ public class SkipList<K extends Comparable<K>, E> {
     }
     
     /**
+     * Updates and puts into memory manager
+     * @param n
+     * @return
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public int update(int n) throws ClassNotFoundException, IOException
+    {
+    	return insertObject(getObject(n));    	
+    }
+    
+    /**
      * Uses serializer to convert object to byte
      * @param o
      * @return
@@ -332,37 +367,37 @@ public class SkipList<K extends Comparable<K>, E> {
     	return Serializer.serialize(o);
     }
 
-    /**
-     * For testing purposes
-     * @param it the element
-     * @param n the level
-     * @return the thing
-     */
-    public boolean controlledInsert(int it, int n)
-    {
-        int newLevel = n;
-        Comparable<K> k = it.key();
-        //        System.exit(0);
-        if (level < newLevel) //adjust levels
-            adjustHead(newLevel);
-        @SuppressWarnings("unchecked") // Generic array allocation
-        int[] update = new int[level + 1];
-        SkipNode x = ((SkipNode)getObject(head));        // Start at header node
-        for (int i = level; i >= 0; i--) { // Find insert position
-            while ((x.forward[i] != null) &&
-                    (k.compareTo((x.forward[i]).element().key()) > 0))
-                x = x.forward[i];
-            update[i] = x;               // Track end at level i
-        }    
-        x = new SkipNode(it, newLevel);
-        for (int i = 0; i <= newLevel; i++) {      // Splice into list
-            x.forward[i] = update[i].forward[i]; // Who x points to
-            //    System.exit(0);
-            update[i].forward[i] = x;            // Who y points to
-        }
-        size++;                       // Increment dictionary size
-        return true;
-    }
+//    /**
+//     * For testing purposes
+//     * @param it the element
+//     * @param n the level
+//     * @return the thing
+//     */
+//    public boolean controlledInsert(int it, int n)
+//    {
+//        int newLevel = n;
+//        Comparable<K> k = it.key();
+//        //        System.exit(0);
+//        if (level < newLevel) //adjust levels
+//            adjustHead(newLevel);
+//        @SuppressWarnings("unchecked") // Generic array allocation
+//        int[] update = new int[level + 1];
+//        SkipNode x = ((SkipNode)getObject(head));        // Start at header node
+//        for (int i = level; i >= 0; i--) { // Find insert position
+//            while ((x.forward[i] != null) &&
+//                    (k.compareTo((x.forward[i]).element().key()) > 0))
+//                x = x.forward[i];
+//            update[i] = x;               // Track end at level i
+//        }    
+//        x = new SkipNode(it, newLevel);
+//        for (int i = 0; i <= newLevel; i++) {      // Splice into list
+//            x.forward[i] = update[i].forward[i]; // Who x points to
+//            //    System.exit(0);
+//            update[i].forward[i] = x;            // Who y points to
+//        }
+//        size++;                       // Increment dictionary size
+//        return true;
+//    }
     
 //    /**
 //     * The RegionSearch method
