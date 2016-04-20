@@ -33,16 +33,16 @@ public class RectangleDiskTest extends TestCase {
             systemOut().getHistory());
     }
 
-//    /**
-//     * This method gets you credit for testing a good
-//     * set of parameters.
-//     * @throws IOException 
-//     * @throws ClassNotFoundException 
-//     */
-//    public void testGoodParams() throws IOException, ClassNotFoundException {
-//        String[] params = { "commands.txt", "dataFile.dat", "5", "4096" };
-//        RectangleDisk.main(params);
-//        assertFuzzyEquals("Found expected parameter list.", 
-//            systemOut().getHistory());
-//    }
+    /**
+     * This method gets you credit for testing a good
+     * set of parameters.
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public void testGoodParams() throws IOException, ClassNotFoundException {
+        String[] params = { "commands.txt", "dataFile.dat", "5", "4096" };
+        RectangleDisk.main(params);
+        assertFuzzyEquals("Found expected parameter list.", 
+            systemOut().getHistory());
+    }
 }
