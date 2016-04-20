@@ -29,9 +29,10 @@ public class CommandProcessor {
      * 
      * @param file
      *            the file name
-     * @throws FileNotFoundException
+     * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public CommandProcessor(File file) throws FileNotFoundException {
+    public CommandProcessor(File file) throws ClassNotFoundException, IOException {
         in = new Scanner(file);
         db = new Database();
         readInput();
@@ -94,80 +95,80 @@ public class CommandProcessor {
                                     + n2 + ", " + n3 + ", " + n4 + ")");
                 }
             } 
-//            else if (str.contains("remove")) // two cases for remove
-//            { // check that it is in bounds
-//
-//                if (in.hasNextInt() == true) // params
-//                {
-//                    int n1 = in.nextInt();
-//                    int n2 = in.nextInt();
-//                    int n3 = in.nextInt();
-//                    int n4 = in.nextInt();
-//                    if (n1 < 0 || n2 < 0)
-//                    {
-//                        System.out.println(
-//                                "Rectangle rejected: (" + n1 + ", " 
-//                                        + n2 + ", " + n3 + ", " + n4 + ")");
-//                    }
-//                    else if (((n3 <= 0 || n3 > 1024) 
-//                            /*|| (n4 <= 0 || n4 > 1024))
-//                            || (n1 + n3 > 1024 || n1 + n3 < 0 || n2 + n4 > 1024 
-//                                    || n2 + n4 < 0)*/)) {
-//                        System.out.println(
-//                                "Rectangle rejected: (" + n1 + ", " 
-//                                        + n2 + ", " + n3 + ", " + n4 + ")");
-//                    } 
-//                    else if (n4 <= 0 || n4 > 1024)
-//                    {
-//                        System.out.println(
-//                                "Rectangle rejected: (" + n1 + ", " 
-//                                        + n2 + ", " + n3 + ", " + n4 + ")");
-//                    }
-//                    else if (n1 + n3 > 1024 /*|| n1 + n3 < 0 */)
-//                    {
-//                        System.out.println(
-//                                "Rectangle rejected: (" + n1 + ", " 
-//                                        + n2 + ", " + n3 + ", " + n4 + ")");
-//                    }
-//                    else if (n2 + n4 > 1024 /*|| n2 + n4 < 0*/)
-//                    {
-//                        System.out.println(
-//                                "Rectangle rejected: (" + n1 + ", " 
-//                                        + n2 + ", " + n3 + ", " + n4 + ")");
-//                    }
+            else if (str.contains("remove")) // two cases for remove
+            { // check that it is in bounds
+
+                if (in.hasNextInt() == true) // params
+                {
+                    int n1 = in.nextInt();
+                    int n2 = in.nextInt();
+                    int n3 = in.nextInt();
+                    int n4 = in.nextInt();
+                    if (n1 < 0 || n2 < 0)
+                    {
+                        System.out.println(
+                                "Rectangle rejected: (" + n1 + ", " 
+                                        + n2 + ", " + n3 + ", " + n4 + ")");
+                    }
+                    else if (((n3 <= 0 || n3 > 1024) 
+                            /*|| (n4 <= 0 || n4 > 1024))
+                            || (n1 + n3 > 1024 || n1 + n3 < 0 || n2 + n4 > 1024 
+                                    || n2 + n4 < 0)*/)) {
+                        System.out.println(
+                                "Rectangle rejected: (" + n1 + ", " 
+                                        + n2 + ", " + n3 + ", " + n4 + ")");
+                    } 
+                    else if (n4 <= 0 || n4 > 1024)
+                    {
+                        System.out.println(
+                                "Rectangle rejected: (" + n1 + ", " 
+                                        + n2 + ", " + n3 + ", " + n4 + ")");
+                    }
+                    else if (n1 + n3 > 1024 /*|| n1 + n3 < 0 */)
+                    {
+                        System.out.println(
+                                "Rectangle rejected: (" + n1 + ", " 
+                                        + n2 + ", " + n3 + ", " + n4 + ")");
+                    }
+                    else if (n2 + n4 > 1024 /*|| n2 + n4 < 0*/)
+                    {
+                        System.out.println(
+                                "Rectangle rejected: (" + n1 + ", " 
+                                        + n2 + ", " + n3 + ", " + n4 + ")");
+                    }
 //                    else 
 //                    {
 //                        db.skipRemoveCoord(n1, n2, n3, n4);
 //                    }
-//                } 
-//                else // case where it's remove name
-//                {
-//                    String id = in.next().toString();
-//                    db.skip.removeByName(id);
-//                }
-//            } 
-//            else if (str.contains("regionsearch"))
-//            {  
-//                int n1 = in.nextInt();
-//                int n2 = in.nextInt();
-//                int n3 = in.nextInt();
-//                int n4 = in.nextInt();               
-//                if (n3 <= 0 || n4 <= 0)
-//                {
-//                    System.out.println("Rectangle rejected: (" + n1 + ", " + n2
-//                            + ", " + n3    + ", " + n4 + ")");               
-//                }
+                } 
+                else // case where it's remove name
+                {
+                    String id = in.next().toString();
+                    db.skip.removeByName(id);
+                }
+            } 
+            else if (str.contains("regionsearch"))
+            {  
+                int n1 = in.nextInt();
+                int n2 = in.nextInt();
+                int n3 = in.nextInt();
+                int n4 = in.nextInt();               
+                if (n3 <= 0 || n4 <= 0)
+                {
+                    System.out.println("Rectangle rejected: (" + n1 + ", " + n2
+                            + ", " + n3    + ", " + n4 + ")");               
+                }
 //                else 
 //                {
 //                    db.skip.regionsearch(n1, n2, n3, n4); 
 //                }
-//            }
-//            else if (str.contains("intersections")) {
-//                System.out.println("Intersection pairs: ");
+            }
+            else if (str.contains("intersections")) {
+                System.out.println("Intersection pairs: ");
 //                db.skip.intersections();
-//            } 
-//            else if (str.contains("search")) {
-//                String id = in.next().toString();
+            } 
+            else if (str.contains("search")) {
+                String id = in.next().toString();
 //                db.skip.search(id);
 //            } 
             else if (str.contains("dump")) {
