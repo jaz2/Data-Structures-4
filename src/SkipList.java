@@ -313,6 +313,10 @@ public class SkipList<K extends Comparable<K>, E> {
      */
     public SkipNode getNode(int n) throws IOException, ClassNotFoundException
     {
+    	if (n == mm.fly)
+    	{
+    		return null;
+    	}
     	return ((SkipNode)getObject(n));
     }
     
@@ -326,6 +330,10 @@ public class SkipList<K extends Comparable<K>, E> {
     @SuppressWarnings("unchecked")
 	public KVPair<K, E> getKV(int n) throws IOException, ClassNotFoundException
     {
+    	if (n == mm.fly)
+    	{
+    		return null;
+    	}
     	return ((KVPair<K, E>)Serializer.deserialize(mm.getNode(n)));
     }
     
@@ -337,6 +345,10 @@ public class SkipList<K extends Comparable<K>, E> {
      */
     public Object getObject(int n) throws IOException, ClassNotFoundException
     {
+    	if (n == mm.fly)
+    	{
+    		return null;
+    	}
     	return Serializer.deserialize(mm.getNode(n));
     }
     
@@ -361,17 +373,6 @@ public class SkipList<K extends Comparable<K>, E> {
     public int update(int n) throws IOException, ClassNotFoundException
     {
     	return insertObject(getObject(n));    	
-    }
-    
-    /**
-     * Uses serializer to convert object to byte
-     * @param o
-     * @return
-     * @throws IOException 
-     */
-    public byte[] getHandle(Object o) throws IOException
-    {
-    	return Serializer.serialize(o);
     }
 
 //    /**

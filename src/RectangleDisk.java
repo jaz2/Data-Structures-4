@@ -35,7 +35,8 @@ public class RectangleDisk {
             System.out.println("Found expected parameter list.");
             String input = args[0].trim();
             RandomAccessFile disk = new RandomAccessFile(args[1], "rw");
-            //disk.setLength(0);
+            disk.setLength(0);
+            
             int numBuffs = Integer.parseInt(args[2]);
             
             File f = new File(input);
@@ -45,4 +46,4 @@ public class RectangleDisk {
             disk.close();
         }
     }
-} //SkipNode{ int Element, int[] found;}
+}
