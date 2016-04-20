@@ -29,9 +29,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the insert is inside rectangl
      * @throws IOException 
+     * @throws ClassNotFoundException 
      */
     @Test
-    public void testInsertInBounds() throws IOException
+    public void testInsertInBounds() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 4";
         File f = new File("test.txt");
@@ -83,8 +84,9 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when both are outside of world box
      * @throws IOException
+     * @throws ClassNotFoundException 
      */
-    public void testInsertBothLessThan() throws IOException
+    public void testInsertBothLessThan() throws IOException, ClassNotFoundException
     {
         String s = "insert a -1 -1 2 4";
         File f = new File("test.txt");

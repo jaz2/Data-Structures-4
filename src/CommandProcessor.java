@@ -170,7 +170,7 @@ public class CommandProcessor {
             else if (str.contains("search")) {
                 String id = in.next().toString();
 //                db.skip.search(id);
-//            } 
+            } 
             else if (str.contains("dump")) {
                 db.skip.dump();
             }
