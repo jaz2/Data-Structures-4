@@ -30,11 +30,6 @@ public class SkipList<K extends Comparable<K>, E> {
      * The head node
      */
     public int head;
-    
-    /**
-     * The null handle
-     */
-    public static int fly;
 
     /**
      * For the random 
@@ -55,12 +50,11 @@ public class SkipList<K extends Comparable<K>, E> {
      * Constructor for the SkipList
      */
     public SkipList()
-    { 
+    { //add a param for MemoryManager
     	m = new MemoryManager(RectangleDisk.bufSize);
     	s = new Serializer();
-    	fly = 0;
         //head = 0;    
-        head = fly; //check if this is correct
+        head = m.fly; //check if this is correct
         level = 0;
         rnd = new Random();
         size = 0;        
@@ -96,7 +90,7 @@ public class SkipList<K extends Comparable<K>, E> {
         int[] update = new int[level + 1];   
         int x = head;        // Start at header node   
         for (int i = level; i >= 0; i--) { // Find insert position     
-            while (((((SkipNode)getObject(x)).forward[i] != fly) && 
+            while (((((SkipNode)getObject(x)).forward[i] != m.fly) && 
                     (k.compareTo(
                     		(((KVPair<K, E>)getObject(((SkipNode)getObject
                     				(((SkipNode)getObject((x))).forward[i])).element())).key())) > 0)))
@@ -269,7 +263,7 @@ public class SkipList<K extends Comparable<K>, E> {
         }
         for (int i = getNode(head).forward.length; i < lev; i++)
         {
-            nu[i] = fly;
+            nu[i] = m.fly;
         }
         getNode(head).forward = nu;
         head = update(head);

@@ -13,6 +13,9 @@ public class MemoryManager {
 
 	//make a data file just open and close it
 	
+	//make a store null to make it a null handle
+	//should have the null handle HERE
+	//can set it to -1
 	/**
 	 * The array to store freelist blocks
 	 */
@@ -32,6 +35,11 @@ public class MemoryManager {
 	 * Keeps track of things in array
 	 */
 	public int count;
+	
+	/**
+     * The null handle
+     */
+    public static int fly;
 
 	/**
 	 * The constructor
@@ -41,6 +49,7 @@ public class MemoryManager {
 	{
 		mm = new byte[size];
 		sz = size;
+		fly = -1;
 		freeList = new List();
 		FreeBlock fb = new FreeBlock(size, 0);
 		freeList.insert(fb);
