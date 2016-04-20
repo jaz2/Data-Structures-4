@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.lang.reflect.Array; 
+import java.io.IOException; 
 import java.util.Random;
 
 /**
@@ -39,7 +38,7 @@ public class SkipList<K extends Comparable<K>, E> {
     /**
      * To keep track of memory
      */
-    public MemoryManager m;
+    public MemoryManager mm;
     
     /**
      * For converting bytes and objects
@@ -49,9 +48,10 @@ public class SkipList<K extends Comparable<K>, E> {
     /**
      * Constructor for the SkipList
      */
-    public SkipList()
+    public SkipList(MemoryManager m)
     { //add a param for MemoryManager
-    	m = new MemoryManager(RectangleDisk.bufSize);
+    	mm = m;
+    	
     	s = new Serializer();
         //head = 0;    
         head = m.fly; //check if this is correct
@@ -90,7 +90,7 @@ public class SkipList<K extends Comparable<K>, E> {
         int[] update = new int[level + 1];   
         int x = head;        // Start at header node   
         for (int i = level; i >= 0; i--) { // Find insert position     
-            while (((((SkipNode)getObject(x)).forward[i] != m.fly) && 
+            while (((((SkipNode)getObject(x)).forward[i] != mm.fly) && 
                     (k.compareTo(
                     		(((KVPair<K, E>)getObject(((SkipNode)getObject
                     				(((SkipNode)getObject((x))).forward[i])).element())).key())) > 0)))
@@ -263,7 +263,7 @@ public class SkipList<K extends Comparable<K>, E> {
         }
         for (int i = getNode(head).forward.length; i < lev; i++)
         {
-            nu[i] = m.fly;
+            nu[i] = mm.fly;
         }
         getNode(head).forward = nu;
         head = update(head);
@@ -317,6 +317,18 @@ public class SkipList<K extends Comparable<K>, E> {
     }
     
     /**
+     * To make an int a skipNode
+     * @param n the handle
+     * @return the skipnode
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
+    public KVPair<K, E> getKV(int n) throws IOException, ClassNotFoundException
+    {
+    	return ((KVPair<K, E>)Serializer.deserialize(mm.getNode(n)));
+    }
+    
+    /**
      * Uses deserializer to convert handle into object
      * @param n the handle
      * @throws IOException 
@@ -324,7 +336,7 @@ public class SkipList<K extends Comparable<K>, E> {
      */
     public Object getObject(int n) throws IOException, ClassNotFoundException
     {
-    	return Serializer.deserialize(m.getNode(n));
+    	return Serializer.deserialize(mm.getNode(n));
     }
     
     /**
@@ -335,7 +347,7 @@ public class SkipList<K extends Comparable<K>, E> {
      */
     public int insertObject(Object o) throws IOException
     {
-    	return m.insert(Serializer.serialize(o));
+    	return mm.insert(Serializer.serialize(o));
     }
     
     /**

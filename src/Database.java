@@ -20,7 +20,8 @@ public class Database
      */
     public Database()
     {
-        skip = new SkipList<String, Rect>();
+    	MemoryManager mem = new MemoryManager(RectangleDisk.bufSize);
+        skip = new SkipList<String, Rect>(mem);
     }
 
     /**
