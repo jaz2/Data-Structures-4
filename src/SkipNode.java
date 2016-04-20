@@ -7,7 +7,7 @@
      * @version Feb 1 2016
      *
      */
-    public class SkipNode extends Comparable<K>, E> {
+    public class SkipNode {
 
         /**
          * forward array
@@ -17,7 +17,12 @@
         /**
          * the element 
          */
-        public KVPair<K, E> element;
+        public int element;
+        
+        /**
+         * The level var
+         */
+        public int lev;
 
         /**
          * The constructor for the SkipNode
@@ -25,17 +30,18 @@
          * @param level  the level
          */
         @SuppressWarnings("unchecked")
-        public SkipNode(KVPair<K, E> it, int level)
+        public SkipNode(int it, int level)
         {
             element = it;
             forward =  new int[level + 1];
+            lev = level;
         }
 
         /**
          * Returns the element
          * @return returns the element
          */
-        public KVPair<K, E> element()
+        public int element()
         {
             return element;
         }
@@ -46,6 +52,6 @@
          */
         public int getLevel()
         {
-            return level;
+            return lev;
         }
     }

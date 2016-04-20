@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.lang.reflect.Array; 
 import java.util.Random;
 
@@ -14,54 +15,6 @@ import java.util.Random;
  */
 public class SkipList<K extends Comparable<K>, E> { 
     //module (KVPair is a sep. class) 6.3
-
-    /**
-     * @author Jazmine Zurita and Jessica McCready
-     * @version Feb 1 2016
-     *
-     */
-    public class SkipNode  {
-
-        /**
-         * forward array
-         */
-        public int[] forward;
-
-        /**
-         * the element 
-         */
-        public KVPair<K, E> element;
-
-        /**
-         * The constructor for the SkipNode
-         * @param it  the element
-         * @param level  the level
-         */
-        @SuppressWarnings("unchecked")
-        public SkipNode(KVPair<K, E> it, int level)
-        {
-            element = it;
-            forward =  new int[level + 1];
-        }
-
-        /**
-         * Returns the element
-         * @return returns the element
-         */
-        public KVPair<K, E> element()
-        {
-            return element;
-        }
-
-        /**
-         * Returns the level of the SkipNode
-         * @return returns the level
-         */
-        public int getLevel()
-        {
-            return level;
-        }
-    }
 
     /**
      * the level of the skiplist
@@ -87,12 +40,24 @@ public class SkipList<K extends Comparable<K>, E> {
      * For the random 
      */
     private Random rnd;
+    
+    /**
+     * To keep track of memory
+     */
+    public MemoryManager m;
+    
+    /**
+     * For converting bytes and objects
+     */
+    public Serializer s;
 
     /**
      * Constructor for the SkipList
      */
     public SkipList()
     { 
+    	m = new MemoryManager(RectangleDisk.bufSize);
+    	s = new Serializer();
     	fly = 0;
         //head = 0;    
         head = fly; //check if this is correct
@@ -126,12 +91,11 @@ public class SkipList<K extends Comparable<K>, E> {
         if (level < newLevel)     
             adjustHead(newLevel);
         @SuppressWarnings("unchecked")  //Generic array allocation   
-        SkipNode[] update = (SkipNode[])Array.newInstance(
-                SkipList.SkipNode.class, level + 1);   
-        SkipNode x = head;        // Start at header node   
+        int[] update = new int[level + 1];   
+        int x = head;        // Start at header node   
         for (int i = level; i >= 0; i--) { // Find insert position     
-            while ((x.forward[i] != fly) && 
-                    (k.compareTo((x.forward[i]).element().key()) > 0))       
+            while (((((SkipNode)getObject(x)).forward[i] != fly) && 
+                    (k.compareTo((((SkipNode)getObject((x.forward[i]))).element().key()) > 0))       
                 x = x.forward[i];   
             update[i] = x;               // Track end at level i   
         }   
@@ -144,137 +108,137 @@ public class SkipList<K extends Comparable<K>, E> {
         return true; 
     }
 
-    /**
-     * Searches by name and if found, 
-     * removes the rectangle
-     * @param key the key
-     */
-    public void removeByName(Comparable<K> key)
-    {
-        boolean found = false;   
-        SkipNode x = head;                     // Dummy header node   
-        @SuppressWarnings("unchecked")
-        SkipNode[] store = (SkipNode[]) Array.newInstance(
-                SkipList.SkipNode.class, level + 1);
-        for (int i = level; i >= 0; i--)  
-        { // For each level...     
-            while ((x.forward[i] != fly) &&            
-                    (key.compareTo(x.forward[i].
-                            element().key()) > 0)) // go forward
-            {
-                x = x.forward[i];              // Go one last step 
-            }
-            store[i] = x;
-        }
-        // now the store is populated
-        x = x.forward[0];  // Move to actual record, if it exists
-        if ((x != null) && 
-                (key.compareTo(x.element().key()) == 0))    
-        {
-            found = true; //found an instance of key
-            //now remove key
-            //make a for loop going over store to 
-            //update the nodes before and after
-            for (int i = x.forward.length - 1; i >= 0; i--)
-            {
-                store[i].forward[i] = x.forward[i];
-            }
-            size--;
-            System.out.println("Rectangle removed: ("
-                    + x.element.toString() + ")");
-        }
-        if (found == false)
-        {
-            System.out.println("Rectangle not found: " + key); 
-        }
-    }
-    
-    /**
-     * Removes the coordinates if found
-     * @param val the value to search for
-     */
-    public void removeByCoord(E val) //while we haven't found it
-    { //and we haven't gotten to the end go at level 0, 
-        boolean found = false;   
-        SkipNode x = head;                     // Dummy header node   
-        @SuppressWarnings("unchecked")
-        SkipNode[] store = (SkipNode[]) Array.newInstance(
-                SkipList.SkipNode.class, level + 1);
-        for (int i = level; i >= 0; i--)
-        {
-            store[i] = x;
-        } //and not at the end
-        while (x.forward[0] != null && 
-                ((Rect) x.forward[0].element.value()).equals(val) == false)
-        {
-            for (int i = x.forward.length - 1; i >= 0; i--)
-            { /*each level in the current node*/
-                store[i] = x.forward[i]; //currentNode
-            }
-            //advance currentNode
-            x = x.forward[0];
-        }
-        SkipNode nodeToRemove = x.forward[0];
-        if (x.forward[0] != null && 
-                ((Rect) x.forward[0].element.value()).equals(val) == true)
-        {
-            found = true;
-        }
-        if (found == true)    
-        {
-            //now remove key
-            for (int i = 0; i <= nodeToRemove.forward.length - 1; i++)
-            {
-                store[i].forward[i] = nodeToRemove.forward[i];
-            }
-            size--;
-            System.out.println("Rectangle removed: ("
-                    + nodeToRemove.element.toString() + ")");
-        }
-        if (found == false)
+//    /**
+//     * Searches by name and if found, 
+//     * removes the rectangle
+//     * @param key the key
+//     */
+//    public void removeByName(Comparable<K> key)
+//    {
+//        boolean found = false;   
+//        SkipNode x = head;                     // Dummy header node   
+//        @SuppressWarnings("unchecked")
+//        SkipNode[] store = (SkipNode[]) Array.newInstance(
+//                SkipList.SkipNode.class, level + 1);
+//        for (int i = level; i >= 0; i--)  
+//        { // For each level...     
+//            while ((x.forward[i] != fly) &&            
+//                    (key.compareTo(x.forward[i].
+//                            element().key()) > 0)) // go forward
+//            {
+//                x = x.forward[i];              // Go one last step 
+//            }
+//            store[i] = x;
+//        }
+//        // now the store is populated
+//        x = x.forward[0];  // Move to actual record, if it exists
+//        if ((x != null) && 
+//                (key.compareTo(x.element().key()) == 0))    
+//        {
+//            found = true; //found an instance of key
+//            //now remove key
+//            //make a for loop going over store to 
+//            //update the nodes before and after
+//            for (int i = x.forward.length - 1; i >= 0; i--)
+//            {
+//                store[i].forward[i] = x.forward[i];
+//            }
+//            size--;
+//            System.out.println("Rectangle removed: ("
+//                    + x.element.toString() + ")");
+//        }
+//        if (found == false)
+//        {
+//            System.out.println("Rectangle not found: " + key); 
+//        }
+//    }
+//    
+//    /**
+//     * Removes the coordinates if found
+//     * @param val the value to search for
+//     */
+//    public void removeByCoord(E val) //while we haven't found it
+//    { //and we haven't gotten to the end go at level 0, 
+//        boolean found = false;   
+//        SkipNode x = head;                     // Dummy header node   
+//        @SuppressWarnings("unchecked")
+//        SkipNode[] store = (SkipNode[]) Array.newInstance(
+//                SkipList.SkipNode.class, level + 1);
+//        for (int i = level; i >= 0; i--)
+//        {
+//            store[i] = x;
+//        } //and not at the end
+//        while (x.forward[0] != null && 
+//                ((Rect) x.forward[0].element.value()).equals(val) == false)
+//        {
+//            for (int i = x.forward.length - 1; i >= 0; i--)
+//            { /*each level in the current node*/
+//                store[i] = x.forward[i]; //currentNode
+//            }
+//            //advance currentNode
+//            x = x.forward[0];
+//        }
+//        SkipNode nodeToRemove = x.forward[0];
+//        if (x.forward[0] != null && 
+//                ((Rect) x.forward[0].element.value()).equals(val) == true)
+//        {
+//            found = true;
+//        }
+//        if (found == true)    
+//        {
+//            //now remove key
+//            for (int i = 0; i <= nodeToRemove.forward.length - 1; i++)
+//            {
+//                store[i].forward[i] = nodeToRemove.forward[i];
+//            }
+//            size--;
+//            System.out.println("Rectangle removed: ("
+//                    + nodeToRemove.element.toString() + ")");
+//        }
+//        if (found == false)
+//
+//        {
+//            System.out.println("Rectangle not removed: (" 
+//                    + val.toString() + ")");
+//        }
+//    }
 
-        {
-            System.out.println("Rectangle not removed: (" 
-                    + val.toString() + ")");
-        }
-    }
-
-    /**
-     * Return the (first) matching matching element 
-     * if one exists, null otherwise
-     *  
-     * @param key the key
-     */
-    public void search(Comparable<K> key) {   
-        boolean found = false;   
-        SkipNode x = head;                     // Dummy header node   
-        for (int i = level; i >= 0; i--)           // For each level...     
-            while ((x.forward[i] != fly) &&            
-                    (key.compareTo(x.forward[i].
-                            element().key()) > 0)) // go forward       
-                x = x.forward[i];              // Go one last step   
-        x = x.forward[0];  // Move to actual record, if it exists
-        if ((x != null) && 
-                (key.compareTo(x.element().key()) == 0))    
-        {
-            found = true;
-            System.out.println("(" + x.element.toString() + ")");
-            //look ahead at level 0 printing as long as it is an equal key
-            if (x.forward[0] != fly)
-            {
-                x = x.forward[0];
-                while (x != null && key.equals(x.element.key()))
-                {
-                    System.out.println("(" + x.element.toString() + ")");
-                    x = x.forward[0];
-                }
-            }
-        }
-        if (found == false)  //transfer tests
-        {
-            System.out.println("Rectangle not found: " + key); 
-        }
-    }
+//    /**
+//     * Return the (first) matching matching element 
+//     * if one exists, null otherwise
+//     *  
+//     * @param key the key
+//     */
+//    public void search(Comparable<K> key) {   
+//        boolean found = false;   
+//        SkipNode x = head;                     // Dummy header node   
+//        for (int i = level; i >= 0; i--)           // For each level...     
+//            while ((x.forward[i] != fly) &&            
+//                    (key.compareTo(x.forward[i].
+//                            element().key()) > 0)) // go forward       
+//                x = x.forward[i];              // Go one last step   
+//        x = x.forward[0];  // Move to actual record, if it exists
+//        if ((x != null) && 
+//                (key.compareTo(x.element().key()) == 0))    
+//        {
+//            found = true;
+//            System.out.println("(" + x.element.toString() + ")");
+//            //look ahead at level 0 printing as long as it is an equal key
+//            if (x.forward[0] != fly)
+//            {
+//                x = x.forward[0];
+//                while (x != null && key.equals(x.element.key()))
+//                {
+//                    System.out.println("(" + x.element.toString() + ")");
+//                    x = x.forward[0];
+//                }
+//            }
+//        }
+//        if (found == false)  //transfer tests
+//        {
+//            System.out.println("Rectangle not found: " + key); 
+//        }
+//    }
 
     /**
      * Adjusts the head 
@@ -284,21 +248,23 @@ public class SkipList<K extends Comparable<K>, E> {
      * and make new one equal to forward
      * ex: head.forward = newArray
      * @param lev  the new level
+     * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public void adjustHead(int lev)
+    public void adjustHead(int lev) throws ClassNotFoundException, IOException
     {
         @SuppressWarnings("unchecked")
-        SkipNode[] nu = (SkipNode[]) Array.newInstance(
-                SkipList.SkipNode.class, lev + 1);
-        for (int i = 0; i < head.forward.length; i++)
+        int[] nu = new int[lev + 1];
+        for (int i = 0; i < ((SkipNode)getObject(head)).forward.length; i++)
         {
-            nu[i] = head.forward[i];
+            nu[i] = ((SkipNode)getObject(head)).forward[i];
         }
-        for (int i = head.forward.length; i < lev; i++)
+        for (int i = ((SkipNode)getObject(head)).forward.length; i < lev; i++)
         {
-            nu[i] = null;
+            nu[i] = fly;
         }
-        head.forward = nu;
+        ((SkipNode)getObject(head)).forward = nu;
+        head = insertObject((SkipNode)getObject(head));
         level = lev;
     }
 
@@ -332,6 +298,39 @@ public class SkipList<K extends Comparable<K>, E> {
             System.out.println("Freelist Blocks: \n(0, " + size + ")");
         }
     }
+    
+    /**
+     * Uses deserializer to convert handle into object
+     * @param n the handle
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public Object getObject(int n) throws ClassNotFoundException, IOException
+    {
+    	return Serializer.deserialize(m.getNode(n));
+    }
+    
+    /**
+     * Inserts object into mem manager
+     * @param n the handle
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public int insertObject(Object o) throws ClassNotFoundException, IOException
+    {
+    	return m.insert(Serializer.serialize(o));
+    }
+    
+    /**
+     * Uses serializer to convert object to byte
+     * @param o
+     * @return
+     * @throws IOException 
+     */
+    public byte[] getHandle(Object o) throws IOException
+    {
+    	return Serializer.serialize(o);
+    }
 
     /**
      * For testing purposes
@@ -339,7 +338,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @param n the level
      * @return the thing
      */
-    public boolean controlledInsert(KVPair<K, E> it, int n)
+    public boolean controlledInsert(int it, int n)
     {
         int newLevel = n;
         Comparable<K> k = it.key();
@@ -347,9 +346,8 @@ public class SkipList<K extends Comparable<K>, E> {
         if (level < newLevel) //adjust levels
             adjustHead(newLevel);
         @SuppressWarnings("unchecked") // Generic array allocation
-        SkipNode[] update = (SkipNode[])Array.
-        newInstance(SkipList.SkipNode.class, level + 1);
-        SkipNode x = head;        // Start at header node
+        int[] update = new int[level + 1];
+        SkipNode x = ((SkipNode)getObject(head));        // Start at header node
         for (int i = level; i >= 0; i--) { // Find insert position
             while ((x.forward[i] != null) &&
                     (k.compareTo((x.forward[i]).element().key()) > 0))
@@ -366,73 +364,73 @@ public class SkipList<K extends Comparable<K>, E> {
         return true;
     }
     
-    /**
-     * The RegionSearch method
-     * @param x x coordinate
-     * @param y y coordinate 
-     * @param h height
-     * @param w width 
-     */
-    public void regionsearch(int x, int y, int w, int h)
-    {
-        System.out.println("Rectangles intersecting region (" + x
-                + ", " + y + ", " + w + ", " + h + "):");
-        SkipNode node = head;
-        Rect r;
-        Rect rect = new Rect("rs", x, y, w, h);
-        for (int i = 1; i <= size + 0; i++)
-        {
-            r = (Rect) node.forward[0].element.value();
-            if (r.intersects(rect))
-            {
-                if (rect.intersects(r))
-                {
-                    System.out.println("(" 
-                            + node.forward[0].element.key() + ", "
-                            + node.forward[0].element.value().toString() + ")");
-                }
-            }
-            node = node.forward[0];
-        } 
-    }
-
-    
-    /**
-     * Intersections method
-     *  
-     */
-    public void intersections()
-    {
-        SkipNode node1 = head;
-        SkipNode node2;
-        Rect r1;
-        Rect r2;
-        for (int i = 1; i <= size; i++)
-        {
-            r1 = (Rect) node1.forward[0].element.value();
-            node2 = head;
-            for (int j = 1; j <= size; j++)
-            {
-                r2 = (Rect) node2.forward[0].element.value();
-                if (node1.forward[0] != node2.forward[0])
-                {
-                    if (r1.intersects(r2) && r2.intersects(r1))
-                    {
-                        System.out.println("(" + node1.forward[0].
-                                element.key() + ", " + 
-                                    node1.forward[0].element.value()
-                                        .toString() + " | " + node2.
-                                            forward[0].element.key() + 
-                                                ", " + node2.forward[0].element.
-                                                    value().toString() + ")");
-                    }
-                }
-
-                node2 = node2.forward[0];
-            }
-
-            node1 = node1.forward[0];
-        } 
-    }
+//    /**
+//     * The RegionSearch method
+//     * @param x x coordinate
+//     * @param y y coordinate 
+//     * @param h height
+//     * @param w width 
+//     */
+//    public void regionsearch(int x, int y, int w, int h)
+//    {
+//        System.out.println("Rectangles intersecting region (" + x
+//                + ", " + y + ", " + w + ", " + h + "):");
+//        SkipNode node = head;
+//        Rect r;
+//        Rect rect = new Rect("rs", x, y, w, h);
+//        for (int i = 1; i <= size + 0; i++)
+//        {
+//            r = (Rect) node.forward[0].element.value();
+//            if (r.intersects(rect))
+//            {
+//                if (rect.intersects(r))
+//                {
+//                    System.out.println("(" 
+//                            + node.forward[0].element.key() + ", "
+//                            + node.forward[0].element.value().toString() + ")");
+//                }
+//            }
+//            node = node.forward[0];
+//        } 
+//    }
+//
+//    
+//    /**
+//     * Intersections method
+//     *  
+//     */
+//    public void intersections()
+//    {
+//        SkipNode node1 = head;
+//        SkipNode node2;
+//        Rect r1;
+//        Rect r2;
+//        for (int i = 1; i <= size; i++)
+//        {
+//            r1 = (Rect) node1.forward[0].element.value();
+//            node2 = head;
+//            for (int j = 1; j <= size; j++)
+//            {
+//                r2 = (Rect) node2.forward[0].element.value();
+//                if (node1.forward[0] != node2.forward[0])
+//                {
+//                    if (r1.intersects(r2) && r2.intersects(r1))
+//                    {
+//                        System.out.println("(" + node1.forward[0].
+//                                element.key() + ", " + 
+//                                    node1.forward[0].element.value()
+//                                        .toString() + " | " + node2.
+//                                            forward[0].element.key() + 
+//                                                ", " + node2.forward[0].element.
+//                                                    value().toString() + ")");
+//                    }
+//                }
+//
+//                node2 = node2.forward[0];
+//            }
+//
+//            node1 = node1.forward[0];
+//        } 
+//    }
     
 }

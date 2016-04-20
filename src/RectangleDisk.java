@@ -15,6 +15,10 @@ import java.io.RandomAccessFile;
  * @version { put something here }
  */
 public class RectangleDisk {
+	/**
+	 * To keep track of buffSize
+	 */
+	public static int bufSize;
 
     /**
      * The entry point for the application.
@@ -35,8 +39,9 @@ public class RectangleDisk {
             int numBuffs = Integer.parseInt(args[2]);
             
             File f = new File(input);
-            CommandProcessor cmd = new CommandProcessor(f);
-            MemoryManager m = new MemoryManager(Integer.parseInt(args[3]));
+            bufSize = Integer.parseInt(args[3]);
+            CommandProcessor cmd = new CommandProcessor(f);            
+            MemoryManager m = new MemoryManager(bufSize);
             disk.close();
         }
     }
