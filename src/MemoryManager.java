@@ -11,6 +11,8 @@ import java.nio.ByteBuffer;
  */
 public class MemoryManager {
 
+	//make a data file just open and close it
+	
 	/**
 	 * The array to store freelist blocks
 	 */
