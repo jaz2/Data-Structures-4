@@ -1,3 +1,4 @@
+import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 
 /**
@@ -54,6 +55,7 @@ public class MemoryManager {
 		FreeBlock fb = new FreeBlock(size, 0);
 		freeList.insert(fb);
 		count = 0;
+		RandomAccessFile data = new RandomAccessFile("data.txt", "rw");
 	} //for second milestone just create an array
 
 	/**
