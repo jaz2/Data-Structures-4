@@ -100,4 +100,15 @@ public class ListTest {
 //        assertEquals(l.length(), 2);
 //    }
 
+    /**
+     * The test for minor list things
+     */
+    @Test
+    public void testList()
+    {
+    	List l = new List();
+    	l.insert(new FreeBlock(400, 400));
+    	assertFalse(l.isEmpty());
+    	assertEquals(1, l.length());
+    }
 }
