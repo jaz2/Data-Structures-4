@@ -30,8 +30,9 @@ public class CommandProcessor {
      * @param file
      *            the file name
      * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public CommandProcessor(File file) throws IOException {
+    public CommandProcessor(File file) throws IOException, ClassNotFoundException {
         in = new Scanner(file);
         db = new Database();
         readInput();
@@ -46,7 +47,7 @@ public class CommandProcessor {
      * 
      * @throws IOException
      */
-    public void readInput() throws IOException { // x + h is greater than 1024 or y + w greater?
+    public void readInput() throws IOException, ClassNotFoundException { // x + h is greater than 1024 or y + w greater?
         while (in.hasNext()) {
             String str = in.next();
             if (str.contains("insert")) { // check that it is in bounds

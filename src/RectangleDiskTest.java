@@ -20,8 +20,9 @@ public class RectangleDiskTest extends TestCase {
      * set of parameters and for initializing the
      * Driver class.
      * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public void testBadParams() throws IOException {
+    public void testBadParams() throws IOException, ClassNotFoundException {
         RectangleDisk rectDisk = new RectangleDisk();
         assertNotNull(rectDisk);
         String[] params = { "bad", "params" };
@@ -36,8 +37,9 @@ public class RectangleDiskTest extends TestCase {
      * This method gets you credit for testing a good
      * set of parameters.
      * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public void testGoodParams() throws IOException {
+    public void testGoodParams() throws IOException, ClassNotFoundException {
         String[] params = { "commands.txt", "dataFile.dat", "5", "4096" };
         RectangleDisk.main(params);
         assertFuzzyEquals("Found expected parameter list.", 

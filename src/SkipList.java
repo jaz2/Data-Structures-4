@@ -351,7 +351,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public int update(int n) throws IOException
+    public int update(int n) throws IOException, ClassNotFoundException
     {
     	return insertObject(getObject(n));    	
     }

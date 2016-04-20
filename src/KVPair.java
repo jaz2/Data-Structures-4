@@ -9,7 +9,7 @@
  * @param <E> The value
  */
 public class KVPair<K extends Comparable<K>, E> 
-    implements Comparable<KVPair<K, E>> {
+    implements /*Comparable<KVPair<K, E>>*/ java.io.Serializable {
     /**
      * The key
      */

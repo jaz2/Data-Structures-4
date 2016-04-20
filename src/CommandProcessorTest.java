@@ -102,9 +102,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the insert y is out of bounds
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsYLess() throws IOException
+    public void testInsertOutOfBoundsYLess() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 -1 2 4";
         File f = new File("test.txt");
@@ -120,9 +121,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the points are on 0 and 1024
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testStillInsBounds() throws IOException
+    public void testStillInsBounds() throws IOException, ClassNotFoundException
     {
         String s = "insert a 0 0 1024 1024";
         File f = new File("test.txt");
@@ -140,9 +142,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x is at 1024
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testOutInsX() throws IOException
+    public void testOutInsX() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1024 0 4 7";
         File f = new File("test.txt");
@@ -158,9 +161,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the y is at 1024
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testOutInsY() throws IOException
+    public void testOutInsY() throws IOException, ClassNotFoundException
     {
         String s = "insert a 2 1024 4 7";
         File f = new File("test.txt");
@@ -176,9 +180,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when y is 0 
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsBoundsY() throws IOException
+    public void testInsBoundsY() throws IOException, ClassNotFoundException
     {
         String s = "insert a 100 0 5 5";
         File f = new File("test.txt");
@@ -194,9 +199,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the y is out of bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsOutYGreat() throws IOException
+    public void testInsOutYGreat() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1025 2 4";
         File f = new File("test.txt");
@@ -212,9 +218,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the insert width is out of bounds
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsWLess() throws IOException
+    public void testInsertOutOfBoundsWLess() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 -1 4";
         File f = new File("test.txt");
@@ -230,9 +237,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the width is out of bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsOutWGreat() throws IOException
+    public void testInsOutWGreat() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2000 4";
         File f = new File("test.txt");
@@ -248,9 +256,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the width is zero
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsOutWZero() throws IOException
+    public void testInsOutWZero() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 0 4";
         File f = new File("test.txt");
@@ -266,9 +275,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the width is acceptable
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsOutWOK() throws IOException
+    public void testInsOutWOK() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 4";
         File f = new File("test.txt");
@@ -284,9 +294,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the insert height is out of bounds
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsHLess() throws IOException
+    public void testInsertOutOfBoundsHLess() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 -4";
         File f = new File("test.txt");
@@ -302,9 +313,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the height is out of bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsOutHGreat() throws IOException
+    public void testInsOutHGreat() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 4000";
         File f = new File("test.txt");
@@ -320,9 +332,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the insert height is acceptable
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsHOK() throws IOException
+    public void testInsertOutOfBoundsHOK() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 4";
         File f = new File("test.txt");
@@ -339,9 +352,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the insert height is zero
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsHZero() throws IOException
+    public void testInsertOutOfBoundsHZero() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 0";
         File f = new File("test.txt");
@@ -357,8 +371,9 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x + w not in bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
-    public void testInsTotalWidthNotinBoundsG() throws IOException
+    public void testInsTotalWidthNotinBoundsG() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1000 10 2000 4";
         File f = new File("test.txt");
@@ -374,8 +389,9 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x + w not in bounds less than 0
      * @throws IOException
+     * @throws ClassNotFoundException
      */
-    public void testInsTotalWidthNotinBoundsL() throws IOException
+    public void testInsTotalWidthNotinBoundsL() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1000 10 -2000 4";
         File f = new File("test.txt");
@@ -392,8 +408,9 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x + w in bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
-    public void testInsTotalinBounds() throws IOException
+    public void testInsTotalinBounds() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1000 10 10 4";
         File f = new File("test.txt");
@@ -409,9 +426,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the y + height are not in bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testInsTotalHeightNotinBounds() throws IOException
+    public void testInsTotalHeightNotinBounds() throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1000 2 450";
         File f = new File("test.txt");
@@ -427,9 +445,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x is at 1024
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testOutRemX() throws IOException
+    public void testOutRemX() throws IOException, ClassNotFoundException
     {
         String s = "remove 1024 0 4 7";
         File f = new File("test.txt");
@@ -445,9 +464,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the y is at 1024
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testOutRemY() throws IOException
+    public void testOutRemY() throws IOException, ClassNotFoundException
     {
         String s = "remove 2 1024 4 7";
         File f = new File("test.txt");
@@ -463,9 +483,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when y is 0 
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemBoundsY() throws IOException
+    public void testRemBoundsY() throws IOException, ClassNotFoundException
     {
         String s = "insert a 100 0 5 5\n"
                 + "remove 100 0 5 5";
@@ -483,9 +504,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the y is out of bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemOutYGreat() throws IOException
+    public void testRemOutYGreat() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1025 2 4";
         File f = new File("test.txt");
@@ -501,9 +523,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the width is out of bounds
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemoveOfBoundsWLess() throws IOException
+    public void testRemoveOfBoundsWLess() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 -1 4";
         File f = new File("test.txt");
@@ -519,9 +542,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the width is out of bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemOutWGreat() throws IOException
+    public void testRemOutWGreat() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 2000 4";
         File f = new File("test.txt");
@@ -537,9 +561,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the width is zero
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemOutWZero() throws IOException
+    public void testRemOutWZero() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 0 4";
         File f = new File("test.txt");
@@ -572,10 +597,11 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * Tests when the remove height is out of bounds
-     * @throws IOException 
+     * @throws IOException
+     * @throws ClassNotFoundException 
      */
     @Test
-    public void testRemOutOfBoundsHLess() throws IOException
+    public void testRemOutOfBoundsHLess() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 2 -4";
         File f = new File("test.txt");
@@ -591,9 +617,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the height is out of bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemOutHGreat() throws IOException
+    public void testRemOutHGreat() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 2 4000";
         File f = new File("test.txt");
@@ -628,9 +655,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the remove height is zero
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemoveOutOfBoundsHZero() throws IOException
+    public void testRemoveOutOfBoundsHZero() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 2 0";
         File f = new File("test.txt");
@@ -646,8 +674,9 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x + w not in bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
-    public void testRemTotalWidthNotinBoundsG() throws IOException
+    public void testRemTotalWidthNotinBoundsG() throws IOException, ClassNotFoundException
     {
         String s = "remove 1000 10 2000 4";
         File f = new File("test.txt");
@@ -663,8 +692,9 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x + w not in bounds less than 0
      * @throws IOException
+     * @throws ClassNotFoundException
      */
-    public void testRemTotalWidthNotinBoundsL() throws IOException
+    public void testRemTotalWidthNotinBoundsL() throws IOException, ClassNotFoundException
     {
         String s = "remove 1000 10 -2000 4";
         File f = new File("test.txt");
@@ -681,8 +711,9 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x + w in bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
-    public void testRemTotalinBounds() throws IOException
+    public void testRemTotalinBounds() throws IOException, ClassNotFoundException
     {
         String s = "remove 1000 10 10 4";
         File f = new File("test.txt");
@@ -698,9 +729,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the y + height are not in bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemTotalHeightNotinBounds() throws IOException
+    public void testRemTotalHeightNotinBounds() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1000 2 450";
         File f = new File("test.txt");
@@ -716,9 +748,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when remove is called by coordinates
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemoveCoord() throws IOException
+    public void testRemoveCoord() throws IOException, ClassNotFoundException
     { //TODO check if this works
         String d = "remove 1 1 2 6";
         File f = new File("test.txt");
@@ -734,9 +767,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the x is out of bounds
      * @throws IOException
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemOutXGreat() throws IOException
+    public void testRemOutXGreat() throws IOException, ClassNotFoundException
     {
         String s = "remove 1025 1 2 4";
         File f = new File("test.txt");
@@ -752,9 +786,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when the remove x is out of bounds
      * @throws IOException 
+     * @throws ClassNotFoundException
      */
     @Test
-    public void testRemoveOutOfBoundsXLess() throws IOException
+    public void testRemoveOutOfBoundsXLess() throws IOException, ClassNotFoundException
     {
         String s = "remove -1 1 2 4";
         File f = new File("test.txt");
@@ -770,8 +805,11 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when both are outside of world box
      * @throws IOException
+     * @throws ClassNotFoundException
+     * 
      */
-    public void testRemoveBothLessThan() throws IOException
+    @Test
+    public void testRemoveBothLessThan() throws IOException, ClassNotFoundException
     {
         String s = "remove -1 -1 2 4";
         File f = new File("test.txt");
@@ -786,10 +824,11 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * Tests when the remove y is out of bounds
-     * @throws IOException 
+     * @throws IOException
+     * @throws ClassNotFoundException  
      */
     @Test
-    public void testRemoveOutOfBoundsYLess() throws IOException
+    public void testRemoveOutOfBoundsYLess() throws IOException, ClassNotFoundException
     {
         String s = "remove 1 -1 2 4";
         File f = new File("test.txt");
@@ -822,9 +861,10 @@ public class CommandProcessorTest extends TestCase
     
     /**
      * Tests the case where the name is called to be removed
+     * @throws ClassNotFoundException 
      */
     @Test
-    public void testRemoveName() throws IOException
+    public void testRemoveName() throws IOException, ClassNotFoundException
     {
         String d = "remove name";
         File f = new File("test.txt");
@@ -839,9 +879,10 @@ public class CommandProcessorTest extends TestCase
     
     /**
      * Tests intersections
+     * @throws ClassNotFoundException 
      */
     @Test
-    public void testIntersections() throws IOException
+    public void testIntersections() throws IOException, ClassNotFoundException
     {
         String d = "intersections";
         File f = new File("test.txt");
@@ -857,9 +898,10 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * Tests search
+     * @throws ClassNotFoundException 
      */
     @Test
-    public void testSearch() throws IOException
+    public void testSearch() throws IOException, ClassNotFoundException
     {
         String d = "search me";
         File f = new File("test.txt");
@@ -875,8 +917,9 @@ public class CommandProcessorTest extends TestCase
     /**
      * tests the region search method
      * height part
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearch10() throws IOException
+    public void testRegionSearch10() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2 2 0 0";
         File f = new File("test.txt");
@@ -892,8 +935,9 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * tests the region search method
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearch11() throws IOException
+    public void testRegionSearch11() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2  2   1 0";
         File f = new File("test.txt");
@@ -909,8 +953,9 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * tests the region search method
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearch12() throws IOException
+    public void testRegionSearch12() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2 2    0 1";
         File f = new File("test.txt");
@@ -926,8 +971,9 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * tests the region search method
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearc13() throws IOException
+    public void testRegionSearc13() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2 2 1 -1";
         File f = new File("test.txt");
@@ -943,8 +989,9 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * tests the region search method
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearc14() throws IOException
+    public void testRegionSearc14() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2 2 -1 1";
         File f = new File("test.txt");
@@ -960,8 +1007,9 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * tests the region search method
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearc15() throws IOException
+    public void testRegionSearc15() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2 2 -1 -1";
         File f = new File("test.txt");
@@ -977,8 +1025,9 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * tests the region search method
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearc16() throws IOException
+    public void testRegionSearc16() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2 2 1 1";
         File f = new File("test.txt");
@@ -996,8 +1045,9 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * tests the region search method
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearc17() throws IOException
+    public void testRegionSearc17() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2 2 0 -1";
         File f = new File("test.txt");
@@ -1013,8 +1063,9 @@ public class CommandProcessorTest extends TestCase
 
     /**
      * tests the region search method
+     * @throws ClassNotFoundException 
      */
-    public void testRegionSearc18() throws IOException
+    public void testRegionSearc18() throws IOException, ClassNotFoundException
     {
         String d = "regionsearch   2 2 -1 0";
         File f = new File("test.txt");
@@ -1032,9 +1083,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests the dump
      * @throws IOException 
+     * @throws ClassNotFoundException 
      */
     @Test 
-    public void testDump() throws IOException
+    public void testDump() throws IOException, ClassNotFoundException
     {
         String d = "dump";
         File f = new File("test.txt");
@@ -1051,9 +1103,10 @@ public class CommandProcessorTest extends TestCase
     /**
      * Tests when it is not a dump or anything else
      * @throws IOException
+     * @throws ClassNotFoundException 
      */
     @Test
-    public void testNotDump() throws IOException
+    public void testNotDump() throws IOException, ClassNotFoundException
     {
         String x = "test should not work";
         File f = new File("test.txt");
