@@ -42,7 +42,7 @@ public class RectangleDisk {
             bufSize = Integer.parseInt(args[3]);
             CommandProcessor cmd = new CommandProcessor(f);            
             MemoryManager m = new MemoryManager(bufSize);
-            disk.close();
+            //disk.close();
         }
     }
 } //SkipNode{ int Element, int[] found;}
