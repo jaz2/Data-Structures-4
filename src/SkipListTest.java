@@ -35,6 +35,7 @@ public class SkipListTest extends TestCase
     @Test
     public void testInsert() throws ClassNotFoundException, IOException {
         Rect re = new Rect("a", 1, 2, 3, 4);
+        RectangleDisk.bufSize = 4096;
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>();
         assertTrue(s.insert(p));
