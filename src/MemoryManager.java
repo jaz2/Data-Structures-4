@@ -65,6 +65,10 @@ public class MemoryManager {
 	{
 		//check if b.length is 
 		int position = 0;
+		if (b == null)
+		{
+			System.out.println("Error");
+		}
 		if (count + b.length  + 2 <= mm.length)
 		{
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);

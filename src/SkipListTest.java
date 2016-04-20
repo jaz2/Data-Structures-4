@@ -34,10 +34,11 @@ public class SkipListTest extends TestCase
      */
     @Test
     public void testInsert() throws ClassNotFoundException, IOException {
+    	MemoryManager m = new MemoryManager(4096);
         Rect re = new Rect("a", 1, 2, 3, 4);
         RectangleDisk.bufSize = 4096;
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-        SkipList<String, Rect> s = new SkipList<String, Rect>();
+        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         assertTrue(s.insert(p));
         //assertEquals(null, (KVPair<String, Rect>)getObject(getObject(s.head).element()));
     }
@@ -48,9 +49,10 @@ public class SkipListTest extends TestCase
     @Test
     public void testInsertMore()
     {
+    	MemoryManager m = new MemoryManager(4096);
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-        SkipList<String, Rect> s = new SkipList<String, Rect>();
+        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         //s.insert(p);
 
         Rect uh = new Rect("b", 1, 2, 3, 4);
@@ -554,8 +556,9 @@ public class SkipListTest extends TestCase
     @Test
     public void testDumpNoInserts() throws ClassNotFoundException, IOException
     {
+    	MemoryManager m = new MemoryManager(4096);
         TestableRandom.setNextInts(2, 2, 2);
-        SkipList<String, Rect> s = new SkipList<String, Rect>();
+        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         s.dump();
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump: \n"

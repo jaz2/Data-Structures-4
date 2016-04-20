@@ -90,10 +90,10 @@ public class SkipList<K extends Comparable<K>, E> {
         int[] update = new int[level + 1];   
         int x = head;        // Start at header node   
         for (int i = level; i >= 0; i--) { // Find insert position     
-            while (((((SkipNode)getObject(x)).forward[i] != mm.fly) && 
+            while ((getNode(x).forward[i] != mm.fly) && 
                     (k.compareTo(
-                    		(((KVPair<K, E>)getObject(((SkipNode)getObject
-                    				(((SkipNode)getObject((x))).forward[i])).element())).key())) > 0)))
+                    		getKV(getNode(
+                    				getNode(x).forward[i]).element()).key())) > 0)
             		       
                 x = getNode(x).forward[i];   
             update[i] = x;               // Track end at level i   
@@ -287,15 +287,15 @@ public class SkipList<K extends Comparable<K>, E> {
         else 
         {
             System.out.println("SkipList dump: ");
-            System.out.println("Node has depth " + ((SkipNode)getObject(head)).getLevel() +
+            System.out.println("Node has depth " + getNode(head).getLevel() +
                     ", Value (null)");
 
             int node = head;
             for (int i = 1; i <= size + 0; i++)
             {
                 System.out.println("Node has depth " + getNode(node).getLevel() +
-                        ", Value (" + (((KVPair<K, E>) getObject((getNode(getNode(node).forward[0]).element))).key() + ", "
-                        + ((KVPair<K, E>) getObject((getNode(getNode(node).forward[0]).element))).value().toString() + ")"));
+                        ", Value (" + getKV((getNode(getNode(node).forward[0]).element)).key() + ", "
+                        + getKV((getNode(getNode(node).forward[0]).element)).value().toString() + ")");
                 node = getNode(node).forward[0];
                 node = update(node);
             } 
@@ -317,13 +317,14 @@ public class SkipList<K extends Comparable<K>, E> {
     }
     
     /**
-     * To make an int a skipNode
+     * To make an int a kvpair
      * @param n the handle
-     * @return the skipnode
+     * @return the kvpair
      * @throws ClassNotFoundException
      * @throws IOException
      */
-    public KVPair<K, E> getKV(int n) throws IOException, ClassNotFoundException
+    @SuppressWarnings("unchecked")
+	public KVPair<K, E> getKV(int n) throws IOException, ClassNotFoundException
     {
     	return ((KVPair<K, E>)Serializer.deserialize(mm.getNode(n)));
     }
