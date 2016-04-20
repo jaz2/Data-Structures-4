@@ -140,7 +140,7 @@ public class MemoryManager {
 	 */
 	public byte[] getNode(int handle)
 	{
-		if (handle == SkipList.fly)
+		if (handle == fly)
 		{
 			return null;
 		}	
