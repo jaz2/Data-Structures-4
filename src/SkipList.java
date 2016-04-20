@@ -103,9 +103,10 @@ public class SkipList<K extends Comparable<K>, E> {
         for (int i = 0; i <= newLevel; i++) 
         {      // Splice into list     
         	getNode(x).forward[i] = getNode(update[i]).forward[i]; // Who x points to     
-        	getNode(x).forward[i] = update(getNode(x).forward[i]);
-        	getNode(update[i]).forward[i] = update(x);            // Who y points to   
-        }   
+        	mm.update(getNode(x).forward[i], getNode(getNode(x).forward[i]));
+        	getNode(x).forward[i] = getNode(x).forward[i];
+        	getNode(update[i]).forward[i] = x;            // Who y points to   
+        }    
         size++;                       // Increment dictionary size
         return true; 
     }
@@ -297,7 +298,7 @@ public class SkipList<K extends Comparable<K>, E> {
                         ", Value (" + getKV((getNode(getNode(node).forward[0]).element)).key() + ", "
                         + getKV((getNode(getNode(node).forward[0]).element)).value().toString() + ")");
                 node = getNode(node).forward[0];
-                node = update(node);
+                node = update(node); //TODO
             } 
             System.out.println("SkipList size is: " + size);
             System.out.println("Freelist Blocks: \n(0, " + RectangleDisk.bufSize + ")");

@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 
@@ -154,4 +155,18 @@ public class MemoryManager {
 		System.arraycopy(mm, handle, b, 0, size);
 		return b;
 	}
+	
+	 /**
+     * Updates and puts into memory manager
+     * @param n
+     * @return
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public void update(int n, Object o) throws IOException, ClassNotFoundException
+    {
+    	byte[] b = Serializer.serialize(o);
+    	ByteBuffer.wrap(mm).putShort(n - 2, (short) b.length);
+    	System.arraycopy(b, 0, mm, n, b.length);
+    }
 } //don't need to connect it to BP for milestone 2
