@@ -24,9 +24,6 @@ public class MemoryManagerTest extends TestCase{
 	@Test
 	public void testConstructor() {
 		MemoryManager main = new MemoryManager(4096);
-		 assertFuzzyEquals(
-	                "Freelist Blocks: \n(0, 4096)",
-	                systemOut().getHistory());
 	}
 
 }
