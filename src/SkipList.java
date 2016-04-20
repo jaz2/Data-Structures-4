@@ -98,8 +98,7 @@ public class SkipList<K extends Comparable<K>, E> {
         head = fly; //check if this is correct
         level = 0;
         rnd = new Random();
-        size = 0;
-        
+        size = 0;        
     }
 
     /** 
