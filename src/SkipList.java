@@ -103,22 +103,22 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
          adjustHead(newLevel);
       @SuppressWarnings("unchecked")  //Generic array allocation   
       int[] update = new int[level + 1];   
-      SkipNode x = head;        // Start at header node   
+      int x = head;        // Start at header node   
       for (int i = level; i >= 0; i--) { // Find insert position     
-         while ((x.forward[i] != MemoryManager.fly) && 
+         while ((getNode(x).forward[i] != MemoryManager.fly) && 
                (k.compareTo(
                      getKV(getNode(
-                           x.forward[i]).element()).key())) > 0)
+                           getNode(x).forward[i]).element()).key())) > 0)
 
-            x = x.forward[i];   
+            x = getNode(x).forward[i];   
          update[i] = x;               // Track end at level i   
       }   
       int kv = insertObject(it);
       x = insertObject(new SkipNode(kv, newLevel));   
       for (int i = 0; i <= newLevel; i++) 
       {      // Splice into list     
-         x.forward[i] = getNode(update[i]).forward[i]; // Who x points to     
-         mm.update(x.forward[i], getObject(x.forward[i]));
+         getNode(x).forward[i] = getNode(update[i]).forward[i]; // Who x points to     
+         mm.update(getNode(x).forward[i], getObject(getNode(x).forward[i]));
          //getNode(x).forward[i] = getNode(x).forward[i];
          mm.update(getNode(update[i]).forward[i], x);
          //getNode(update[i]).forward[i] = x;            // Who y points to  
@@ -275,15 +275,15 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
    {
       @SuppressWarnings("unchecked")
       int[] nu = new int[lev + 1];
-      for (int i = 0; i < head.forward.length; i++)
+      for (int i = 0; i < getNode(head).forward.length; i++)
       {
-         nu[i] = head.forward[i];
+         nu[i] = getNode(head).forward[i];
       }
-      for (int i = head.forward.length; i < lev; i++)
+      for (int i = getNode(head).forward.length; i < lev; i++)
       {
          nu[i] = MemoryManager.fly;
       }
-      SkipNode oldHead = head;
+      SkipNode oldHead = getNode(head);
       oldHead.forward = nu;
       //release head
       head = insertObject(oldHead);
@@ -308,17 +308,17 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
       else 
       {
          System.out.println("SkipList dump: ");
-         System.out.println("Node has depth " + head.getLevel() +
+         System.out.println("Node has depth " + getNode(head).getLevel() +
                ", Value (null)");
 
-         SkipNode node = head;
+         int node = head;
          for (int i = 1; i <= size + 0; i++)
          {
-            System.out.println("Node has depth " + node.getLevel() +
-                  ", Value (" + getKV((getNode(node.forward[0]).element)).key() + ", "
-                  + getKV((getNode(node.forward[0]).element)).value().toString() + ")");
-            node = node.forward[0];
-            mm.update(Serializer.serialize(node), node);
+            System.out.println("Node has depth " + getNode(node).getLevel() +
+                  ", Value (" + getKV((getNode(getNode(node).forward[0]).element)).key() + ", "
+                  + getKV((getNode(getNode(node).forward[0]).element)).value().toString() + ")");
+            node = getNode(node).forward[0];
+            mm.update(node, getObject(node));
             //node = update(node); 
          } 
          System.out.println("SkipList size is: " + size);
