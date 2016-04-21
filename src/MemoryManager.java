@@ -65,7 +65,6 @@ public class MemoryManager {
 		FreeBlock fb = new FreeBlock(size, 0);
 		freeList.insert(fb);
 		count = 0;
-		disk.close();
 	} //for second milestone just create an array
 
 	/**
@@ -183,5 +182,14 @@ public class MemoryManager {
     	ByteBuffer.wrap(mm).putShort(n - 2, (short) b.length);
     	System.arraycopy(b, 0, mm, n, b.length);
     	disk.write(b, n, b.length);
+    }
+    
+    /**
+     * To close the file
+     * @throws IOException
+     */
+    public void quit() throws IOException
+    {
+    	disk.close();
     }
 } //don't need to connect it to BP for milestone 2

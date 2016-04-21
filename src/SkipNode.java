@@ -7,9 +7,14 @@
  * @version Feb 1 2016
  *
  */
-public class SkipNode {
+public class SkipNode implements java.io.Serializable {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * forward array
      */
     public int[] forward;
@@ -29,7 +34,6 @@ public class SkipNode {
      * @param it  the element
      * @param level  the level
      */
-    @SuppressWarnings("unchecked")
     public SkipNode(int it, int level)
     {
         element = it;

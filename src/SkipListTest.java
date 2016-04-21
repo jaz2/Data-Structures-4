@@ -34,8 +34,8 @@ public class SkipListTest extends TestCase
      */
     @Test
     public void testInsert() throws ClassNotFoundException, IOException {
-    	String st = "data.txt";
-    	MemoryManager m = new MemoryManager(4096, st);
+    	//String st = "data.txt";
+    	MemoryManager m = new MemoryManager(4096, "data.txt");
         Rect re = new Rect("a", 1, 2, 3, 4);
         RectangleDisk.bufSize = 4096;
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);

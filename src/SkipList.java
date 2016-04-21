@@ -1,4 +1,5 @@
-import java.io.IOException; 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -99,7 +100,7 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
             adjustHead(newLevel);
         @SuppressWarnings("unchecked")  //Generic array allocation   
         int[] update = new int[level + 1];   
-        int x = head;        // Start at header node   
+        int x = Serializer.serialize(head);        // Start at header node   
         for (int i = level; i >= 0; i--) { // Find insert position     
             while ((getNode(x).forward[i] != mm.fly) && 
                     (k.compareTo(
@@ -271,15 +272,15 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
     {
         @SuppressWarnings("unchecked")
         int[] nu = new int[lev + 1];
-        for (int i = 0; i < getNode(head).forward.length; i++)
+        for (int i = 0; i < head.forward.length; i++)
         {
-            nu[i] = getNode(head).forward[i];
+            nu[i] = head.forward[i];
         }
-        for (int i = getNode(head).forward.length; i < lev; i++)
+        for (int i = head.forward.length; i < lev; i++)
         {
             nu[i] = mm.fly;
         }
-        SkipNode oldHead = getNode(head);
+        SkipNode oldHead = head;
         oldHead.forward = nu;
         //release head
         head = insertObject(oldHead);
@@ -304,17 +305,17 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
         else 
         {
             System.out.println("SkipList dump: ");
-            System.out.println("Node has depth " + getNode(head).getLevel() +
+            System.out.println("Node has depth " + head.getLevel() +
                     ", Value (null)");
 
-            int node = head;
+            SkipNode node = head;
             for (int i = 1; i <= size + 0; i++)
             {
-                System.out.println("Node has depth " + getNode(node).getLevel() +
-                        ", Value (" + getKV((getNode(getNode(node).forward[0]).element)).key() + ", "
-                        + getKV((getNode(getNode(node).forward[0]).element)).value().toString() + ")");
-                node = getNode(node).forward[0];
-                mm.update(node, getObject(node));
+                System.out.println("Node has depth " + node.getLevel() +
+                        ", Value (" + getKV((getNode(node.forward[0]).element)).key() + ", "
+                        + getKV((getNode(node.forward[0]).element)).value().toString() + ")");
+                node = node.forward[0];
+                mm.update(Serializer.serialize(node), node);
                 //node = update(node); 
             } 
             System.out.println("SkipList size is: " + size);
