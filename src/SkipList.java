@@ -53,7 +53,7 @@ public class SkipList<K extends Comparable<K>, E> {
    public SkipList(MemoryManager m) throws IOException, ClassNotFoundException
    {
       mm = m;
-      s = new Serializer();
+      //s = new Serializer();
       //head = 0;    
       SkipNode skip = new SkipNode(MemoryManager.fly, 0); 
       skip.forward[0] = MemoryManager.fly; //forward array of 1 null element

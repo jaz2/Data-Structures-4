@@ -41,6 +41,7 @@ public class RectangleDiskTest extends TestCase {
      */
     public void testGoodParams() throws IOException, ClassNotFoundException {
         String[] params = { "commands.txt", "dataFile.dat", "5", "4096" };
+        System.out.println("Arg length: " + params.length); 
         RectangleDisk.main(params);
         assertFuzzyEquals("Found expected parameter list.", 
             systemOut().getHistory());
