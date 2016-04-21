@@ -8,7 +8,7 @@ import java.awt.Rectangle;
  * @version Feb 2 2016
  *
  */
-public class Rect {
+public class Rect implements java.io.Serializable {
     /**
      * the name of the id
      */

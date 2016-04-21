@@ -28,7 +28,7 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
     /**
      * The head node
      */
-    public int head;
+    public SkipNode head;
 
     /**
      * For the random 
@@ -55,10 +55,10 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
     	mm = m;
     	s = new Serializer();
         //head = 0;    
-    	SkipNode skip = new SkipNode(mm.fly, 0);
-        SkipNode newHead = getNode(head);
-        newHead = skip;
-        newHead = new SkipNode(mm.fly, 0);
+    	//SkipNode skip = new SkipNode(mm.fly, 0);
+        //SkipNode newHead = getNode(head);
+        //newHead = skip;
+        head = new SkipNode(mm.fly, 0);
         byte[] message = Serializer.serialize(head);
         mm.insert(message);
         level = 0;
