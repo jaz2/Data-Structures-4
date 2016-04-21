@@ -100,24 +100,24 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
             adjustHead(newLevel);
         @SuppressWarnings("unchecked")  //Generic array allocation   
         int[] update = new int[level + 1];   
-        int x = Serializer.serialize(head);        // Start at header node   
+        SkipNode x = head;        // Start at header node   
         for (int i = level; i >= 0; i--) { // Find insert position     
-            while ((getNode(x).forward[i] != mm.fly) && 
+            while ((x.forward[i] != mm.fly) && 
                     (k.compareTo(
                     		getKV(getNode(
-                    				getNode(x).forward[i]).element()).key())) > 0)
+                    				x.forward[i]).element()).key())) > 0)
             		       
-                x = getNode(x).forward[i];   
+                x = x.forward[i];   
             update[i] = x;               // Track end at level i   
         }   
         int kv = insertObject(it);
         x = insertObject(new SkipNode(kv, newLevel));   
         for (int i = 0; i <= newLevel; i++) 
         {      // Splice into list     
-        	getNode(x).forward[i] = getNode(update[i]).forward[i]; // Who x points to     
-        	mm.update(getNode(x).forward[i], getObject(getNode(x).forward[i]));
+        	x.forward[i] = getNode(update[i]).forward[i]; // Who x points to     
+        	mm.update(x.forward[i], getObject(x.forward[i]));
         	//getNode(x).forward[i] = getNode(x).forward[i];
-        	mm.update(getNode(update[i]).forward[i], getNode(x));
+        	mm.update(getNode(update[i]).forward[i], x);
         	//getNode(update[i]).forward[i] = x;            // Who y points to  
         	
         }    
