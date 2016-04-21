@@ -97,7 +97,7 @@ public class SkipList<K extends Comparable<K>, E> {
       int x = head;        // Start at header node   
       for (int i = level; i >= 0; i--) { // Find insert position     
          while (((getNode(x)).forward[i] != MemoryManager.fly) && 
-               (k.compareTo(
+               (k.compareTo( 
                      getKV(getNode(
                            getNode(x).forward[i]).element()).key())) > 0)
 
@@ -268,7 +268,7 @@ public class SkipList<K extends Comparable<K>, E> {
       int[] nu = new int[lev + 1];
       for (int i = 0; i < (getNode(head)).forward.length; i++)
       {
-         nu[i] = getNode(head).forward[i];
+         nu[i] = (getNode(head)).forward[i];
       }
       for (int i = getNode(head).forward.length; i < lev; i++)
       {

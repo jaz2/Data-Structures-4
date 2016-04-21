@@ -37,7 +37,7 @@ public class SkipListTest extends TestCase
     	//String st = "data.txt";
     	MemoryManager m = new MemoryManager(4096, "data.txt");
         Rect re = new Rect("a", 1, 2, 3, 4);
-        RectangleDisk.bufSize = 4096;
+        //RectangleDisk.bufSize = 4096;
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         assertTrue(s.insert(p));
