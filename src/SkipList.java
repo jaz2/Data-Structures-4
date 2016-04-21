@@ -47,14 +47,15 @@ public class SkipList<K extends Comparable<K>, E> {
 
     /**
      * Constructor for the SkipList
+     * @throws IOException 
      */
-    public SkipList(MemoryManager m)
-    { //add a param for MemoryManager
+    public SkipList(MemoryManager m) throws IOException
+    {
     	mm = m;
-    	
     	s = new Serializer();
         //head = 0;    
-        head = m.fly; //check if this is correct
+    	SkipNode skip = new SkipNode(mm.fly, 0);
+        head = insertObject(skip);
         level = 0;
         rnd = new Random();
         size = 0;        
@@ -268,8 +269,10 @@ public class SkipList<K extends Comparable<K>, E> {
         {
             nu[i] = mm.fly;
         }
-        getNode(head).forward = nu;
-        head = insertObject(getNode(head));
+        SkipNode oldHead = getNode(head);
+        oldHead.forward = nu;
+        //release head
+        head = insertObject(oldHead);
         //head = update(head);
         level = lev;
     }

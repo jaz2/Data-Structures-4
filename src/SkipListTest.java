@@ -45,9 +45,10 @@ public class SkipListTest extends TestCase
 
     /**
      * Tests when insert is not null
+     * @throws IOException 
      */
     @Test
-    public void testInsertMore()
+    public void testInsertMore() throws IOException
     {
     	MemoryManager m = new MemoryManager(4096);
         Rect re = new Rect("a", 1, 2, 3, 4);

@@ -17,8 +17,9 @@ public class Database
 
     /**
      * The Database constructor which creates a SkipList
+     * @throws IOException 
      */
-    public Database()
+    public Database() throws IOException
     {
     	MemoryManager mem = new MemoryManager(RectangleDisk.bufSize);
         skip = new SkipList<String, Rect>(mem);
