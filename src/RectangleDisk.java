@@ -47,11 +47,11 @@ public class RectangleDisk {
             String input = args[0].trim();
             File f = new File(input);
             CommandProcessor cmd = new CommandProcessor(f);
-            //RandomAccessFile disk = new RandomAccessFile(args[1], "rw");
-            //disk.setLength(0);
+            RandomAccessFile disk = new RandomAccessFile(args[1], "rw");
+            disk.setLength(0);
             
            // MemoryManager m = new MemoryManager(bufSize, dfile);
-            //disk.close();
+           disk.close();
         }
     }
 }
