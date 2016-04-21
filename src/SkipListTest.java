@@ -34,23 +34,26 @@ public class SkipListTest extends TestCase
      */
     @Test
     public void testInsert() throws ClassNotFoundException, IOException {
-    	MemoryManager m = new MemoryManager(4096);
+    	String st = "data.txt";
+    	MemoryManager m = new MemoryManager(4096, st);
         Rect re = new Rect("a", 1, 2, 3, 4);
         RectangleDisk.bufSize = 4096;
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         assertTrue(s.insert(p));
         //assertEquals(null, (KVPair<String, Rect>)getObject(getObject(s.head).element()));
-    }
+    } 
 
     /**
      * Tests when insert is not null
      * @throws IOException 
+     * @throws ClassNotFoundException 
      */
     @Test
-    public void testInsertMore() throws IOException
+    public void testInsertMore() throws IOException, ClassNotFoundException
     {
-    	MemoryManager m = new MemoryManager(4096);
+    	String st = "data.txt";
+    	MemoryManager m = new MemoryManager(4096, st);
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
@@ -557,7 +560,8 @@ public class SkipListTest extends TestCase
     @Test
     public void testDumpNoInserts() throws ClassNotFoundException, IOException
     {
-    	MemoryManager m = new MemoryManager(4096);
+    	String st = "data.txt";
+    	MemoryManager m = new MemoryManager(4096, st);
         TestableRandom.setNextInts(2, 2, 2);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         s.dump();

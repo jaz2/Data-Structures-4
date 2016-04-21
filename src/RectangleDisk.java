@@ -19,6 +19,11 @@ public class RectangleDisk {
 	 * To keep track of buffSize
 	 */
 	public static int bufSize;
+	
+	/**
+	 * The data file
+	 */
+	public static String dfile;
 
     /**
      * The entry point for the application.
@@ -34,16 +39,16 @@ public class RectangleDisk {
         else {
             System.out.println("Found expected parameter list.");
             String input = args[0].trim();
-            RandomAccessFile disk = new RandomAccessFile(args[1], "rw");
-            disk.setLength(0);
-            
+            //RandomAccessFile disk = new RandomAccessFile(args[1], "rw");
+            //disk.setLength(0);
+            dfile = args[1];
             int numBuffs = Integer.parseInt(args[2]);
             
             File f = new File(input);
             bufSize = Integer.parseInt(args[3]);
-            CommandProcessor cmd = new CommandProcessor(f);            
-            MemoryManager m = new MemoryManager(bufSize);
-            disk.close();
+            CommandProcessor cmd = new CommandProcessor(f);   
+            MemoryManager m = new MemoryManager(bufSize, dfile);
+            //disk.close();
         }
     }
 }

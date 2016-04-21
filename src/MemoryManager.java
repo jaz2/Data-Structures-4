@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -42,13 +43,21 @@ public class MemoryManager {
      * The null handle
      */
     public static int fly;
+    
+    /**
+     * The file we will write into
+     */
+    public RandomAccessFile disk;
 
 	/**
 	 * The constructor
 	 * @param size the buffer size
+	 * @throws IOException 
 	 */
-	public MemoryManager(int size)
+	public MemoryManager(int size, String s) throws IOException
 	{
+		disk = new RandomAccessFile(s, "rw");
+		disk.setLength(0);
 		mm = new byte[size];
 		sz = size;
 		fly = -1;
@@ -56,13 +65,15 @@ public class MemoryManager {
 		FreeBlock fb = new FreeBlock(size, 0);
 		freeList.insert(fb);
 		count = 0;
+		disk.close();
 	} //for second milestone just create an array
 
 	/**
 	 * Inserts into the memory manager array 
 	 * @param b the byte array given
+	 * @throws IOException 
 	 */
-	public int insert(byte[] b)
+	public int insert(byte[] b) throws IOException
 	{
 		//check if b.length is 
 		int position = 0;
@@ -74,8 +85,10 @@ public class MemoryManager {
 		{
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
 			System.arraycopy(b, 0, mm, b.length + 2, b.length);
+			disk.write(b, b.length + 2, b.length);
 			count = count + b.length + 2;
 			position = b.length;
+			
 		}
 		else 
 		{
@@ -85,6 +98,7 @@ public class MemoryManager {
 			
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
 			System.arraycopy(b, 0, mm, b.length + 2, b.length);
+			disk.write(b, b.length + 2, b.length);
 			count = count + b.length + 2;
 			position = b.length;
 		}
@@ -168,5 +182,6 @@ public class MemoryManager {
     	byte[] b = Serializer.serialize(o);
     	ByteBuffer.wrap(mm).putShort(n - 2, (short) b.length);
     	System.arraycopy(b, 0, mm, n, b.length);
+    	disk.write(b, n, b.length);
     }
 } //don't need to connect it to BP for milestone 2

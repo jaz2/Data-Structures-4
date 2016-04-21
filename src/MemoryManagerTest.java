@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import student.TestCase;
@@ -22,8 +24,9 @@ public class MemoryManagerTest extends TestCase{
 	}
 
 	@Test
-	public void testConstructor() {
-		MemoryManager main = new MemoryManager(4096);
+	public void testConstructor() throws IOException {
+		String s = "data.txt";
+		MemoryManager main = new MemoryManager(4096, s);
 	}
 
 }

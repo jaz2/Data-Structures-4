@@ -12,7 +12,7 @@ import java.util.Random;
  * @param <E>  the value
  *
  */
-public class SkipList<K extends Comparable<K>, E> { 
+public class SkipList<K extends Comparable<K>, E> implements java.io.Serializable { 
     //module (KVPair is a sep. class) 6.3
 
     /**
@@ -48,14 +48,19 @@ public class SkipList<K extends Comparable<K>, E> {
     /**
      * Constructor for the SkipList
      * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public SkipList(MemoryManager m) throws IOException
+    public SkipList(MemoryManager m) throws IOException, ClassNotFoundException
     {
     	mm = m;
     	s = new Serializer();
         //head = 0;    
     	SkipNode skip = new SkipNode(mm.fly, 0);
-        head = mm.fly;
+        SkipNode newHead = getNode(head);
+        newHead = skip;
+        newHead = new SkipNode(mm.fly, 0);
+        byte[] message = Serializer.serialize(head);
+        mm.insert(message);
         level = 0;
         rnd = new Random();
         size = 0;        

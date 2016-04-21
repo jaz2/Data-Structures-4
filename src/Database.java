@@ -18,10 +18,11 @@ public class Database
     /**
      * The Database constructor which creates a SkipList
      * @throws IOException 
+     * @throws ClassNotFoundException 
      */
-    public Database() throws IOException
+    public Database() throws IOException, ClassNotFoundException
     {
-    	MemoryManager mem = new MemoryManager(RectangleDisk.bufSize);
+    	MemoryManager mem = new MemoryManager(RectangleDisk.bufSize, RectangleDisk.dfile);
         skip = new SkipList<String, Rect>(mem);
     }
 
