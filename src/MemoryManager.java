@@ -97,7 +97,7 @@ public class MemoryManager {
 			
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
 			System.arraycopy(b, 0, mm, b.length + 2, b.length);
-			disk.write(b, b.length + 2, b.length);
+			//disk.write(b, b.length + 2, b.length);
 			count = count + b.length + 2;
 			position = b.length;
 		}
@@ -181,7 +181,7 @@ public class MemoryManager {
     	byte[] b = Serializer.serialize(o);
     	ByteBuffer.wrap(mm).putShort(n - 2, (short) b.length);
     	System.arraycopy(b, 0, mm, n, b.length);
-    	disk.write(b, n, b.length);
+    	//disk.write(b, n, b.length);
     }
     
     /**

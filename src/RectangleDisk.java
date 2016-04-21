@@ -32,21 +32,24 @@ public class RectangleDisk {
      * @throws IOException 
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        if (args.length != 4) {
+        if (args.length != 4) 
+        {
             System.out.println("Usage: RectangleDisk <commandfile> "
                 + "<diskFile> <numBuffs> <buffSize>");
         }
-        else {
+        else 
+        {
             System.out.println("Found expected parameter list.");
+            dfile = args[1];
+            int numBuffs = Integer.parseInt(args[2]);              
+            bufSize = Integer.parseInt(args[3]);
+            
             String input = args[0].trim();
+            File f = new File(input);
+            CommandProcessor cmd = new CommandProcessor(f);
             //RandomAccessFile disk = new RandomAccessFile(args[1], "rw");
             //disk.setLength(0);
-            dfile = args[1];
-            int numBuffs = Integer.parseInt(args[2]);
             
-            File f = new File(input);
-            bufSize = Integer.parseInt(args[3]);
-            CommandProcessor cmd = new CommandProcessor(f);   
            // MemoryManager m = new MemoryManager(bufSize, dfile);
             //disk.close();
         }

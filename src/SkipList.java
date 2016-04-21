@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -13,13 +12,8 @@ import java.util.Random;
  * @param <E>  the value
  *
  */
-public class SkipList<K extends Comparable<K>, E> implements java.io.Serializable { 
+public class SkipList<K extends Comparable<K>, E> { 
    //module (KVPair is a sep. class) 6.3
-
-   /**
-    * 
-    */
-   private static final long serialVersionUID = 1L;
 
    /**
     * the level of the skiplist
@@ -65,11 +59,8 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
       skip.forward[0] = MemoryManager.fly; //forward array of 1 null element
       byte[] message = Serializer.serialize(skip);
       //serialize it and when you get the handle set that to head
-      //SkipNode newHead = getNode(head);
-      //newHead = skip;
-      head = message.hashCode();
-      //byte[] message = Serializer.serialize(head);
-      mm.insert(message);
+      int handle = mm.insert(message);
+      head = handle; //pass byte array to Mem, set handle to head
       level = 0;
       rnd = new Random();
       size = 0;        
