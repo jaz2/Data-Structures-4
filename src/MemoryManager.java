@@ -84,7 +84,7 @@ public class MemoryManager {
 		{
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
 			System.arraycopy(b, 0, mm, b.length + 2, b.length);
-			disk.write(b, b.length + 2, b.length);
+			//disk.write(b, b.length + 2, b.length);
 			count = count + b.length + 2;
 			position = b.length;
 			
