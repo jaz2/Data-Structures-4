@@ -16,6 +16,11 @@ public class SkipList<K extends Comparable<K>, E> implements java.io.Serializabl
     //module (KVPair is a sep. class) 6.3
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * the level of the skiplist
      */
     public int level;
