@@ -10,6 +10,11 @@ import java.awt.Rectangle;
  */
 public class Rect implements java.io.Serializable {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * the name of the id
      */
     public String name;
