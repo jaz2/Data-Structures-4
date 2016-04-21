@@ -61,8 +61,8 @@ public class SkipListTest extends TestCase
 
         Rect uh = new Rect("b", 1, 2, 3, 4);
         KVPair<String, Rect> k = new KVPair<String, Rect>(uh.getName(), uh);
-        //s.insert(k);
-      //  assertEquals(null, s.head.element());
+        s.insert(k);
+       assertEquals(MemoryManager.fly, s.getNode(s.head).element());
     }
 //
 //    /**
