@@ -55,7 +55,7 @@ public class SkipList<K extends Comparable<K>, E> {
     	s = new Serializer();
         //head = 0;    
     	SkipNode skip = new SkipNode(mm.fly, 0);
-        head = insertObject(skip);
+        head = mm.fly;
         level = 0;
         rnd = new Random();
         size = 0;        

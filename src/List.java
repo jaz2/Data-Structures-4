@@ -105,36 +105,36 @@ public class List {
 //        return null;
 //    }
 
-    /**
-     * Removes a FreeBlock from the list
-     * @param p the FreeBlock
-     * @return true or false
-     */
-    public boolean remove(FreeBlock p)
-    {
-        Boolean found = false;
-        for (int i = 0; i < size && !found; i++)
-        {
-            if (l[i].equals(p) /*&& (l[i].getName() == p.getName() 
-                    /*|| l[i].getName().equals(p.getName()))*/)
-            {
-                if (i == size - 1)
-                {
-                    size--;
-                }
-                else 
-                {
-                    for (int j = i; j < size - 1; j++)
-                    {
-                        l[j] = l[j + 1];
-                    }
-                    size--;
-                }
-                found = true;
-            }
-        }
-        return found;
-    }
+//    /**
+//     * Removes a FreeBlock from the list
+//     * @param p the FreeBlock
+//     * @return true or false
+//     */
+//    public boolean remove(FreeBlock p)
+//    {
+//        Boolean found = false;
+//        for (int i = 0; i < size && !found; i++)
+//        {
+//            if (l[i].equals(p) /*&& (l[i].getName() == p.getName() 
+//                    /*|| l[i].getName().equals(p.getName()))*/)
+//            {
+//                if (i == size - 1)
+//                {
+//                    size--;
+//                }
+//                else 
+//                {
+//                    for (int j = i; j < size - 1; j++)
+//                    {
+//                        l[j] = l[j + 1];
+//                    }
+//                    size--;
+//                }
+//                found = true;
+//            }
+//        }
+//        return found;
+//    }
 
     /**
      * Returns the size
