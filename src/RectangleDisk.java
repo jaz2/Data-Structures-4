@@ -47,7 +47,7 @@ public class RectangleDisk {
             File f = new File(input);
             bufSize = Integer.parseInt(args[3]);
             CommandProcessor cmd = new CommandProcessor(f);   
-            MemoryManager m = new MemoryManager(bufSize, dfile);
+           // MemoryManager m = new MemoryManager(bufSize, dfile);
             //disk.close();
         }
     }
