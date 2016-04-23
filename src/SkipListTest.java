@@ -62,7 +62,15 @@ public class SkipListTest extends TestCase
         Rect uh = new Rect("b", 1, 2, 3, 4);
         KVPair<String, Rect> k = new KVPair<String, Rect>(uh.getName(), uh);
         s.insert(k);
+        s.dump();
        assertEquals(MemoryManager.fly, s.getNode(s.head).element());
+       String output = systemOut().getHistory();
+       assertFuzzyEquals("SkipList dump: \n"
+               + "Node has depth 2, Value (null)\n"
+               + "Node has depth 2, Value (a, 1, 2, 3, 4)\n"
+               + "Node has depth 2, Value (hey, 1, 2, 12, 4)\n"
+               + "SkipList size is: 2\n"
+               + "Freelist Blocks: \n(0, 512)", output);
     }
 //
 //    /**
