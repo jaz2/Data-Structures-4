@@ -615,9 +615,10 @@ public class SkipListTest extends TestCase
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         //s.controlledInsert(p, 2);
+        //s.insert(p);
         Rect re1 = new Rect("hey", 1, 2, 12, 4);
         KVPair<String, Rect> p1 = new KVPair<String, Rect>(re1.getName(), re1);
-        s.insert(p);
+        s.insert(p1);
         s.dump();
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump: \n"
