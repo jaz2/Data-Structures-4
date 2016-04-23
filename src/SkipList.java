@@ -41,11 +41,6 @@ public class SkipList<K extends Comparable<K>, E> {
     public MemoryManager mm;
 
     /**
-     * For converting bytes and objects
-     */
-    public Serializer s;
-
-    /**
      * Constructor for the SkipList
      * @param m the memory manager
      * @throws IOException 
@@ -54,7 +49,6 @@ public class SkipList<K extends Comparable<K>, E> {
     public SkipList(MemoryManager m) throws IOException, ClassNotFoundException
     {
         mm = m;
-        //s = new Serializer();
         //head = 0;    
         SkipNode skip = new SkipNode(MemoryManager.fly, 0); 
         skip.forward[0] = MemoryManager.fly; //forward array of 1 null element
