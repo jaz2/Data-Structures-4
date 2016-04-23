@@ -53,6 +53,7 @@ public class SkipListTest extends TestCase
     public void testInsertMore() throws IOException, ClassNotFoundException
     {
     	String st = "data.txt";
+    	RectangleDisk.bufSize = 4096;
     	MemoryManager m = new MemoryManager(4096, st);
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
@@ -70,7 +71,7 @@ public class SkipListTest extends TestCase
                + "Node has depth 2, Value (a, 1, 2, 3, 4)\n"
                + "Node has depth 2, Value (b, 1, 2, 3, 4)\n"
                + "SkipList size is: 2\n"
-               + "Freelist Blocks: \n(0, 512)", output);
+               + "Freelist Blocks: \n(0, 4096)", output);
     }
 //
 //    /**
