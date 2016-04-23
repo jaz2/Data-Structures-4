@@ -75,10 +75,13 @@ public class MemoryManager {
 	public int insert(byte[] b) throws IOException
 	{
 		//check if b.length is 
+		int end = mm.length;
 		int position = 0;
 		if (b == null)
 		{
 			System.out.println("Error");
+			return fly;
+			// return null handle
 		}
 		int bytesNeeded = b.length + 2;
 		if (count + bytesNeeded <= mm.length)
@@ -86,7 +89,7 @@ public class MemoryManager {
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
 			System.arraycopy(b, 0, mm, count + 2, b.length);
 			//disk.write(b, b.length + 2, b.length);
-			position = b.length + 2;
+			position = count + 2;
 			count = count + bytesNeeded;			
 		}
 		else 
@@ -95,10 +98,10 @@ public class MemoryManager {
 			System.arraycopy(mm, 0, nu, 0, mm.length);
 			mm = nu;  
 			
-			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-			System.arraycopy(b, 0, mm, count + 2, b.length);
+			ByteBuffer.wrap(mm).putShort(end, (short) b.length);
+			System.arraycopy(b, 0, mm, end + 2, b.length);
 			//disk.write(b, b.length + 2, b.length);
-			position = count + 2;
+			position = end + 2;
 			count = count + bytesNeeded;			
 		}
 		return position;
