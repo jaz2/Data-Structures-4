@@ -582,7 +582,7 @@ public class SkipListTest extends TestCase
     public void testDumpWith1Insert() 
     		throws IOException, ClassNotFoundException
     {
-    	MemoryManager m = new MemoryManager( 512,"a.txt");
+    	MemoryManager m = new MemoryManager(512,"a.txt");
         TestableRandom.setNextInts(3, 3, 3);
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
@@ -595,7 +595,7 @@ public class SkipListTest extends TestCase
         assertFuzzyEquals("SkipList dump: \n"
                 + "Node has depth 1, Value (null)\n"
                 + "Node has depth 1, Value (a, 1, 2, 3, 4)\n"
-                + "SkipList size is: 1"
+                + "SkipList size is: 1\n"
                 + "Freelist Blocks: \n(0, 4096)", output);
     }
 //
