@@ -608,9 +608,10 @@ public class SkipListTest extends TestCase
     @Test
     public void testDumpWith2Inserts() throws ClassNotFoundException, IOException
     {
+    	TestableRandom.setNextInts(2, 2, 2);
     	RectangleDisk.bufSize = 512;
-    	MemoryManager m = new MemoryManager(512,"a.txt");
-        TestableRandom.setNextInts(2, 2, 2);
+    	MemoryManager m = new MemoryManager(512,"ta.txt");
+        
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
