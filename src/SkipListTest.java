@@ -582,6 +582,7 @@ public class SkipListTest extends TestCase
     public void testDumpWith1Insert() 
     		throws IOException, ClassNotFoundException
     {
+    	RectangleDisk.bufSize = 512;
     	MemoryManager m = new MemoryManager(512,"a.txt");
         TestableRandom.setNextInts(3, 3, 3);
         Rect re = new Rect("a", 1, 2, 3, 4);
@@ -596,7 +597,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "SkipList size is: 1\n"
-                + "Freelist Blocks: \n(0, 4096)", output);
+                + "Freelist Blocks: \n(0, 512)", output);
     }
 
     /**
@@ -607,6 +608,7 @@ public class SkipListTest extends TestCase
     @Test
     public void testDumpWith2Inserts() throws ClassNotFoundException, IOException
     {
+    	RectangleDisk.bufSize = 512;
     	MemoryManager m = new MemoryManager(512,"a.txt");
         TestableRandom.setNextInts(2, 2, 2);
         Rect re = new Rect("a", 1, 2, 3, 4);
@@ -615,7 +617,7 @@ public class SkipListTest extends TestCase
         //s.controlledInsert(p, 2);
         Rect re1 = new Rect("hey", 1, 2, 12, 4);
         KVPair<String, Rect> p1 = new KVPair<String, Rect>(re1.getName(), re1);
-        s.insert(p1);
+        s.insert(p);
         s.dump();
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump: \n"
@@ -623,7 +625,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 2, Value (a, 1, 2, 3, 4)\n"
                 + "Node has depth 2, Value (hey, 1, 2, 12, 4)\n"
                 + "SkipList size is: 2\n"
-                + "Freelist Blocks: \n(0, 4096)", output);
+                + "Freelist Blocks: \n(0, 512)", output);
     }    
 
 //    /**
