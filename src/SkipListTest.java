@@ -598,29 +598,32 @@ public class SkipListTest extends TestCase
                 + "SkipList size is: 1\n"
                 + "Freelist Blocks: \n(0, 4096)", output);
     }
-//
-//    /**
-//     * Tests when there are two inserts for dump
-//     */
-//    @Test
-//    public void testDumpWith2Inserts()
-//    {
-//        TestableRandom.setNextInts(2, 2, 2);
-//        Rect re = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.controlledInsert(p, 2);
-//        Rect re1 = new Rect("hey", 1, 2, 12, 4);
-//        KVPair<String, Rect> p1 = new KVPair<String, Rect>(re1.getName(), re1);
-//        s.insert(p1);
-//        s.dump();
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("SkipList dump: \n"
-//                + "Node has depth 2, Value (null)\n"
-//                + "Node has depth 2, Value (a, 1, 2, 3, 4)\n"
-//                + "Node has depth 2, Value (hey, 1, 2, 12, 4)\n"
-//                + "SkipList size is: 2", output);
-//    }    
+
+    /**
+     * Tests when there are two inserts for dump
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testDumpWith2Inserts() throws ClassNotFoundException, IOException
+    {
+    	MemoryManager m = new MemoryManager(512,"a.txt");
+        TestableRandom.setNextInts(2, 2, 2);
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+        //s.controlledInsert(p, 2);
+        Rect re1 = new Rect("hey", 1, 2, 12, 4);
+        KVPair<String, Rect> p1 = new KVPair<String, Rect>(re1.getName(), re1);
+        s.insert(p1);
+        s.dump();
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("SkipList dump: \n"
+                + "Node has depth 2, Value (null)\n"
+                + "Node has depth 2, Value (a, 1, 2, 3, 4)\n"
+                + "Node has depth 2, Value (hey, 1, 2, 12, 4)\n"
+                + "SkipList size is: 2", output);
+    }    
 
 //    /**
 //     * Tests the controlled insert in SkipList
