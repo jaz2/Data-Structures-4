@@ -25,7 +25,7 @@ public class Database
     	MemoryManager mem = new MemoryManager(RectangleDisk.bufSize, RectangleDisk.dfile);
         skip = new SkipList<String, Rect>(mem);
     }
-
+ 
     /**
      * Inserts using the SkipList
      * 

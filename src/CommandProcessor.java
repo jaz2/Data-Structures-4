@@ -55,7 +55,7 @@ public class CommandProcessor {
                 String id = in.next().toString();
                 int n1 = in.nextInt();
                 int n2 = in.nextInt();
-                int n3 = in.nextInt();
+                int n3 = in.nextInt(); 
                 int n4 = in.nextInt();
                 if (n1 < 0 || n2 < 0)
                 {
