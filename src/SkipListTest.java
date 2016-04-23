@@ -560,6 +560,7 @@ public class SkipListTest extends TestCase
     @Test
     public void testDumpNoInserts() throws ClassNotFoundException, IOException
     {
+    	RectangleDisk.bufSize = 4096;
     	String st = "data.txt";
     	MemoryManager m = new MemoryManager(4096, st);
         TestableRandom.setNextInts(2, 2, 2);
@@ -568,7 +569,8 @@ public class SkipListTest extends TestCase
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump: \n"
                 + "Node has depth 1, Value (null)\n"
-                + "SkipList size is: 0", output);
+                + "SkipList size is: 0\n"
+                + "Freelist Blocks: \n(0, 4096)", output);
     }
 
 //    /**
