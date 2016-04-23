@@ -67,9 +67,9 @@ public class SkipListTest extends TestCase
        assertEquals(MemoryManager.fly, s.getNode(s.head).element());
        String output = systemOut().getHistory();
        assertFuzzyEquals("SkipList dump: \n"
-               + "Node has depth 2, Value (null)\n"
-               + "Node has depth 2, Value (a, 1, 2, 3, 4)\n"
-               + "Node has depth 2, Value (b, 1, 2, 3, 4)\n"
+               + "Node has depth 0, Value (null)\n"
+               + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
+               + "Node has depth 0, Value (b, 1, 2, 3, 4)\n"
                + "SkipList size is: 2\n"
                + "Freelist Blocks: \n(0, 4096)", output);
     }
