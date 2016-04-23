@@ -69,7 +69,7 @@ public class SkipList<K extends Comparable<K>, E> {
    /** 
     * Pick a level using a geometric distribution 
     * @return the level
-    */ 
+    */  
    int randomLevel() {   
       int lev;   
       for (lev = 0; rnd.nextInt(2) == 0; lev++)

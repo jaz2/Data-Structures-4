@@ -35,7 +35,7 @@ public class MemoryManager {
 	public int sz;
 	
 	/**
-	 * Keeps track of things in array
+	 * Number of blocks used in array
 	 */
 	public int count;
 	
@@ -81,13 +81,13 @@ public class MemoryManager {
 			System.out.println("Error");
 		}
 		int bytesNeeded = b.length + 2;
-		if (count + b.length  + 2 <= mm.length)
+		if (count + bytesNeeded <= mm.length)
 		{
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-			System.arraycopy(b, 0, mm, b.length + 2, b.length);
+			System.arraycopy(b, 0, mm, count + 2, b.length);
 			//disk.write(b, b.length + 2, b.length);
 			position = b.length + 2;
-			count = count + b.length + 2;			
+			count = count + bytesNeeded;			
 		}
 		else 
 		{

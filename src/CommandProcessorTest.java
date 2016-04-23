@@ -725,6 +725,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle not removed: (1000, 10, 10, 4)", output);
@@ -744,6 +746,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle rejected: (1, 1000, 2, 450)", output);
@@ -763,6 +767,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(d);
         w.close();
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle not removed: (1, 1, 2, 6)", output);
@@ -782,6 +788,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle rejected: (1025, 1, 2, 4)", output);
@@ -801,6 +809,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle rejected: (-1, 1, 2, 4)", output);
@@ -821,6 +831,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle rejected: (-1, -1, 2, 4)", output);
@@ -840,6 +852,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle rejected: (1, -1, 2, 4)", output);
@@ -950,6 +964,8 @@ public class CommandProcessorTest extends TestCase
         w.write(d);
         w.close();
 
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle rejected: (2, 2, 1, 0)", output);
@@ -1033,6 +1049,8 @@ public class CommandProcessorTest extends TestCase
      */
     public void testRegionSearc16() throws IOException, ClassNotFoundException
     {
+        RectangleDisk.dfile = "testf.txt";
+        RectangleDisk.bufSize = 1000;
         String d = "regionsearch   2 2 1 1";
         File f = new File("test.txt");
         FileWriter fi = new FileWriter(f);
