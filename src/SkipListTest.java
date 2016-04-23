@@ -587,10 +587,10 @@ public class SkipListTest extends TestCase
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
-        SkipList<String, Rect> s1 = new SkipList<String, Rect>(m);
+        //SkipList<String, Rect> s1 = new SkipList<String, Rect>(m);
         s.insert(p);
         //s1.controlledInsert(p, 1);
-        s1.dump();
+        s.dump();
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump: \n"
                 + "Node has depth 1, Value (null)\n"
