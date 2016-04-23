@@ -80,6 +80,7 @@ public class MemoryManager {
 		{
 			System.out.println("Error");
 		}
+		int bytesNeeded = b.length + 2;
 		if (count + b.length  + 2 <= mm.length)
 		{
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
@@ -90,65 +91,18 @@ public class MemoryManager {
 		}
 		else 
 		{
-			byte[] nu = new byte[mm.length + sz];
+			byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
 			System.arraycopy(mm, 0, nu, 0, mm.length);
-			mm = nu; 
+			mm = nu;  
 			
 			ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-			System.arraycopy(b, 0, mm, b.length + 2, b.length);
+			System.arraycopy(b, 0, mm, count + 2, b.length);
 			//disk.write(b, b.length + 2, b.length);
-			position = b.length + 2;
-			count = count + b.length + 2;			
+			position = count + 2;
+			count = count + bytesNeeded;			
 		}
-//		boolean found = false;
-//		int position = 0;
-//		for (int i = 0; i <= freeList.length() && found == false; i++)
-//		{
-//			if (b.length <= freeList.get(i).sz)
-//			{
-//				found = true;
-//				position = freeList.get(i).p;
-//				ByteBuffer.wrap(mm).putShort(freeList.get(i).p, (short) b.length);
-//				System.arraycopy(b, 0, mm, freeList.get(i).p + 2, b.length);
-//
-//				FreeBlock f = new FreeBlock(freeList.get(i).sz - (b.length - 2), 
-//						freeList.get(i).p + b.length + 2);				
-//				freeList.remove(freeList.get(i));
-//				freeList.insert(f);
-//			}
-//		}
-//		if (found == false)
-//		{
-//			int endPos = freeList.get(freeList.length() - 1).p;
-//			int endSize = freeList.get(freeList.length() - 1).sz;
-//			//make more mem
-//			if (endPos + endSize == mm.length)
-//			{
-//				FreeBlock nu = new FreeBlock(sz + endSize, endPos);
-//				freeList.remove(freeList.get(freeList.length() - 1));
-//				freeList.insert(nu);
-//			}
-//			else
-//			{
-//				FreeBlock n2 = new FreeBlock(sz, mm.length);				
-//				freeList.insert(n2);
-//			}
-//			byte[] m2 = new byte[mm.length + sz];
-//			System.arraycopy(mm, 0, m2, 0, mm.length);
-//			mm = m2; 
-//			
-//			ByteBuffer.wrap(mm).putShort(freeList.get(freeList.length() - 1).p, (short) b.length);
-//			System.arraycopy(b, 0, mm, freeList.get(freeList.length() - 1).p + 2, b.length);
-//			position = freeList.get(freeList.length() - 1).p;
-//		}
 		return position;
-		//find the one that is greater than or equal to
-	}//extend memory to buffersize 
-	//so at first just have 1 huge block
-	//can start at the beginning
-	//once you allocate, split the block to get the free block
-	//can have a list that stores ints (or where it is and its size)
-	//make a free block class
+	}
 
 	/**
 	 * Gets the node at the position 

@@ -40,6 +40,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
+        RectangleDisk.dfile = "diskf.txt";
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle inserted: (a, 1, 1, 2, 4)", output);
@@ -58,6 +60,8 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
+        RectangleDisk.dfile = "diskf.txt";
+        RectangleDisk.bufSize = 900;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle rejected: (a, 1025, 1, 2, 4)", output);
@@ -1087,13 +1091,15 @@ public class CommandProcessorTest extends TestCase
      */
     @Test 
     public void testDump() throws IOException, ClassNotFoundException
-    {
+    {   	
         String d = "dump";
         File f = new File("test.txt");
         FileWriter fi = new FileWriter(f);
         BufferedWriter w = new BufferedWriter(fi);
         w.write(d);
         w.close();
+        RectangleDisk.dfile = "diskf.txt";
+    	RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump:\n Node has "
@@ -1108,6 +1114,8 @@ public class CommandProcessorTest extends TestCase
     @Test
     public void testNotDump() throws IOException, ClassNotFoundException
     {
+    	RectangleDisk.dfile = "diskf.txt";
+    	RectangleDisk.bufSize = 1000;
         String x = "test should not work";
         File f = new File("test.txt");
         FileWriter fi = new FileWriter(f);
