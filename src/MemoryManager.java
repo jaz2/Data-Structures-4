@@ -93,8 +93,8 @@ public class MemoryManager {
         }
         else 
         {
-            byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
-            System.arraycopy(mm, 0, nu, 0, mm.length - 2);
+            byte[] nu = new byte[mm.length - 1 + Math.max(sz, bytesNeeded)];
+            System.arraycopy(mm, 0, nu, 0, mm.length);
             mm = nu;  
 
             ByteBuffer.wrap(mm).putShort(end, (short) b.length);
