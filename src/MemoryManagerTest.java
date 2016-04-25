@@ -62,8 +62,8 @@ public class MemoryManagerTest extends TestCase{
 		System.out.println("nu length: " + nu.length);
 		assertEquals(7, m.insert(nu));
 		
-		System.out.println("node is " + m.getNode(7) + " but " + nu);
-		assertEquals(nu + 2, m.getNode(7));
+		System.out.println("node is " + m.getNode(7).toString() + " but " + nu.toString());
+		assertEquals(nu, m.getNode(7));
 	}
 
 }
