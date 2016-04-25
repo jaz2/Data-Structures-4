@@ -58,8 +58,8 @@ public class MemoryManagerTest extends TestCase{
 		byte[] in = {76, 70, 86};
 		System.out.println("in length: " + in.length);
 		m.insert(in);
-		System.out.println("mm length is " + m.mm.length);
 		byte[] nu = {89, 68, 67, 72};
+		System.out.println("nu length: " + nu.length);
 		assertEquals(in.length + 2, m.insert(nu));
 	}
 
