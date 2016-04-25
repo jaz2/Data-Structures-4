@@ -118,7 +118,7 @@ public class MemoryManager {
         {
             return null;
         }    
-        short size = ByteBuffer.wrap(mm).getShort(handle /*- 2*/);
+        short size = ByteBuffer.wrap(mm).getShort(handle + 2 /*- 2*/);
         byte[] b = new byte[size];
         System.arraycopy(mm, handle, b, 0, size);
         return b;
