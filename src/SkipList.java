@@ -90,7 +90,7 @@ public class SkipList<K extends Comparable<K>, E> {
             adjustHead(newLevel);
         @SuppressWarnings("unchecked")  //Generic array allocation   
         int[] update = new int[level + 1];   
-        int x = head;        // Start at header node   
+        int x = head;        // Start at header node    
         for (int i = level; i >= 0; i--) { // Find insert position     
             while ((getNode(x).forward[i] != MemoryManager.fly) && 
                     (k.compareTo( 
@@ -313,7 +313,7 @@ public class SkipList<K extends Comparable<K>, E> {
                         + getKV((getNode(getNode(node).forward[0])
                                 .element)).value().toString() + ")");
                 node = getNode(node).forward[0];
-                mm.update(node, getObject(node));
+                //mm.update(node, getObject(node));
                 //node = update(node); 
             } 
             System.out.println("SkipList size is: " + size);
@@ -383,17 +383,6 @@ public class SkipList<K extends Comparable<K>, E> {
         return mm.insert(Serializer.serialize(o));
     }
 
-    /**
-     * Updates and puts into memory manager
-     * @param n the int
-     * @return the insertObject method
-     * @throws IOException 
-     * @throws ClassNotFoundException 
-     */
-    public int update(int n) throws IOException, ClassNotFoundException
-    {
-        return insertObject(getObject(n));       
-    }
 
     //    /**
     //     * For testing purposes

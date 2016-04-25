@@ -65,7 +65,7 @@ public class MemoryManager {
         FreeBlock fb = new FreeBlock(size, 0);
         freeList.insert(fb);
         count = 0;
-    } //for second milestone just create an array
+    }
 
     /**
      * Inserts into the memory manager array 
@@ -75,14 +75,12 @@ public class MemoryManager {
      */
     public int insert(byte[] b) throws IOException
     {
-        //check if b.length is 
         int end = mm.length;
         int position = 0;
         if (b == null)
         {
             System.out.println("Error");
-            return fly;
-            // return null handle
+            return fly; // return null handle
         }
         int bytesNeeded = b.length + 2;
         if (count + bytesNeeded <= mm.length)
