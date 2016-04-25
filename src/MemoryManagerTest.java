@@ -63,7 +63,7 @@ public class MemoryManagerTest extends TestCase{
 		assertEquals(7, m.insert(nu));
 		
 		System.out.println("node is " + m.getNode(7) + " but " + nu);
-		assertEquals(nu, m.getNode(7));
+		assertEquals(nu + 2, m.getNode(7));
 	}
 
 }
