@@ -56,6 +56,7 @@ public class MemoryManagerTest extends TestCase{
 		RectangleDisk.bufSize = 512;
 		MemoryManager m = new MemoryManager(512, s);
 		byte[] in = {76, 70, 86};
+		System.out.println("in length: " + in.length);
 		m.insert(in);
 		byte[] nu = {89, 68, 67, 72};
 		assertEquals(in.length + 2, m.insert(nu));
