@@ -29,6 +29,12 @@ public class MemoryManagerTest extends TestCase{
 		MemoryManager main = new MemoryManager(4096, s);
 	}
 	
+	/**
+	 * Tests when one thing is inserted into 
+	 * Memory Manager
+	 * @throws IOException
+	 */
+	@Test
 	public void testInsert1() throws IOException
 	{
 		RectangleDisk.dfile = "dat.txt";
@@ -36,8 +42,23 @@ public class MemoryManagerTest extends TestCase{
 		RectangleDisk.bufSize = 512;
 		MemoryManager m = new MemoryManager(512, s);
 		byte[] in = {76, 70, 86};
-		//m.insert(in);
 		assertEquals(2, m.insert(in));
+	}
+	
+	/**
+	 * Tests when two things are inserted
+	 * @throws IOException
+	 */
+	public void testInsert2() throws IOException
+	{
+		RectangleDisk.dfile = "dat.txt";
+		String s = RectangleDisk.dfile;
+		RectangleDisk.bufSize = 512;
+		MemoryManager m = new MemoryManager(512, s);
+		byte[] in = {76, 70, 86};
+		m.insert(in);
+		byte[] nu = {89, 68, 67, 72};
+		assertEquals(in.length + 2, m.insert(nu));
 	}
 
 }
