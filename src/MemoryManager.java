@@ -133,6 +133,10 @@ public class MemoryManager {
      */
     public void update(int n, Object o) throws IOException, ClassNotFoundException
     {
+    	if (n == fly)
+    	{
+    		System.out.println("Error!");
+    	}
         byte[] b = Serializer.serialize(o);
         ByteBuffer.wrap(mm).putShort(n - 2, (short) b.length);
         System.arraycopy(b, 0, mm, n, b.length);

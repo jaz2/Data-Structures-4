@@ -80,7 +80,7 @@ public class MemoryManagerTest extends TestCase{
 		assertEquals(7, m.insert(nu));
 		
 		System.out.println(nu.length + " max size " + m.sz);
-		assertEquals(10, m.mm.length);
+		assertEquals(11, m.mm.length);
 	}
 
 }
