@@ -75,12 +75,13 @@ public class MemoryManagerTest extends TestCase{
 		String s = RectangleDisk.dfile;
 		RectangleDisk.bufSize = 5;
 		MemoryManager m = new MemoryManager(5, s);
+		System.out.println("mm length " + m.mm.length);
 		byte[] in = {76, 70, 86};
 		m.insert(in);
 		
 		byte[] nu = {82, 85, 77, 65};
 		assertEquals(7, m.insert(nu));
-		System.out.println("mm length " + m.mm.length);
+		
 		System.out.println(nu.length + " max size " + m.sz);
 		assertEquals(9, m.mm.length);
 	}
