@@ -126,8 +126,8 @@ public class MemoryManager {
 
     /**
      * Updates and puts into memory manager
-     * @param n
-     * @return
+     * @param n the handle
+     * @param o the node 
      * @throws IOException 
      * @throws ClassNotFoundException 
      */

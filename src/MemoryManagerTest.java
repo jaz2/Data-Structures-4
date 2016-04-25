@@ -82,5 +82,15 @@ public class MemoryManagerTest extends TestCase{
 		System.out.println(nu.length + " max size " + m.sz);
 		assertEquals(11, m.mm.length);
 	}
+	
+	/**
+	 * Tests when update is called
+	 */
+	@Test
+	public void testUpdate()
+	{
+		RectangleDisk.dfile = "dat.txt";
+		RectangleDisk.bufSize = 5;
+	}
 
 }
