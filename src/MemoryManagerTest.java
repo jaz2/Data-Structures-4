@@ -28,5 +28,16 @@ public class MemoryManagerTest extends TestCase{
 		String s = "data.txt";
 		MemoryManager main = new MemoryManager(4096, s);
 	}
+	
+	public void testInsert1() throws IOException
+	{
+		RectangleDisk.dfile = "dat.txt";
+		String s = RectangleDisk.dfile;
+		RectangleDisk.bufSize = 512;
+		MemoryManager m = new MemoryManager(512, s);
+		byte[] in = {76, 70, 86};
+		//m.insert(in);
+		assertEquals(2, m.insert(in));
+	}
 
 }
