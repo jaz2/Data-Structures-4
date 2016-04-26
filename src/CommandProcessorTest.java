@@ -146,7 +146,7 @@ public class CommandProcessorTest extends TestCase
         assertFuzzyEquals("Rectangle inserted: (a, 0, 0, 1024, 1024)", output);
     }
 
-   
+
 
     /**
      * Tests when the x is at 1024
@@ -531,7 +531,7 @@ public class CommandProcessorTest extends TestCase
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         //assertFuzzyEquals("Rectangle inserted: (a, 100, 0, 5, 5)\n"
-               // + "Rectangle removed: (a, 100, 0, 5, 5)", output);
+        // + "Rectangle removed: (a, 100, 0, 5, 5)", output);
         assertFuzzyEquals("Rectangle inserted: (a, 100, 0, 5, 5)", output);
     }
 
@@ -612,23 +612,23 @@ public class CommandProcessorTest extends TestCase
         assertFuzzyEquals("Rectangle rejected: (1, 1, 0, 4)", output);
     }
 
-//    /**
-//     * Tests when the width is acceptable
-//     * @throws IOException
-//     */
-//    @Test
-//    public void testRemOutWOK() throws IOException
-//    {
-//        String s = "remove 1 1 2 4";
-//        File f = new File("test.txt");
-//        FileWriter fi = new FileWriter(f);
-//        BufferedWriter w = new BufferedWriter(fi);
-//        w.write(s);
-//        w.close();
-//        new CommandProcessor(f);
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("Rectangle inserted: (a, 1, 1, 2, 4)", output);
-//    }
+    //    /**
+    //     * Tests when the width is acceptable
+    //     * @throws IOException
+    //     */
+    //    @Test
+    //    public void testRemOutWOK() throws IOException
+    //    {
+    //        String s = "remove 1 1 2 4";
+    //        File f = new File("test.txt");
+    //        FileWriter fi = new FileWriter(f);
+    //        BufferedWriter w = new BufferedWriter(fi);
+    //        w.write(s);
+    //        w.close();
+    //        new CommandProcessor(f);
+    //        String output = systemOut().getHistory();
+    //        assertFuzzyEquals("Rectangle inserted: (a, 1, 1, 2, 4)", output);
+    //    }
 
     /**
      * Tests when the remove height is out of bounds
@@ -669,23 +669,23 @@ public class CommandProcessorTest extends TestCase
         assertFuzzyEquals("Rectangle rejected: (1, 1, 2, 4000)", output);
     }
 
-//    /**
-//     * Tests when the insert height is acceptable
-//     * @throws IOException 
-//     */
-//    @Test
-//    public void testRemoveOutOfBoundsHOK() throws IOException
-//    {
-//        String s = "remove 1 1 2 4";
-//        File f = new File("test.txt");
-//        FileWriter fi = new FileWriter(f);
-//        BufferedWriter w = new BufferedWriter(fi);
-//        w.write(s);
-//        w.close();
-//        new CommandProcessor(f);
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("Rectangle removed: (1, 1, 2, 4)", output);
-//    }
+    //    /**
+    //     * Tests when the insert height is acceptable
+    //     * @throws IOException 
+    //     */
+    //    @Test
+    //    public void testRemoveOutOfBoundsHOK() throws IOException
+    //    {
+    //        String s = "remove 1 1 2 4";
+    //        File f = new File("test.txt");
+    //        FileWriter fi = new FileWriter(f);
+    //        BufferedWriter w = new BufferedWriter(fi);
+    //        w.write(s);
+    //        w.close();
+    //        new CommandProcessor(f);
+    //        String output = systemOut().getHistory();
+    //        assertFuzzyEquals("Rectangle removed: (1, 1, 2, 4)", output);
+    //    }
 
 
     /**
@@ -812,7 +812,7 @@ public class CommandProcessorTest extends TestCase
         //assertFuzzyEquals("Rectangle not removed: (1, 1, 2, 6)", output);
         assertFuzzyEquals("", output);
     }
-    
+
     /**
      * Tests when the x is out of bounds
      * @throws IOException
@@ -901,24 +901,24 @@ public class CommandProcessorTest extends TestCase
         assertFuzzyEquals("Rectangle rejected: (1, -1, 2, 4)", output);
     }
 
-//    /**
-//     * Tests when the points are on 0 and 1024
-//     * @throws IOException 
-//     */
-//    @Test
-//    public void testStillRemBounds() throws IOException
-//    {
-//        String s = "remove 0 0 1024 1024";
-//        File f = new File("test.txt");
-//        FileWriter fi = new FileWriter(f);
-//        BufferedWriter w = new BufferedWriter(fi);
-//        w.write(s);
-//        w.close();
-//        new CommandProcessor(f);
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("Rectangle removed: (a, 0, 0, 1024, 1024)", output);
-//    }
-    
+    //    /**
+    //     * Tests when the points are on 0 and 1024
+    //     * @throws IOException 
+    //     */
+    //    @Test
+    //    public void testStillRemBounds() throws IOException
+    //    {
+    //        String s = "remove 0 0 1024 1024";
+    //        File f = new File("test.txt");
+    //        FileWriter fi = new FileWriter(f);
+    //        BufferedWriter w = new BufferedWriter(fi);
+    //        w.write(s);
+    //        w.close();
+    //        new CommandProcessor(f);
+    //        String output = systemOut().getHistory();
+    //        assertFuzzyEquals("Rectangle removed: (a, 0, 0, 1024, 1024)", output);
+    //    }
+
     /**
      * Tests the case where the name is called to be removed
      * @throws ClassNotFoundException 
@@ -937,7 +937,7 @@ public class CommandProcessorTest extends TestCase
         //assertFuzzyEquals("Rectangle not found: name", output);
         assertFuzzyEquals("", output);
     }
-    
+
     /**
      * Tests intersections
      * @throws ClassNotFoundException 
@@ -1105,7 +1105,7 @@ public class CommandProcessorTest extends TestCase
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         //assertFuzzyEquals("Rectangles intersecting "
-               // + "region (2, 2, 1, 1):", output);
+        // + "region (2, 2, 1, 1):", output);
         assertFuzzyEquals("", output);
     }
 

@@ -75,7 +75,7 @@ public class MemoryManager {
      */
     public int insert(byte[] b) throws IOException
     {
-        int end = mm.length;
+        //int end = mm.length;
         int position = 0;
         if (b == null)
         {
@@ -84,15 +84,18 @@ public class MemoryManager {
         }
         int bytesNeeded = b.length + 2;
         if (count + bytesNeeded <= mm.length)
-        {
+        {       	
             ByteBuffer.wrap(mm).putShort(count, (short) b.length);
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
+            FreeBlock f = new FreeBlock(mm.length - bytesNeeded, position);
             count = count + bytesNeeded;            
         }
         else 
         {
+        	FreeBlock f = new FreeBlock(mm.length, mm.length + 1);
+        	freeList.insert(f); //see if this works
             byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
             System.arraycopy(mm, 0, nu, 0, mm.length);
             mm = nu;  
@@ -102,7 +105,7 @@ public class MemoryManager {
             //disk.write(b, b.length + 2, b.length);
             position = count/*end*/ + 2;
             count = count + bytesNeeded;            
-        }
+        } //every time you add something you need to update the freeblock
         return position;
     }
 
@@ -126,17 +129,18 @@ public class MemoryManager {
 
     /**
      * Updates and puts into memory manager
-     * @param n the handle
+     * @param h the handle
      * @param o the node 
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void update(int h, Object o) throws IOException, ClassNotFoundException
+    public void update(int h, Object o) 
+            throws IOException, ClassNotFoundException
     {
-    	if (h == fly)
-    	{
-    		System.out.println("Error!");
-    	}
+        if (h == fly)
+        {
+            System.out.println("Error!");
+        }
         byte[] b = Serializer.serialize(o);
         ByteBuffer.wrap(mm).putShort(h - 2, (short) b.length);
         System.arraycopy(b, 0, mm, h, b.length);

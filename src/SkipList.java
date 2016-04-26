@@ -84,9 +84,9 @@ public class SkipList<K extends Comparable<K>, E> {
      */ 
     public boolean insert(KVPair<K, E> it) 
             throws IOException, ClassNotFoundException {  
-    	if (it == null)
+        if (it == null)
         {
-        	return false;
+            return false;
         }
         int newLevel = randomLevel();   
         Comparable<K> k = it.key();  
@@ -281,7 +281,7 @@ public class SkipList<K extends Comparable<K>, E> {
         oldHead.forward = nu;
         //release head
         head = insertObject(oldHead);
-        //head = update(head);
+        //head = update(head); 
         level = lev;
     }
 
@@ -299,7 +299,7 @@ public class SkipList<K extends Comparable<K>, E> {
             System.out.println("Node has depth 1, Value (null)");
             System.out.println("SkipList size is: 0");
             System.out.println("Freelist Blocks: \n(0, " 
-                + RectangleDisk.bufSize + ")");
+                + /*RectangleDisk.bufSize*/ /*mm.mm.length*/ RectangleDisk.bufSize + ")");
         }
         else 
         {
@@ -322,7 +322,7 @@ public class SkipList<K extends Comparable<K>, E> {
             } 
             System.out.println("SkipList size is: " + size);
             System.out.println("Freelist Blocks: \n(0, " 
-                + /*RectangleDisk.bufSize*/RectangleDisk.bufSize + ")");
+                + /*RectangleDisk.bufSizemm.mm.length*/ RectangleDisk.bufSize + ")");
         }
     }
 
@@ -380,7 +380,6 @@ public class SkipList<K extends Comparable<K>, E> {
      * @param o the object
      * @return that it inserted into mm
      * @throws IOException 
-     * @throws ClassNotFoundException 
      */
     public int insertObject(Object o) throws IOException
     {
@@ -403,7 +402,7 @@ public class SkipList<K extends Comparable<K>, E> {
     //            adjustHead(newLevel);
     //        @SuppressWarnings("unchecked") // Generic array allocation
     //        int[] update = new int[level + 1];
-    //        SkipNode x = ((SkipNode)getObject(head));   // Start at header node
+    // SkipNode x = ((SkipNode)getObject(head));   // Start at header node
     //        for (int i = level; i >= 0; i--) { // Find insert position
     //            while ((x.forward[i] != null) &&
     //                    (k.compareTo((x.forward[i]).element().key()) > 0))
@@ -481,7 +480,7 @@ public class SkipList<K extends Comparable<K>, E> {
     //                                                ", " + node2.forward[0]
     //                                                    .element
     //                                                    .value()
-    //                                                        .toString() + ")");
+    //                                      .toString() + ")");
     //                    }
     //                }
     //

@@ -139,7 +139,7 @@ public class CommandProcessor {
                     }
                     //                    else 
                     //                    {
-                    //                        db.skipRemoveCoord(n1, n2, n3, n4);
+                    //    db.skipRemoveCoord(n1, n2, n3, n4);
                     //                    }
                 } 
                 else // case where it's remove name

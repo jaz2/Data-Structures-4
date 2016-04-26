@@ -26,6 +26,23 @@ public class SkipListTest extends TestCase
     @Before
     public void setUp() throws Exception {
     }
+    
+    public void testEmpty() throws IOException, ClassNotFoundException
+    {
+    	MemoryManager m = new MemoryManager(4096, "Data.txt");
+    	Rect re = new Rect("a", 1, 2, 3, 4);
+        //RectangleDisk.bufSize = 4096;
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+        s.dump();
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("SkipList dump: \n"
+                + "Node has depth 0, Value (null)\n"
+                + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
+                + "Node has depth 0, Value (b, 1, 2, 3, 4)\n"
+                + "SkipList size is: 2\n"
+                + "Freelist Blocks: \n(0, 4096)", output);
+    }
 
     /**
      * Tests the insert in SkipList
@@ -606,7 +623,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "SkipList size is: 1\n"
-                + "Freelist Blocks: \n(0, 512)", output);
+                + "Freelist Blocks: \n(0, " + m.mm.length + ")", output);
     }
 
     /**
@@ -637,7 +654,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "Node has depth 1, Value (hey, 1, 2, 12, 4)\n"
                 + "SkipList size is: 2\n"
-                + "Freelist Blocks: \n(0, 512)", output);
+                + "Freelist Blocks: \n(0, " + /*m.mm.length*/RectangleDisk.bufSize + ")", output);
     }    
 
 //    /**
