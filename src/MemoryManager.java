@@ -101,7 +101,7 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, end + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = end + 2;
-            count = count + bytesNeeded + 2;            
+            count = count + bytesNeeded;            
         }
         return position;
     }
