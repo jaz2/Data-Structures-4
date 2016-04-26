@@ -138,7 +138,7 @@ public class MemoryManager {
     		System.out.println("Error!");
     	}
         byte[] b = Serializer.serialize(o);
-        ByteBuffer.wrap(mm).putShort(h /*- 2*/, (short) b.length);
+        ByteBuffer.wrap(mm).putShort(h + 2/*- 2*/, (short) b.length);
         System.arraycopy(b, 0, mm, h, b.length);
         //disk.write(b, n, b.length);
     }
