@@ -100,7 +100,7 @@ public class MemoryManager {
             ByteBuffer.wrap(mm).putShort(end/*count*/, (short) b.length);
             System.arraycopy(b, 0, mm, end/*count + 2*/, b.length);
             //disk.write(b, b.length + 2, b.length);
-            position = end/*count + 2*/;
+            position = end/*count*/ + 2;
             count = count + bytesNeeded;            
         }
         return position;
