@@ -27,6 +27,11 @@ public class MemoryManager {
      * FreeList for FreeBlocks
      */
     public List freeList;
+    
+    /**
+     * The first free block
+     */
+    public FreeBlock fb;
 
     /**
      * Keeps track of size
@@ -62,7 +67,7 @@ public class MemoryManager {
         sz = size;
         fly = -1;
         freeList = new List();
-        FreeBlock fb = new FreeBlock(size, 0);
+        fb = new FreeBlock(size, 0);
         freeList.insert(fb);
         count = 0;
     }
@@ -84,16 +89,29 @@ public class MemoryManager {
         }
         int bytesNeeded = b.length + 2;
         if (count + bytesNeeded <= mm.length)
-        {       	
+        {    
+        	
             ByteBuffer.wrap(mm).putShort(count, (short) b.length);
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
             FreeBlock f = new FreeBlock(mm.length - bytesNeeded, position);
+            freeList.remove(fb);
+            freeList.get(mm.length - bytesNeeded);
+            freeList.insert(f);
+            fb = f;
             count = count + bytesNeeded;            
         }
         else 
         {
+        	int newSpace = 0;
+        	int leftover = mm.length - count;
+			if(leftover + ((bytesNeeded/sz))*sz >= bytesNeeded) //we good
+			{ 
+				newSpace = mm.length + ((bytesNeeded/sz))*sz;
+			}
+			else newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
+			/*while (leftover + i*bufSize < bytesNeeded)
         	FreeBlock f = new FreeBlock(mm.length, mm.length + 1);
         	freeList.insert(f); //see if this works
             byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
@@ -104,6 +122,7 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, count/*end*/ + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count/*end*/ + 2;
+            
             count = count + bytesNeeded;            
         } //every time you add something you need to update the freeblock
         return position;
