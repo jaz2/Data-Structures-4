@@ -83,7 +83,11 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws ClassNotFoundException 
      */ 
     public boolean insert(KVPair<K, E> it) 
-            throws IOException, ClassNotFoundException {   
+            throws IOException, ClassNotFoundException {  
+    	if (it == null)
+        {
+        	return false;
+        }
         int newLevel = randomLevel();   
         Comparable<K> k = it.key();  
         if (level < newLevel)     
@@ -92,13 +96,13 @@ public class SkipList<K extends Comparable<K>, E> {
         int[] update = new int[level + 1];   
         int x = head;        // Start at header node    
         for (int i = level; i >= 0; i--) { // Find insert position     
-            while ((getNode(x).forward[i] != MemoryManager.fly) && 
-                    (k.compareTo( 
-                            getKV(getNode(
-                                    getNode(x).forward[i]).
-                                        element()).key())) > 0)
+            while (((getNode(x)).forward[i] != MemoryManager.fly) && 
+                    (k.compareTo((( 
+                            getKV((getNode(
+                                    (getNode(x)).forward[i])).
+                                        element())).key())) > 0))
 
-                x = getNode(x).forward[i];   
+                x = (getNode(x)).forward[i];   
             update[i] = x;               // Track end at level i   
         }   
         int kv = insertObject(it);
@@ -269,7 +273,7 @@ public class SkipList<K extends Comparable<K>, E> {
         {
             nu[i] = (getNode(head)).forward[i];
         }
-        for (int i = getNode(head).forward.length; i <= lev; i++)
+        for (int i = (getNode(head)).forward.length; i <= lev; i++)
         {
             nu[i] = MemoryManager.fly;
         }
@@ -307,10 +311,10 @@ public class SkipList<K extends Comparable<K>, E> {
             for (int i = 1; i <= size + 0; i++)
             {
                 System.out.println("Node has depth " 
-                    + getNode(node).getLevel() +
-                        ", Value (" + getKV((getNode(getNode(node)
-                                .forward[0]).element)).key() + ", "
-                        + getKV((getNode(getNode(node).forward[0])
+                    + (getNode(node)).getLevel() +
+                        ", Value (" + getKV(getNode(getNode(node)
+                                .forward[0]).element).key() + ", "
+                        + (getKV(getNode(getNode(node).forward[0])
                                 .element)).value().toString() + ")");
                 node = getNode(node).forward[0];
                 //mm.update(node, getObject(node));
@@ -318,7 +322,7 @@ public class SkipList<K extends Comparable<K>, E> {
             } 
             System.out.println("SkipList size is: " + size);
             System.out.println("Freelist Blocks: \n(0, " 
-                + RectangleDisk.bufSize + ")");
+                + /*RectangleDisk.bufSize*/mm.mm.length + ")");
         }
     }
 
