@@ -97,10 +97,10 @@ public class MemoryManager {
             System.arraycopy(mm, 0, nu, 0, mm.length);
             mm = nu;  
 
-            ByteBuffer.wrap(mm).putShort(end, (short) b.length);
-            System.arraycopy(b, 0, mm, end + 2, b.length);
+            ByteBuffer.wrap(mm).putShort(/*end*/count, (short) b.length);
+            System.arraycopy(b, 0, mm, /*end*/count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
-            position = end + 2;
+            position = /*end*/count + 2;
             count = count + bytesNeeded;            
         }
         return position;
