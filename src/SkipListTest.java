@@ -29,6 +29,7 @@ public class SkipListTest extends TestCase
     
     public void testEmpty() throws IOException, ClassNotFoundException
     {
+    	RectangleDisk.bufSize = 4096;
     	MemoryManager m = new MemoryManager(4096, "Data.txt");
     	Rect re = new Rect("a", 1, 2, 3, 4);
         //RectangleDisk.bufSize = 4096;
@@ -37,10 +38,8 @@ public class SkipListTest extends TestCase
         s.dump();
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump: \n"
-                + "Node has depth 0, Value (null)\n"
-                + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
-                + "Node has depth 0, Value (b, 1, 2, 3, 4)\n"
-                + "SkipList size is: 2\n"
+                + "Node has depth 1, Value (null)\n"
+                + "SkipList size is: 0\n"
                 + "Freelist Blocks: \n(0, 4096)", output);
     }
 
