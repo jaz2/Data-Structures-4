@@ -101,7 +101,7 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, end + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = end + 2;
-            count = count + bytesNeeded;            
+            count = count + bytesNeeded + 2;            
         }
         return position;
     }
@@ -131,15 +131,15 @@ public class MemoryManager {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void update(int n, Object o) throws IOException, ClassNotFoundException
+    public void update(int h, Object o) throws IOException, ClassNotFoundException
     {
-    	if (n == fly)
+    	if (h == fly)
     	{
     		System.out.println("Error!");
     	}
         byte[] b = Serializer.serialize(o);
-        ByteBuffer.wrap(mm).putShort(n /*- 2*/, (short) b.length);
-        System.arraycopy(b, 0, mm, n, b.length);
+        ByteBuffer.wrap(mm).putShort(h /*- 2*/, (short) b.length);
+        System.arraycopy(b, 0, mm, h, b.length);
         //disk.write(b, n, b.length);
     }
 
