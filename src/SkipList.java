@@ -108,7 +108,7 @@ public class SkipList<K extends Comparable<K>, E> {
         int kv = insertObject(it);
         x = insertObject(new SkipNode(kv, newLevel));   
         for (int i = 0; i <= newLevel; i++)  
-        {      // Splice into list
+        {      // Splice into list 
             SkipNode save = getNode(x);
             save.forward[i] = getNode(update[i]).forward[i]; // Who x points to
             mm.update(x, save);
