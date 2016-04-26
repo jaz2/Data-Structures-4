@@ -32,7 +32,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException 
      */
     @Test
-    public void testInsertInBounds() throws IOException, ClassNotFoundException
+    public void testInsertInBounds() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 4";
         File f = new File("test.txt");
@@ -52,7 +53,8 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException
      */
     @Test
-    public void testInsOutXGreat() throws IOException, ClassNotFoundException
+    public void testInsOutXGreat() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1025 1 2 4";
         File f = new File("test.txt");
@@ -72,7 +74,8 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException 
      */
     @Test
-    public void testInsertOutOfBoundsXLess() throws IOException, ClassNotFoundException
+    public void testInsertOutOfBoundsXLess() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a -1 1 2 4";
         File f = new File("test.txt");
@@ -233,7 +236,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsWLess() throws IOException, ClassNotFoundException
+    public void testInsertOutOfBoundsWLess() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 -1 4";
         File f = new File("test.txt");
@@ -311,7 +315,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsHLess() throws IOException, ClassNotFoundException
+    public void testInsertOutOfBoundsHLess() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 -4";
         File f = new File("test.txt");
@@ -349,10 +354,11 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsHOK() throws IOException, ClassNotFoundException
+    public void testInsertOutOfBoundsHOK() 
+            throws IOException, ClassNotFoundException
     {
-    	RectangleDisk.bufSize = 1000;
-    	RectangleDisk.dfile = "s.txt";
+        RectangleDisk.bufSize = 1000;
+        RectangleDisk.dfile = "s.txt";
         String s = "insert a 1 1 2 4";
         File f = new File("test.txt");
         FileWriter fi = new FileWriter(f);
@@ -373,7 +379,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testInsertOutOfBoundsHZero() throws IOException, ClassNotFoundException
+    public void testInsertOutOfBoundsHZero() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1 2 0";
         File f = new File("test.txt");
@@ -391,7 +398,8 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void testInsTotalWidthNotinBoundsG() throws IOException, ClassNotFoundException
+    public void testInsTotalWidthNotinBoundsG() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1000 10 2000 4";
         File f = new File("test.txt");
@@ -409,7 +417,8 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void testInsTotalWidthNotinBoundsL() throws IOException, ClassNotFoundException
+    public void testInsTotalWidthNotinBoundsL() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1000 10 -2000 4";
         File f = new File("test.txt");
@@ -428,7 +437,8 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void testInsTotalinBounds() throws IOException, ClassNotFoundException
+    public void testInsTotalinBounds() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1000 10 10 4";
         File f = new File("test.txt");
@@ -449,7 +459,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testInsTotalHeightNotinBounds() throws IOException, ClassNotFoundException
+    public void testInsTotalHeightNotinBounds() 
+            throws IOException, ClassNotFoundException
     {
         String s = "insert a 1 1000 2 450";
         File f = new File("test.txt");
@@ -549,7 +560,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testRemoveOfBoundsWLess() throws IOException, ClassNotFoundException
+    public void testRemoveOfBoundsWLess() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 -1 4";
         File f = new File("test.txt");
@@ -624,7 +636,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException 
      */
     @Test
-    public void testRemOutOfBoundsHLess() throws IOException, ClassNotFoundException
+    public void testRemOutOfBoundsHLess() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 2 -4";
         File f = new File("test.txt");
@@ -681,7 +694,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testRemoveOutOfBoundsHZero() throws IOException, ClassNotFoundException
+    public void testRemoveOutOfBoundsHZero() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1 2 0";
         File f = new File("test.txt");
@@ -699,7 +713,8 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void testRemTotalWidthNotinBoundsG() throws IOException, ClassNotFoundException
+    public void testRemTotalWidthNotinBoundsG() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove 1000 10 2000 4";
         File f = new File("test.txt");
@@ -717,7 +732,8 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void testRemTotalWidthNotinBoundsL() throws IOException, ClassNotFoundException
+    public void testRemTotalWidthNotinBoundsL() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove 1000 10 -2000 4";
         File f = new File("test.txt");
@@ -736,7 +752,8 @@ public class CommandProcessorTest extends TestCase
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void testRemTotalinBounds() throws IOException, ClassNotFoundException
+    public void testRemTotalinBounds() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove 1000 10 10 4";
         File f = new File("test.txt");
@@ -758,7 +775,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testRemTotalHeightNotinBounds() throws IOException, ClassNotFoundException
+    public void testRemTotalHeightNotinBounds() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove 1 1000 2 450";
         File f = new File("test.txt");
@@ -780,7 +798,7 @@ public class CommandProcessorTest extends TestCase
      */
     @Test
     public void testRemoveCoord() throws IOException, ClassNotFoundException
-    { //TODO check if this works
+    {
         String d = "remove 1 1 2 6";
         File f = new File("test.txt");
         FileWriter fi = new FileWriter(f);
@@ -822,7 +840,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException
      */
     @Test
-    public void testRemoveOutOfBoundsXLess() throws IOException, ClassNotFoundException
+    public void testRemoveOutOfBoundsXLess() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove -1 1 2 4";
         File f = new File("test.txt");
@@ -844,7 +863,8 @@ public class CommandProcessorTest extends TestCase
      * 
      */
     @Test
-    public void testRemoveBothLessThan() throws IOException, ClassNotFoundException
+    public void testRemoveBothLessThan() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove -1 -1 2 4";
         File f = new File("test.txt");
@@ -865,7 +885,8 @@ public class CommandProcessorTest extends TestCase
      * @throws ClassNotFoundException  
      */
     @Test
-    public void testRemoveOutOfBoundsYLess() throws IOException, ClassNotFoundException
+    public void testRemoveOutOfBoundsYLess() 
+            throws IOException, ClassNotFoundException
     {
         String s = "remove 1 -1 2 4";
         File f = new File("test.txt");
@@ -1133,7 +1154,7 @@ public class CommandProcessorTest extends TestCase
      */
     @Test 
     public void testDump() throws IOException, ClassNotFoundException
-    {   	
+    {       
         String d = "dump";
         File f = new File("test.txt");
         FileWriter fi = new FileWriter(f);
@@ -1141,7 +1162,7 @@ public class CommandProcessorTest extends TestCase
         w.write(d);
         w.close();
         RectangleDisk.dfile = "diskf.txt";
-    	RectangleDisk.bufSize = 1000;
+        RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump:\n Node has "
@@ -1157,8 +1178,8 @@ public class CommandProcessorTest extends TestCase
     @Test
     public void testNotDump() throws IOException, ClassNotFoundException
     {
-    	RectangleDisk.dfile = "diskf.txt";
-    	RectangleDisk.bufSize = 1000;
+        RectangleDisk.dfile = "diskf.txt";
+        RectangleDisk.bufSize = 1000;
         String x = "test should not work";
         File f = new File("test.txt");
         FileWriter fi = new FileWriter(f);

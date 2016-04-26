@@ -322,7 +322,7 @@ public class SkipList<K extends Comparable<K>, E> {
             } 
             System.out.println("SkipList size is: " + size);
             System.out.println("Freelist Blocks: \n(0, " 
-                + /*RectangleDisk.bufSize*/mm.mm.length + ")");
+                + /*RectangleDisk.bufSize*/RectangleDisk.bufSize + ")");
         }
     }
 
