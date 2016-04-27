@@ -91,14 +91,14 @@ public class MemoryManager {
         if (count + bytesNeeded <= mm.length)
         {    
         	
-        	freeList.get(count);
-            freeList.remove(fb);
+        	
             ByteBuffer.wrap(mm).putShort(count, (short) b.length);
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
                         
-            
+            freeList.get(count);
+            freeList.remove(fb);
            // freeList.insert(f);
             //fb = f;
             count = count + bytesNeeded;
