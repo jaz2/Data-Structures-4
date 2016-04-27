@@ -90,7 +90,7 @@ public class MemoryManager {
         int bytesNeeded = b.length + 2;
         if (count + bytesNeeded <= mm.length)
         {           	
-        	freeList.get(count);
+        	freeList.get(0);
             freeList.remove(fb);
             ByteBuffer.wrap(mm).putShort(count, (short) b.length);
             System.arraycopy(b, 0, mm, count + 2, b.length);
