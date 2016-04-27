@@ -90,14 +90,15 @@ public class MemoryManager {
         int bytesNeeded = b.length + 2;
         if (count + bytesNeeded <= mm.length)
         {           	
-        	freeList.get(count + 2);
+        	freeList.get(count);
             freeList.remove(fb);
             ByteBuffer.wrap(mm).putShort(count, (short) b.length);
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
             //40 bytes is the size
-            
+            //where ever it ends, update those two bytes to be a new block
+            //if u have 300, and take out 200,you get left with 100
            // freeList.insert(f);
             //fb = f;
             count = count + bytesNeeded;
