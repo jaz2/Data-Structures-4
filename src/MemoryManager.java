@@ -95,7 +95,7 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
-            FreeBlock f = new FreeBlock(count + 2, position);
+            FreeBlock f = new FreeBlock(b.length, position);
             freeList.remove(fb);
             freeList.get(count);
             freeList.insert(f);
