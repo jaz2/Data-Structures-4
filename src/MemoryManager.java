@@ -95,12 +95,11 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
-            //40 bytes is the size
             //where ever it ends, update those two bytes to be a new block
             //if u have 300, and take out 200,you get left with 100
            // freeList.insert(f);
             //fb = f;
-            freeList.get(count + 2);
+            freeList.get(position);
             freeList.remove(fb);
             count = count + bytesNeeded;
             FreeBlock f = new FreeBlock(count, position);
