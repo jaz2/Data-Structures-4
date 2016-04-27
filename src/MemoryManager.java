@@ -97,7 +97,7 @@ public class MemoryManager {
             position = count + 2;
             FreeBlock f = new FreeBlock(bytesNeeded, position);
             
-            freeList.get(position);
+            freeList.get(position -2);
             freeList.remove(fb);
             freeList.insert(f);
             fb = f;
