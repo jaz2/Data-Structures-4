@@ -96,8 +96,8 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
-                        
-            freeList.get(position);
+            
+            freeList.get(mm.length - position);
             freeList.remove(fb);
            // freeList.insert(f);
             //fb = f;
