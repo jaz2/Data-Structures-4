@@ -97,7 +97,7 @@ public class MemoryManager {
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
             
-            freeList.get(Math.min(count, mm.length));
+            freeList.get(bytesNeeded);
             freeList.remove(fb);
            // freeList.insert(f);
             //fb = f;
