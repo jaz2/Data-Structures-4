@@ -102,8 +102,9 @@ public class MemoryManager {
             //fb = f;
             count = count + bytesNeeded;
             FreeBlock f = new FreeBlock(count, position);
-            freeList.insert(f);
             fb = f;
+            freeList.insert(fb);
+            //fb = f;
         }
         else 
         { //look at the last free block if it's longer than what u need
