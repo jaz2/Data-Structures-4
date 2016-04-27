@@ -107,10 +107,9 @@ public class MemoryManager {
 					freeList.get(i);
 					freeList.remove(fb);
 					count = count + bytesNeeded;
-					FreeBlock f = new FreeBlock(mm.length - bytesNeeded, mm.length - count);
+					FreeBlock f = new FreeBlock(mm.length - b.length, mm.length - count);
 					fb = f;
 					freeList.insert(fb);
-
 				}
 			}
 			//if u have 300, and take out 200,you get left with 100
