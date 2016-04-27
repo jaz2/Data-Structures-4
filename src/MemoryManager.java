@@ -128,15 +128,15 @@ public class MemoryManager {
 			//that was using the header but never use it
 			//can be done in adjust head, so take the handle for the old header 
 			//and tell mm to delete it and then insert the new one
-			//        	int newSpace = 0;
-			//        	int leftover = mm.length - count;
-			//			if(leftover + ((bytesNeeded/sz))*sz >= bytesNeeded) //we good
-			//			{ 
-			//				newSpace = mm.length + ((bytesNeeded/sz))*sz;
-			//			}
-			//			else newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
-			//        	FreeBlock f = new FreeBlock(mm.length, mm.length + 1);
-			//        	freeList.insert(f); //see if this works
+			        	int newSpace = 0;
+			        	int leftover = mm.length - count;
+						if(leftover + ((bytesNeeded/sz))*sz >= bytesNeeded) //we good
+						{ 
+							newSpace = mm.length + ((bytesNeeded/sz))*sz;
+						}
+						else newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
+			        	FreeBlock f = new FreeBlock(mm.length, mm.length + 1);
+			        	freeList.insert(f); //see if this works
 			byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
 			System.arraycopy(mm, 0, nu, 0, mm.length);
 			mm = nu;  
