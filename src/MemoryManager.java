@@ -97,15 +97,12 @@ public class MemoryManager {
             position = count + 2;
             //where ever it ends, update those two bytes to be a new block
             //if u have 300, and take out 200,you get left with 100
-           // freeList.insert(f);
-            //fb = f;
-            freeList.get(position);
-            freeList.remove(fb);
-            count = count + bytesNeeded;
-            FreeBlock f = new FreeBlock(count, position);
-            fb = f;
-            freeList.insert(fb);
-            //fb = f;
+//            freeList.get(position);
+//            freeList.remove(fb);
+//            count = count + bytesNeeded;
+//            FreeBlock f = new FreeBlock(count, position);
+//            fb = f;
+//            freeList.insert(fb);
         }
         else 
         { //look at the last free block if it's longer than what u need
