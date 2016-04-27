@@ -95,13 +95,16 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
-            FreeBlock f = new FreeBlock(mm.length - count, position);
+            
             
             freeList.get(count);
             freeList.remove(fb);
+           // freeList.insert(f);
+            //fb = f;
+            count = count + bytesNeeded;
+            FreeBlock f = new FreeBlock(mm.length - count, position);
             freeList.insert(f);
             fb = f;
-            count = count + bytesNeeded;            
         }
         else 
         { //look at the last free block if it's longer than what u need
