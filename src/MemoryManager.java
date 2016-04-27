@@ -96,12 +96,12 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count + 2;
-            
+            //40 bytes is the size
             
            // freeList.insert(f);
             //fb = f;
             count = count + bytesNeeded;
-            FreeBlock f = new FreeBlock(mm.length - position, count);
+            FreeBlock f = new FreeBlock(count, position);
             freeList.insert(f);
             fb = f;
         }
