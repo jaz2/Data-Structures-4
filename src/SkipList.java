@@ -300,7 +300,7 @@ public class SkipList<K extends Comparable<K>, E> {
             System.out.println("Node has depth 1, Value (null)");
             System.out.println("SkipList size is: 0");
             System.out.println("Freelist Blocks: \n(0, " 
-                + /*RectangleDisk.bufSize*/ /*mm.mm.length*/ RectangleDisk.bufSize + ")");
+                + RectangleDisk.bufSize + ")");
         }
         else 
         {
@@ -323,7 +323,7 @@ public class SkipList<K extends Comparable<K>, E> {
             } 
             System.out.println("SkipList size is: " + size);
             System.out.println("Freelist Blocks: \n(0, " 
-                + /*RectangleDisk.bufSizemm.mm.length*/ RectangleDisk.bufSize + ")");
+                + /*RectangleDisk.bufSize*/mm.mm.length + ")");
         }
     }
 
