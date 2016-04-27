@@ -357,7 +357,7 @@ public class SkipList<K extends Comparable<K>, E> {
         {
             return null;
         }
-        return ((KVPair<K, E>)Serializer.deserialize(mm.getNode(n)));
+        return (KVPair<K, E>)Serializer.deserialize(mm.getNode(n));
     }
 
     /**
