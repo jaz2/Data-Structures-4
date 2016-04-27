@@ -90,8 +90,7 @@ public class MemoryManager {
         int bytesNeeded = b.length + 2;
         if (count + bytesNeeded <= mm.length)
         {           	
-        	freeList.get(count + 2);
-            freeList.remove(fb);
+        	
             ByteBuffer.wrap(mm).putShort(count, (short) b.length);
             System.arraycopy(b, 0, mm, count + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
@@ -101,6 +100,8 @@ public class MemoryManager {
             //if u have 300, and take out 200,you get left with 100
            // freeList.insert(f);
             //fb = f;
+            freeList.get(count + 2);
+            freeList.remove(fb);
             count = count + bytesNeeded;
             FreeBlock f = new FreeBlock(count, position);
             fb = f;
