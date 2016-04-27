@@ -282,6 +282,10 @@ public class SkipList<K extends Comparable<K>, E> {
         //release head
         head = insertObject(oldHead);
         mm.update(head, oldHead);
+        mm.freeList.remove(mm.fb);
+        FreeBlock nuFree = new FreeBlock(mm.mm.length, 0);
+        mm.fb = nuFree;
+        mm.freeList.insert(mm.fb);
         //head = update(head); 
         level = lev;
     }
@@ -357,7 +361,7 @@ public class SkipList<K extends Comparable<K>, E> {
         {
             return null;
         }
-        return (KVPair<K, E>)Serializer.deserialize(mm.getNode(n));
+        return ((KVPair<K, E>)Serializer.deserialize(mm.getNode(n)));
     }
 
     /**
