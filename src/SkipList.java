@@ -281,6 +281,7 @@ public class SkipList<K extends Comparable<K>, E> {
         oldHead.forward = nu;
         //release head
         head = insertObject(oldHead);
+        mm.update(head, oldHead);
         //head = update(head); 
         level = lev;
     }
@@ -490,5 +491,4 @@ public class SkipList<K extends Comparable<K>, E> {
     //            node1 = node1.forward[0];
     //        } 
     //    }
-
 }

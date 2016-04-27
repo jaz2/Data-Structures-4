@@ -11,8 +11,8 @@ import java.io.RandomAccessFile;
  * The class containing the main method, the entry point
  * of the application.
  *
- * @author { your name here }
- * @version { put something here }
+ * @author Jazmine Zurita and Jessica McCready
+ * @version April 13, 2016
  */
 public class RectangleDisk {
 	/**
