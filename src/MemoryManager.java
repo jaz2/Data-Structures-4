@@ -77,7 +77,7 @@ public class MemoryManager {
         fb = new FreeBlock(size, 0);
         freeList.insert(fb);
         count = 0;
-        found = false;
+        //found = false;
     }
 
     /**
@@ -88,6 +88,7 @@ public class MemoryManager {
      */
     public int insert(byte[] b) throws IOException
     {
+    	found = false;
         //int end = mm.length;
         int position = 0;
         if (b == null)
@@ -105,37 +106,52 @@ public class MemoryManager {
             if (bytesNeeded <= freeList.get(i).sz)
             {                    
                 FreeBlock f1 = freeList.get(i);
+                found = true;
                 if (freeList.get(i).sz + freeList.get(i).p != mm.length)
                 {
-                    FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
-                    FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
+                    //FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
+                	position = freeList.get(i).p + 2;
+                    FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
                     freeList.remove(f1);
-                    freeList.remove(f2);
+                    //freeList.remove(f2);
                     freeList.insert(f3);
-                    found = true;
+                    //found = true;
+                    
+                   // found = false;
+                    //bp.write(disk, bytesNeeded, count, mm);
+                    ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+                    System.arraycopy(b, 0, mm, position, b.length);
+                    //position = count + 2; 
+                    //count += bytesNeeded;
                 }
                 else 
                 {
                     FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
                     freeList.remove(f1);
                     freeList.insert(f4);
-                    found = true;
+                    //found = true;
+                    //found = false;
+                    //bp.write(disk, bytesNeeded, count, mm);
+                    ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+                    System.arraycopy(b, 0, mm, count + 2, b.length);
+                    position = count + 2; 
+                    count += bytesNeeded;
                 }  
                 //found = true;
             }
         }
-        if (found)
-        {
-            found = false;
-            //bp.write(disk, bytesNeeded, count, mm);
-            ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-            System.arraycopy(b, 0, mm, count + 2, b.length);
-            position = count + 2; 
-            count += bytesNeeded;
-        }
+//        if (found)
+//        {
+//            found = false;
+//            //bp.write(disk, bytesNeeded, count, mm);
+//            ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+//            System.arraycopy(b, 0, mm, count + 2, b.length);
+//            position = count + 2; 
+//            count += bytesNeeded;
+//        }
         //if u have 300, and take out 200,you get left with 100
         // }
-        else
+        if (!found)
         { 
             int newSpace = 0;
             int leftover = mm.length - count;
@@ -150,6 +166,10 @@ public class MemoryManager {
                 newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
                 spaceAdded = ((bytesNeeded / sz)) * sz;
             }
+            byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
+            System.arraycopy(mm, 0, nu, 0, mm.length);
+            mm = nu;  
+            
             FreeBlock old = find(count);
             FreeBlock fu = new FreeBlock(leftover + spaceAdded, count);
             freeList.remove(old);
@@ -163,7 +183,7 @@ public class MemoryManager {
                     if (freeList.get(i).sz + freeList.get(i).p != mm.length)
                     {
                         FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
-                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
+                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) /*+ f2.sz*/, count + bytesNeeded);
                         freeList.remove(f1);
                         freeList.remove(f2);
                         freeList.insert(f3);
@@ -174,21 +194,19 @@ public class MemoryManager {
                         FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
                         freeList.remove(f1);
                         freeList.insert(f4);
-                        found = true;
+                       // found = true;
                     } 
                     //found = true;
                 }
             }
             //if (found)
             //{
-                found = false;
-                byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
-                System.arraycopy(mm, 0, nu, 0, mm.length);
-                mm = nu;  
-                ByteBuffer.wrap(mm).putShort(/*end*/count, (short) b.length);
-                System.arraycopy(b, 0, mm, count/*end*/ + 2, b.length);
+              //  found = false;
+                
+                ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+                System.arraycopy(b, 0, mm, count + 2, b.length);
                 //disk.write(b, b.length + 2, b.length);
-                position = count/*end*/ + 2;
+                position = count + 2;
                 //bp.write(disk, bytesNeeded, leftover, mm);
                 count = count + bytesNeeded; 
             //}

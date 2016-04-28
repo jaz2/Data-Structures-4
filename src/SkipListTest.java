@@ -64,7 +64,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "SkipList size is: 1\n"
-                + "Freelist Blocks: \n(" + (m.mm.length - m.count) + ", " + m.mm.length + ")", output);
+                + "Freelist Blocks: \n(" + (m.count) + ", " + m.mm.length + ")", output);
     } 
 
     /**
@@ -94,7 +94,7 @@ public class SkipListTest extends TestCase
                + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                + "Node has depth 0, Value (b, 1, 2, 3, 4)\n"
                + "SkipList size is: 2\n"
-               + "Freelist Blocks: \n(" + (m.mm.length - m.count) + ", " + m.mm.length + ")", output);
+               + "Freelist Blocks: \n(" + m.count + ", " + m.mm.length + ")", output);
     }
 //
 //    /**
@@ -629,7 +629,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "SkipList size is: 1\n"
-                + "Freelist Blocks: \n(0, " + m.mm.length + ")", output);
+                + "Freelist Blocks: \n(" + m.count + ", " + m.mm.length + ")", output);
     }
 
     /**
@@ -660,7 +660,8 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "Node has depth 1, Value (hey, 1, 2, 12, 4)\n"
                 + "SkipList size is: 2\n"
-                + "Freelist Blocks: \n(0, " + m.mm.length + ")", output);
+                + "Freelist Blocks: \n(" + m.count + ", " + m.mm.length + ")\n"
+                		+ "(" + m.count + ", " + ")", output);
     }    
 
 //    /**
@@ -734,6 +735,7 @@ public class SkipListTest extends TestCase
     public void testIntersections() throws ClassNotFoundException, IOException
     {
     	RectangleDisk.bufSize = 512;
+    	RectangleDisk.dfile = "test.txt";
     	MemoryManager m = new MemoryManager(512,"ta.txt"); 
         SkipList<String, Rect> skip = new SkipList<String, Rect>(m);
         Rect r1 = new Rect("a", 1, 2, 3, 4);

@@ -16,11 +16,24 @@ import student.TestCase;
  */
 public class MemoryManagerTest extends TestCase{
 
+	SkipList skip;
+	SkipNode node;
+	MemoryManager m;
+	KVPair kv;
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		RectangleDisk.dfile = "test.txt";
+		m = new MemoryManager(512, "test"); 
+		RectangleDisk.bufSize = 4096;
+	   // skip = new SkipList(m);
+	//    KVPair kv = new KVPair(id, rec);
+	    Rect re = new Rect("a", 1, 2, 3, 4);
+	//	KVPair<String,Rect> p = new KVPair<String,Rect>(re.getId(), re);
+	    kv = new KVPair(re.getName(), re);
+	    //node = new SkipNode()
 	}
 
 	@Test
@@ -94,6 +107,48 @@ public class MemoryManagerTest extends TestCase{
 	{
 		RectangleDisk.dfile = "dat.txt";
 		RectangleDisk.bufSize = 5;
+	}
+	
+	public void testInsert() throws IOException, ClassNotFoundException
+	{
+		//node = new SkipNode(kv, 0);
+		byte[] b = Serializer.serialize(kv);
+		int kvh = m.insert(b);
+		node = new SkipNode(kvh, 0); 
+		b = Serializer.serialize(node);
+		int nh = m.insert(b);
+		assertEquals(Serializer.deserialize(m.getNode(kvh)).toString(), kv.toString());	
+		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equals(node));		
+	}
+	
+	public void testMakeMoreMem() throws IOException, ClassNotFoundException
+	{
+		//node = new SkipNode(kv, 0);
+		byte[] b = Serializer.serialize(kv);
+		int kvh = m.insert(b);
+		node = new SkipNode(kvh, 0);
+		b = Serializer.serialize(node);
+		int nh = m.insert(b);
+		int nh2 = m.insert(b); 
+		int nh3 = m.insert(b);
+		int nh4 = m.insert(b); 
+		b = Serializer.serialize(kv);
+		int kv2 = m.insert(b);
+		assertEquals(Serializer.deserialize(m.getNode(kvh)).toString(), kv.toString());	
+		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equals(node));		
+		assertEquals(Serializer.deserialize(m.getNode(kv2)).toString(), kv.toString());	
+	}
+	
+	public void testUpdate2() throws IOException, ClassNotFoundException
+	{
+		byte[] b = Serializer.serialize(kv);
+		int kvh = m.insert(b);
+		node = new SkipNode(kvh, 0);
+		b = Serializer.serialize(node);
+		m.update(kvh, node);
+		//kvh should be node
+		assertEquals( (Serializer.deserialize(m.getNode(kvh))).getClass(), SkipNode.class);
+		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(kvh)))).equals(node));	
 	}
 
 }
