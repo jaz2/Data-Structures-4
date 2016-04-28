@@ -224,7 +224,7 @@ public class MemoryManager {
         byte[] b = Serializer.serialize(o);
         ByteBuffer.wrap(mm).putShort(h - 2, (short) b.length);
         System.arraycopy(b, 0, mm, h, b.length);
-        //disk.write(b, n, b.length);
+        //bp.write(disk, b.length, h, b); //array of data to write in
     }
 
 

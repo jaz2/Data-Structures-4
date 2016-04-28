@@ -692,63 +692,71 @@ public class SkipListTest extends TestCase
 //        assertEquals(null, s.head.element());
 //    }
 //
-//    /**
-//     * Tests all region search possibilites
-//     */
-//    @Test
-//    public void testRegionSearch()
-//    {
-//        SkipList<String, Rect> skip = new SkipList<String, Rect>();
-//        Rect r1 = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p1 = new KVPair<String, Rect>(r1.getName(), r1);
-//        Rect r2 = new Rect("b", 1, 5, 3, 4);
-//        KVPair<String, Rect> p2 = new KVPair<String, Rect>(r2.getName(), r2);
-//        Rect r3 = new Rect("c", 4, 4, 2, 4);
-//        KVPair<String, Rect> p3 = new KVPair<String, Rect>(r3.getName(), r3);
-//        Rect r4 = new Rect("d", 6, 6, 2, 2);
-//        KVPair<String, Rect> p4 = new KVPair<String, Rect>(r4.getName(), r4);
-//        Rect r5 = new Rect("a", 11, 5, 7, 2);
-//        KVPair<String, Rect> p5 = new KVPair<String, Rect>(r5.getName(), r5);
-//        skip.insert(p1);
-//        skip.insert(p5);
-//        skip.insert(p3);
-//        skip.insert(p4);
-//        skip.insert(p2);
-//        skip.regionsearch(1, 2, 3, 4);
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("Rectangles intersecting region (1, 2, 3, 4):\n"
-//                + "(a, 1, 2, 3, 4)\n" + "(b, 1, 5, 3, 4)\n", output);
-//        skip.regionsearch(6, 6, 2, 2);
-//    }
-//
-//    /**
-//     * Tests intersections
-//     */
-//    @Test
-//    public void testIntersections()
-//    {
-//        SkipList<String, Rect> skip = new SkipList<String, Rect>();
-//        Rect r1 = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p1 = new KVPair<String, Rect>(r1.getName(), r1);
-//        Rect r2 = new Rect("b", 1, 5, 3, 4);
-//        KVPair<String, Rect> p2 = new KVPair<String, Rect>(r2.getName(), r2);
-//        Rect r3 = new Rect("c", 4, 4, 2, 4);
-//        KVPair<String, Rect> p3 = new KVPair<String, Rect>(r3.getName(), r3);
-//        Rect r4 = new Rect("d", 6, 6, 2, 2);
-//        KVPair<String, Rect> p4 = new KVPair<String, Rect>(r4.getName(), r4);
-//        Rect r5 = new Rect("a", 11, 5, 7, 2);
-//        KVPair<String, Rect> p5 = new KVPair<String, Rect>(r5.getName(), r5);
-//        skip.insert(p1);
-//        skip.insert(p5);
-//        skip.insert(p3);
-//        skip.insert(p4);
-//        skip.insert(p2);
-//        skip.intersections();
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("(a, 1, 2, 3, 4 | b, 1, 5, 3, 4)\n"
-//                + "(b, 1, 5, 3, 4 | a, 1, 2, 3, 4)\n", output);
-//    }
-//    
+    /**
+     * Tests all region search possibilites
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testRegionSearch() throws IOException, ClassNotFoundException
+    {
+    	RectangleDisk.bufSize = 512;
+    	MemoryManager m = new MemoryManager(512,"ta.txt"); 
+        SkipList<String, Rect> skip = new SkipList<String, Rect>(m);
+        Rect r1 = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p1 = new KVPair<String, Rect>(r1.getName(), r1);
+        Rect r2 = new Rect("b", 1, 5, 3, 4);
+        KVPair<String, Rect> p2 = new KVPair<String, Rect>(r2.getName(), r2);
+        Rect r3 = new Rect("c", 4, 4, 2, 4);
+        KVPair<String, Rect> p3 = new KVPair<String, Rect>(r3.getName(), r3);
+        Rect r4 = new Rect("d", 6, 6, 2, 2);
+        KVPair<String, Rect> p4 = new KVPair<String, Rect>(r4.getName(), r4);
+        Rect r5 = new Rect("a", 11, 5, 7, 2);
+        KVPair<String, Rect> p5 = new KVPair<String, Rect>(r5.getName(), r5);
+        skip.insert(p1);
+        skip.insert(p5);
+        skip.insert(p3);
+        skip.insert(p4);
+        skip.insert(p2);
+        skip.regionsearch(1, 2, 3, 4);
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("Rectangles intersecting region (1, 2, 3, 4):\n"
+                + "(a, 1, 2, 3, 4)\n" + "(b, 1, 5, 3, 4)\n", output);
+        skip.regionsearch(6, 6, 2, 2);
+    }
+
+    /**
+     * Tests intersections
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testIntersections() throws ClassNotFoundException, IOException
+    {
+    	RectangleDisk.bufSize = 512;
+    	MemoryManager m = new MemoryManager(512,"ta.txt"); 
+        SkipList<String, Rect> skip = new SkipList<String, Rect>(m);
+        Rect r1 = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p1 = new KVPair<String, Rect>(r1.getName(), r1);
+        Rect r2 = new Rect("b", 1, 5, 3, 4);
+        KVPair<String, Rect> p2 = new KVPair<String, Rect>(r2.getName(), r2);
+        Rect r3 = new Rect("c", 4, 4, 2, 4);
+        KVPair<String, Rect> p3 = new KVPair<String, Rect>(r3.getName(), r3);
+        Rect r4 = new Rect("d", 6, 6, 2, 2);
+        KVPair<String, Rect> p4 = new KVPair<String, Rect>(r4.getName(), r4);
+        Rect r5 = new Rect("a", 11, 5, 7, 2);
+        KVPair<String, Rect> p5 = new KVPair<String, Rect>(r5.getName(), r5);
+        skip.insert(p1);
+        skip.insert(p5);
+        skip.insert(p3);
+        skip.insert(p4);
+        skip.insert(p2);
+        skip.intersections();
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("(a, 1, 2, 3, 4 | b, 1, 5, 3, 4)\n"
+                + "(b, 1, 5, 3, 4 | a, 1, 2, 3, 4)\n", output);
+    }
+    
 //    /**
 //     * Tests the controlled insert method
 //     */
