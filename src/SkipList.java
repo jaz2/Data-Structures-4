@@ -336,9 +336,11 @@ public class SkipList<K extends Comparable<K>, E> {
                 //node = update(node); 
             } 
             System.out.println("SkipList size is: " + size);
-            System.out.println("Freelist Blocks: \n" +  mm.dump());
+            System.out.println("Freelist Blocks: \n" +  mm.freeList.dump());
         }
     }
+    
+    public 
 
     /**
      * To make an int a skipNode
