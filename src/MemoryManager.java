@@ -168,7 +168,6 @@ public class MemoryManager {
                         FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
                         freeList.remove(f1);
                         freeList.insert(f4);
-                        found = true;
                     }                
                 }
             }
@@ -185,7 +184,6 @@ public class MemoryManager {
                 byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
                 System.arraycopy(mm, 0, nu, 0, mm.length);
                 mm = nu;  
-
                 ByteBuffer.wrap(mm).putShort(/*end*/count, (short) b.length);
                 System.arraycopy(b, 0, mm, count/*end*/ + 2, b.length);
                 //disk.write(b, b.length + 2, b.length);
