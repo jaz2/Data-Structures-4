@@ -135,6 +135,17 @@ public class List {
         }
         return found;
     }
+    
+    public String dump()
+    {
+    	String s = "";
+    	for (int i = 0; i < l.length; i++)
+    	{
+    	//	l.toString()
+    		System.out.println(l.toString());
+    	}
+    	return s;
+    }
 
     /**
      * Returns the size

@@ -123,6 +123,7 @@ public class MemoryManager {
                     }                
                 }
             }
+            found = false;
             ByteBuffer.wrap(mm).putShort(count, (short) b.length);
             System.arraycopy(b, 0, mm, count + 2, b.length);
             position = count + 2; 
@@ -245,6 +246,18 @@ public class MemoryManager {
         return null;
     }
 
+    /**
+     * Dumps the freeblocks
+     */
+    public String dump()
+    {
+    	for (int i = 0; i < freeList.length(); i++)
+    	{
+    		if (freeList.get(i) == )
+    	}
+    	System.out.println("(" + freeList.);
+    }
+    
     /**
      * To close the file
      * @throws IOException
