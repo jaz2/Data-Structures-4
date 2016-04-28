@@ -113,12 +113,6 @@ public class MemoryManager {
                 }
             }
             //if u have 300, and take out 200,you get left with 100
-            //            freeList.get(position);
-            //            freeList.remove(fb);
-            //            count = count + bytesNeeded;
-            //            FreeBlock f = new FreeBlock(count, position);
-            //            fb = f;
-            //            freeList.insert(fb);
         }
         else 
         { //look at the last free block if it's longer than what u need
@@ -130,13 +124,14 @@ public class MemoryManager {
             //and tell mm to delete it and then insert the new one
             int newSpace = 0;
             int leftover = mm.length - count;
-            if(leftover + ((bytesNeeded/sz))*sz >= bytesNeeded) //we good
+            if(leftover + ((bytesNeeded / sz)) * sz >= bytesNeeded) //we good
             { 
                 newSpace = mm.length + ((bytesNeeded/sz))*sz;
             }
             else newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
             FreeBlock f = new FreeBlock(mm.length, mm.length + 1);
             freeList.insert(f); //see if this works
+            
             byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
             System.arraycopy(mm, 0, nu, 0, mm.length);
             mm = nu;  

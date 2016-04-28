@@ -95,14 +95,20 @@ public class SkipList<K extends Comparable<K>, E> {
         @SuppressWarnings("unchecked")  //Generic array allocation   
         int[] update = new int[level + 1];   
         int x = head;        // Start at header node    
-        for (int i = level; i >= 0; i--) { // Find insert position     
-            while (((getNode(x)).forward[i] != MemoryManager.fly) && 
-                    (k.compareTo((( 
-                            getKV((getNode(
-                                    (getNode(x)).forward[i])).
-                                        element())).key())) > 0))
-
-                x = (getNode(x)).forward[i];   
+        for (int i = level; i >= 0; i--) { // Find insert position   
+        	while (((getNode(x)).forward[i] != MemoryManager.fly) &&
+					(k.compareTo(((getKV((getNode((getNode(x)).forward[i])).element())).key())) > 0))
+				{
+					x = (getNode(x)).forward[i];
+					//System.out.println("x is " + x);
+				}
+//            while (((getNode(x)).forward[i] != MemoryManager.fly) && 
+//                    (k.compareTo((( 
+//                            getKV((getNode(
+//                                    (getNode(x)).forward[i])).
+//                                        element())).key())) > 0))
+//
+//                x = (getNode(x)).forward[i];   
             update[i] = x;               // Track end at level i   
         }   
         int kv = insertObject(it);
@@ -277,14 +283,15 @@ public class SkipList<K extends Comparable<K>, E> {
         {
             nu[i] = MemoryManager.fly;
         }
+        int start = head;
         SkipNode oldHead = getNode(head);
         oldHead.forward = nu;
         //release head
         head = insertObject(oldHead);
         mm.update(head, oldHead);
         mm.freeList.remove(mm.fb);
-        FreeBlock nuFree = new FreeBlock(mm.mm.length, 0);
-        mm.fb = nuFree;
+        FreeBlock nuFree = new FreeBlock(mm.mm.length - mm.mm[start], start);
+        mm.fb = nuFree; //might be wrong
         mm.freeList.insert(mm.fb);
         //head = update(head); 
         level = lev;
@@ -315,13 +322,17 @@ public class SkipList<K extends Comparable<K>, E> {
             int node = head;
             for (int i = 1; i <= size + 0; i++)
             {
-                System.out.println("Node has depth " 
-                    + (getNode(node)).getLevel() +
-                        ", Value (" + getKV(getNode(getNode(node)
-                                .forward[0]).element).key() + ", "
-                        + (getKV(getNode(getNode(node).forward[0])
-                                .element)).value().toString() + ")");
-                node = getNode(node).forward[0];
+            	System.out.println("Node has depth " + (getNode(node)).getLevel() +
+						", Value (" + getKV(getNode(getNode(node).forward[0]).element).key() + ", "
+						+ (getKV(getNode(getNode(node).forward[0]).element)).value().toString() + ")");
+				node = getNode(node).forward[0];
+//                System.out.println("Node has depth " 
+//                    + (getNode(node)).getLevel() +
+//                        ", Value (" + getKV(getNode(getNode(node)
+//                                .forward[0]).element).key() + ", "
+//                        + (getKV(getNode(getNode(node).forward[0])
+//                                .element)).value().toString() + ")");
+//                node = getNode(node).forward[0];
                 //mm.update(node, getObject(node));
                 //node = update(node); 
             } 
