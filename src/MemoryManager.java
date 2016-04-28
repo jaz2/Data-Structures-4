@@ -104,8 +104,7 @@ public class MemoryManager {
             for (int i = 0; i < freeList.length() && !found; i++)
             {
                 if (bytesNeeded <= freeList.get(i).sz)
-                {
-                    found = true;
+                {                    
                     FreeBlock f1 = freeList.get(i);
                     if (freeList.get(i).sz + freeList.get(i).p != mm.length)
                     {
@@ -114,13 +113,16 @@ public class MemoryManager {
                         freeList.remove(f1);
                         freeList.remove(f2);
                         freeList.insert(f3);
+                        found = true;
                     }
                     else 
                     {
                         FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
                         freeList.remove(f1);
                         freeList.insert(f4);
-                    }                
+                        found = true;
+                    }  
+                    //found = true;
                 }
             }
             if (found)
@@ -163,14 +165,16 @@ public class MemoryManager {
                         freeList.remove(f1);
                         freeList.remove(f2);
                         freeList.insert(f3);
+                        found = true;
                     }
                     else 
                     {
                         FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
                         freeList.remove(f1);
                         freeList.insert(f4);
+                        found = true;
                     } 
-                    found = true;
+                    //found = true;
                 }
             }
             if (found)
