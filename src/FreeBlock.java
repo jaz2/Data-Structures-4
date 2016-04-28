@@ -31,11 +31,12 @@ public class FreeBlock {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Dumps a free block
+	 * For SkipList dump
+	 * @return the string
 	 */
 	public String dump()
 	{	
-	   pospos + size
+	   return "(" + p + ", " + sz + ")\n";
 	}
 }
