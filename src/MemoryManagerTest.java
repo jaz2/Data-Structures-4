@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +26,9 @@ public class MemoryManagerTest extends TestCase{
 	 */
 	@Before
 	public void setUp() throws Exception {
-		RectangleDisk.dfile = "test.txt";
-		m = new MemoryManager(512, "test"); 
+		RandomAccessFile s = new RandomAccessFile("test2.txt", "rw");
+    	RectangleDisk.dfile = s;
+		m = new MemoryManager(512, RectangleDisk.dfile); 
 		RectangleDisk.bufSize = 4096;
 	   // skip = new SkipList(m);
 	//    KVPair kv = new KVPair(id, rec);
@@ -39,7 +41,7 @@ public class MemoryManagerTest extends TestCase{
 	@Test
 	public void testConstructor() throws IOException {
 		String s = "data.txt";
-		MemoryManager main = new MemoryManager(4096, s);
+		MemoryManager main = new MemoryManager(4096, RectangleDisk.dfile);
 	}
 	
 	/**
@@ -50,10 +52,8 @@ public class MemoryManagerTest extends TestCase{
 	@Test
 	public void testInsert1() throws IOException
 	{
-		RectangleDisk.dfile = "dat.txt";
-		String s = RectangleDisk.dfile;
 		RectangleDisk.bufSize = 512;
-		MemoryManager m = new MemoryManager(512, s);
+		MemoryManager m = new MemoryManager(512, RectangleDisk.dfile);
 		byte[] in = {76, 70, 86};
 		assertEquals(2, m.insert(in));
 		//assertEquals(510, m.fb);
@@ -66,10 +66,8 @@ public class MemoryManagerTest extends TestCase{
 	@Test
 	public void testInsert2() throws IOException
 	{
-		RectangleDisk.dfile = "dat.txt";
-		String s = RectangleDisk.dfile;
 		RectangleDisk.bufSize = 512;
-		MemoryManager m = new MemoryManager(512, s);
+		MemoryManager m = new MemoryManager(512, RectangleDisk.dfile);
 		byte[] in = {76, 70, 86};
 		m.insert(in);
 		byte[] nu = {89, 68, 67, 72};
@@ -83,10 +81,8 @@ public class MemoryManagerTest extends TestCase{
 	@Test
 	public void testInsertClose() throws IOException
 	{
-		RectangleDisk.dfile = "dat.txt";
-		String s = RectangleDisk.dfile;
 		RectangleDisk.bufSize = 5;
-		MemoryManager m = new MemoryManager(5, s);
+		MemoryManager m = new MemoryManager(5, RectangleDisk.dfile);
 		//System.out.println("mm length " + m.mm.length);
 		
 		byte[] in = {76, 70, 86};
@@ -108,7 +104,7 @@ public class MemoryManagerTest extends TestCase{
 		b = Serializer.serialize(node);
 		int nh = m.insert(b);
 		assertEquals(Serializer.deserialize(m.getNode(kvh)).toString(), kv.toString());	
-		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equals(node));		
+		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equalss(node));		
 	}
 	
 	@Test
@@ -126,7 +122,7 @@ public class MemoryManagerTest extends TestCase{
 		b = Serializer.serialize(kv);
 		int kv2 = m.insert(b);
 		assertEquals(Serializer.deserialize(m.getNode(kvh)).toString(), kv.toString());	
-		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equals(node));		
+		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equalss(node));		
 		assertEquals(Serializer.deserialize(m.getNode(kv2)).toString(), kv.toString());	
 	}
 	
@@ -140,7 +136,7 @@ public class MemoryManagerTest extends TestCase{
 		m.update(kvh, node);
 		//kvh should be node
 		assertEquals( (Serializer.deserialize(m.getNode(kvh))).getClass(), SkipNode.class);
-		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(kvh)))).equals(node));	
+		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(kvh)))).equalss(node));	
 	}
 
 }

@@ -40,11 +40,16 @@ public class RectangleDisk {
 	 * To keep track of buffSize
 	 */
 	public static int bufSize;
-	
+	 
 	/**
 	 * The data file
 	 */
-	public static String dfile;
+	public static RandomAccessFile dfile;
+	
+	/**
+	 * To keep track of the number of buffers
+	 */
+	public static int numBuffs;
 
     /**
      * The entry point for the application.
@@ -62,13 +67,13 @@ public class RectangleDisk {
         {
             System.out.println("Found expected parameter list.");
             
-            dfile = args[1];
-            int numBuffs = Integer.parseInt(args[2]);              
+            dfile = new RandomAccessFile(args[1], "rw");
+            numBuffs = Integer.parseInt(args[2]);              
             bufSize = Integer.parseInt(args[3]);
             String input = args[0].trim(); 
             File f = new File(input);
             CommandProcessor cmd = new CommandProcessor(f);
-            
+            dfile.close();
         }
     }
 }

@@ -2,6 +2,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import student.TestCase;
 import student.TestableRandom;
@@ -24,13 +25,16 @@ public class SkipListTest extends TestCase
      * @throws java.lang.Exception
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception
+    {
+    	RandomAccessFile s = new RandomAccessFile("test2.txt", "rw");
+    	RectangleDisk.dfile = s;
     }
     
     public void testEmpty() throws IOException, ClassNotFoundException
     {
     	RectangleDisk.bufSize = 4096;
-    	MemoryManager m = new MemoryManager(4096, "Data.txt");
+    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
     	Rect re = new Rect("a", 1, 2, 3, 4);
         //RectangleDisk.bufSize = 4096;
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
@@ -52,7 +56,7 @@ public class SkipListTest extends TestCase
     public void testInsert() throws ClassNotFoundException, IOException {
     	//String st = "data.txt";
     	RectangleDisk.bufSize = 4096;
-    	MemoryManager m = new MemoryManager(4096, "data.txt");
+    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
         Rect re = new Rect("a", 1, 2, 3, 4);
         //RectangleDisk.bufSize = 4096;
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
@@ -64,7 +68,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "SkipList size is: 1\n"
-                + "Freelist Blocks: \n(" + (m.count) + ", " + m.mm.length + ")", output);
+                + "Freelist Blocks: \n(" + (m.count) + ", " + m.m.length + ")", output);
     } 
 
     /**
@@ -75,9 +79,8 @@ public class SkipListTest extends TestCase
     @Test
     public void testInsertMore() throws IOException, ClassNotFoundException
     {
-    	String st = "data.txt";
     	RectangleDisk.bufSize = 4096;
-    	MemoryManager m = new MemoryManager(4096, st);
+    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
@@ -94,7 +97,7 @@ public class SkipListTest extends TestCase
                + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                + "Node has depth 0, Value (b, 1, 2, 3, 4)\n"
                + "SkipList size is: 2\n"
-               + "Freelist Blocks: \n(" + m.count + ", " + m.mm.length + ")", output);
+               + "Freelist Blocks: \n(" + m.count + ", " + m.m.length + ")", output);
     }
 //
 //    /**
@@ -426,163 +429,195 @@ public class SkipListTest extends TestCase
 //        assertFuzzyEquals("Rectangle not found: roar", output);
 //    }
 //    
-//    /**
-//     * tests when the element should be in middle but not
-//     */
-//    public void testSearch270()
-//    {
-//        Rect re = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.insert(p);
-//
-//        Rect nu = new Rect("c", 2, 2, 4, 4);
-//        KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
-//        s.insert(n);
-//        
-//        Rect or = new Rect("d", 2, 8, 4, 49);
-//        KVPair<String, Rect> me = new KVPair<String, Rect>(or.getName(), or);
-//        s.insert(me);
-//        s.search("b");
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("Rectangle not found: b", output);
-//    }
-//
-//    /**
-//     * Tests when multiple searches then other stuff
-//     */
-//    public void testSearchSame4()
-//    {
-//        Rect re = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.insert(p);
-//
-//        Rect nu = new Rect("a", 2, 2, 4, 4);
-//        KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
-//        s.insert(n);
-//        
-//        Rect or = new Rect("a", 2, 8, 4, 49);
-//        KVPair<String, Rect> me = new KVPair<String, Rect>(or.getName(), or);
-//        s.insert(me);
-//        
-//        Rect or1 = new Rect("b", 2, 8, 4, 49);
-//        KVPair<String, Rect> me1 = new KVPair<String, Rect>(or1.getName(), or1);
-//        s.insert(me1);
-//        
-//        s.search("a");
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("(a, 2, 8, 4, 49)\n"
-//                + "(a, 2, 2, 4, 4)\n"
-//                + "(a, 1, 2, 3, 4)", output);
-//    }
-//    
-//    /**
-//     * Tests search when not found
-//     */
-//    @Test
-//    public void testSearchNot()
-//    {
-//        Rect re = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.insert(p);
-//        s.search("b");
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("Rectangle not found: b", output);
-//    }
-//
-//    /**
-//     * Tests when x.forward[i] is null
-//     */
-//    @Test
-//    public void testSearchNull()
-//    {
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.search("roar");
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("Rectangle not found: roar", output);
-//    }
-//
-//    /**
-//     * Tests when search is successful
-//     * and when you add another not found
-//     */
-//    @Test
-//    public void testSearchYes()
-//    {
-//        Rect re = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.insert(p);
-//        s.search("a");
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("(a, 1, 2, 3, 4)", output);
-//    }
-//
-//    /**
-//     * Tests when search is successful
-//     * and when you add another not found
-//     */
-//    @Test
-//    public void testSearchNah()
-//    {
-//        Rect re = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.insert(p);
-//
-//        s.search("b");
-//        String outt = systemOut().getHistory();
-//        assertFuzzyEquals("Rectangle not found: b", outt);
-//    }
-//
-//
-//    /**
-//     * Tests when search is the same
-//     */
-//    @Test
-//    public void testSearchSame()
-//    {
-//        Rect re = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.insert(p);
-//
-//        Rect nu = new Rect("a", 2, 2, 4, 4);
-//        KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
-//        s.insert(n);
-//        s.search("a");
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("(a, 2, 2, 4, 4)\n"
-//                + "(a, 1, 2, 3, 4)", output);
-//    }
-//
-//    /**
-//     * Tests when search is the and continues to search
-//     */
-//    @Test
-//    public void testSearchSame3()
-//    {
-//        Rect re = new Rect("a", 1, 2, 3, 4);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-//        s.insert(p);
-//
-//        Rect nu = new Rect("a", 2, 2, 4, 4);
-//        KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
-//        s.insert(n);
-//
-//        Rect or = new Rect("a", 2, 8, 4, 49);
-//        KVPair<String, Rect> me = new KVPair<String, Rect>(or.getName(), or);
-//        s.insert(me);
-//
-//        s.search("a");
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("(a, 2, 8, 4, 49)\n"
-//                + "(a, 2, 2, 4, 4)\n"
-//                + "(a, 1, 2, 3, 4)", output);
-//    }
+    /**
+     * tests when the element should be in middle but not
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public void testSearch270() throws ClassNotFoundException, IOException
+    {
+    	RectangleDisk.bufSize = 4096;
+    	MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        s.insert(p);
+
+        Rect nu = new Rect("c", 2, 2, 4, 4);
+        KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
+        s.insert(n);
+        
+        Rect or = new Rect("d", 2, 8, 4, 49);
+        KVPair<String, Rect> me = new KVPair<String, Rect>(or.getName(), or);
+        s.insert(me);
+        s.search("b");
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("Rectangle not found: b", output);
+    }
+
+    /**
+     * Tests when multiple searches then other stuff
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public void testSearchSame4() throws ClassNotFoundException, IOException
+    {
+    	RectangleDisk.bufSize = 4096;
+    	MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        s.insert(p);
+
+        Rect nu = new Rect("a", 2, 2, 4, 4);
+        KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
+        s.insert(n);
+        
+        Rect or = new Rect("a", 2, 8, 4, 49);
+        KVPair<String, Rect> me = new KVPair<String, Rect>(or.getName(), or);
+        s.insert(me);
+        
+        Rect or1 = new Rect("b", 2, 8, 4, 49);
+        KVPair<String, Rect> me1 = new KVPair<String, Rect>(or1.getName(), or1);
+        s.insert(me1);
+        
+        s.search("a");
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("(a, 2, 8, 4, 49)\n"
+                + "(a, 2, 2, 4, 4)\n"
+                + "(a, 1, 2, 3, 4)", output);
+    }
+    
+    /**
+     * Tests search when not found
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testSearchNot() throws ClassNotFoundException, IOException
+    {
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        RectangleDisk.bufSize = 4096;
+    	MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        s.insert(p);
+        s.search("b");
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("Rectangle not found: b", output);
+    }
+
+    /**
+     * Tests when x.forward[i] is null
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testSearchNull() throws ClassNotFoundException, IOException
+    {
+    	RectangleDisk.bufSize = 4096;
+    	MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        s.search("roar");
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("Rectangle not found: roar", output);
+    }
+
+    /**
+     * Tests when search is successful
+     * and when you add another not found
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testSearchYes() throws ClassNotFoundException, IOException
+    {
+    	RectangleDisk.bufSize = 4096;
+    	MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        s.insert(p);
+        s.search("a");
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("(a, 1, 2, 3, 4)", output);
+    }
+
+    /**
+     * Tests when search is successful
+     * and when you add another not found
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testSearchNah() throws ClassNotFoundException, IOException
+    {
+    	RectangleDisk.bufSize = 4096;
+    	MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        s.insert(p);
+
+        s.search("b");
+        String outt = systemOut().getHistory();
+        assertFuzzyEquals("Rectangle not found: b", outt);
+    }
+
+
+    /**
+     * Tests when search is the same
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testSearchSame() throws ClassNotFoundException, IOException
+    {
+    	RectangleDisk.bufSize = 4096;
+    	MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        s.insert(p);
+
+        Rect nu = new Rect("a", 2, 2, 4, 4);
+        KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
+        s.insert(n);
+        s.search("a");
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("(a, 2, 2, 4, 4)\n"
+                + "(a, 1, 2, 3, 4)", output);
+    }
+
+    /**
+     * Tests when search is the and continues to search
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    @Test
+    public void testSearchSame3() throws IOException, ClassNotFoundException
+    {
+    	RectangleDisk.bufSize = 4096;
+    	MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        s.insert(p);
+
+        Rect nu = new Rect("a", 2, 2, 4, 4);
+        KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
+        s.insert(n);
+
+        Rect or = new Rect("a", 2, 8, 4, 49);
+        KVPair<String, Rect> me = new KVPair<String, Rect>(or.getName(), or);
+        s.insert(me);
+
+        s.search("a");
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("(a, 2, 8, 4, 49)\n"
+                + "(a, 2, 2, 4, 4)\n"
+                + "(a, 1, 2, 3, 4)", output);
+    }
 
     /**
      * Tests when there are no inserts
@@ -593,8 +628,7 @@ public class SkipListTest extends TestCase
     public void testDumpNoInserts() throws ClassNotFoundException, IOException
     {
     	RectangleDisk.bufSize = 4096;
-    	String st = "data.txt";
-    	MemoryManager m = new MemoryManager(4096, st);
+    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
         TestableRandom.setNextInts(2, 2, 2);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         s.dump();
@@ -615,7 +649,7 @@ public class SkipListTest extends TestCase
     		throws IOException, ClassNotFoundException
     {
     	RectangleDisk.bufSize = 512;
-    	MemoryManager m = new MemoryManager(512,"a.txt");
+    	MemoryManager m = new MemoryManager(512,RectangleDisk.dfile);
         TestableRandom.setNextInts(3, 3, 3);
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
@@ -629,7 +663,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "SkipList size is: 1\n"
-                + "Freelist Blocks: \n(" + m.count + ", " + m.mm.length + ")", output);
+                + "Freelist Blocks: \n(" + m.count + ", " + m.m.length + ")", output);
     }
 
     /**
@@ -642,7 +676,7 @@ public class SkipListTest extends TestCase
     {
     	TestableRandom.setNextInts(2, 2, 2);
     	RectangleDisk.bufSize = 512;
-    	MemoryManager m = new MemoryManager(512,"ta.txt");        
+    	MemoryManager m = new MemoryManager(512, RectangleDisk.dfile);        
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
@@ -660,7 +694,7 @@ public class SkipListTest extends TestCase
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "Node has depth 1, Value (hey, 1, 2, 12, 4)\n"
                 + "SkipList size is: 2\n"
-                + "Freelist Blocks: \n(" + m.count + ", " + m.mm.length + ")\n"
+                + "Freelist Blocks: \n(" + m.count + ", " + m.m.length + ")\n"
                 		+ "(" + m.count + ", " + ")", output);
     }    
 
@@ -702,7 +736,7 @@ public class SkipListTest extends TestCase
     public void testRegionSearch() throws IOException, ClassNotFoundException
     {
     	RectangleDisk.bufSize = 512;
-    	MemoryManager m = new MemoryManager(512,"ta.txt"); 
+    	MemoryManager m = new MemoryManager(512, RectangleDisk.dfile); 
         SkipList<String, Rect> skip = new SkipList<String, Rect>(m);
         Rect r1 = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p1 = new KVPair<String, Rect>(r1.getName(), r1);
@@ -734,9 +768,8 @@ public class SkipListTest extends TestCase
     @Test
     public void testIntersections() throws ClassNotFoundException, IOException
     {
-    	RectangleDisk.bufSize = 512;
-    	RectangleDisk.dfile = "test.txt";
-    	MemoryManager m = new MemoryManager(512,"ta.txt"); 
+    	RectangleDisk.bufSize = 512;;
+    	MemoryManager m = new MemoryManager(512,RectangleDisk.dfile); 
         SkipList<String, Rect> skip = new SkipList<String, Rect>(m);
         Rect r1 = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p1 = new KVPair<String, Rect>(r1.getName(), r1);
