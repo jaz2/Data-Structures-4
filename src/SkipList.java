@@ -288,7 +288,7 @@ public class SkipList<K extends Comparable<K>, E> {
         oldHead.forward = nu;
         //release head
         head = insertObject(oldHead);
-        mm.update(head, oldHead);
+        //mm.update(head, oldHead);
         mm.freeList.remove(mm.fb);
         FreeBlock nuFree = new FreeBlock(mm.mm.length - mm.mm[start], start);
         mm.fb = nuFree; //might be wrong
