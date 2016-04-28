@@ -223,42 +223,41 @@ public class SkipList<K extends Comparable<K>, E> {
     //        }
     //    }
 
-    //    /**
-    //     * Return the (first) matching matching element 
-    //     * if one exists, null otherwise
-    //     *  
-    //     * @param key the key
-    //     */
-    //    public void search(Comparable<K> key) {   
-    //        boolean found = false;   
-    //        SkipNode x = head;                     // Dummy header node   
-    //        for (int i = level; i >= 0; i--)      // For each level...     
-    //            while ((x.forward[i] != fly) &&            
-    //                    (key.compareTo(x.forward[i].
-    //                            element().key()) > 0)) // go forward       
-    //                x = x.forward[i];              // Go one last step   
-    //        x = x.forward[0];  // Move to actual record, if it exists
-    //        if ((x != null) && 
-    //                (key.compareTo(x.element().key()) == 0))    
-    //        {
-    //            found = true;
-    //            System.out.println("(" + x.element.toString() + ")");
-    //            //look ahead at level 0 printing as long as it is an equal key
-    //            if (x.forward[0] != fly)
-    //            {
-    //                x = x.forward[0];
-    //                while (x != null && key.equals(x.element.key()))
-    //                {
-    //                    System.out.println("(" + x.element.toString() + ")");
-    //                    x = x.forward[0];
-    //                }
-    //            }
-    //        }
-    //        if (found == false)  //transfer tests
-    //        {
-    //            System.out.println("Rectangle not found: " + key); 
-    //        }
-    //    }
+        /**
+         * Return the (first) matching matching element 
+         * if one exists, null otherwise
+         *  
+         * @param key the key
+         */
+    public void search(Comparable<K> key) throws ClassNotFoundException, IOException {   
+		boolean found = false;   
+		int x = head;                     // Dummy header node   
+		for (int i = level; i >= 0; i--)           // For each level...     
+			while ((getNode(x).forward[i] != MemoryManager.fly) &&            
+					(key.compareTo(getKV(getNode(getNode(x).forward[0]).element).key()) > 0)) // go forward       
+				x = getNode(x).forward[i];              // Go one last step   
+		x = getNode(x).forward[0];  // Move to actual record, if it exists
+		if ((x != MemoryManager.fly) && 
+				(key.compareTo(getKV(getNode(x).element).key()) == 0))    
+		{
+			found = true;
+			System.out.println("(" + getKV(getNode(x).element).toString() + ")");
+			//look ahead at level 0 printing as long as it is an equal key
+			if (getNode(x).forward[0] != MemoryManager.fly)
+			{
+				x = getNode(x).forward[0];
+				while (x != MemoryManager.fly && key.equals(getKV(getNode(x).element).key()))
+				{
+					System.out.println("(" + getKV(getNode(x).element).toString() + ")");
+					x = getNode(x).forward[0];
+				}
+			}
+		}
+		if (found == false)  //transfer tests
+		{
+			System.out.println("Rectangle not found: " + key); 
+		}
+	}
 
     /**
      * Adjusts the head 
