@@ -183,7 +183,7 @@ public class MemoryManager {
                     if (freeList.get(i).sz + freeList.get(i).p != mm.length)
                     {
                         FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
-                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) /*+ f2.sz*/, count + bytesNeeded);
+                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
                         freeList.remove(f1);
                         freeList.remove(f2);
                         freeList.insert(f3);
