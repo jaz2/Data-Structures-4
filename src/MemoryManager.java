@@ -251,9 +251,10 @@ public class MemoryManager {
      */
     public String dump()
     {
+    	String s = "";
     	for (int i = 0; i < freeList.length(); i++)
     	{
-    		if (freeList.get(i) == )
+    		freeList.g
     	}
     	System.out.println("(" + freeList.);
     }
