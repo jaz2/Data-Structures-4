@@ -286,12 +286,13 @@ public class SkipList<K extends Comparable<K>, E> {
         SkipNode oldHead = getNode(head);
         oldHead.forward = nu;
         //release head
+        mm.makeFree(head);
         head = insertObject(oldHead);
         //mm.update(head, oldHead); //ask jessica if she had this
-        mm.freeList.remove(mm.fb);
-        FreeBlock nuFree = new FreeBlock(mm.mm.length - Serializer.serialize(start).length, start);
-        mm.fb = nuFree; 
-        mm.freeList.insert(mm.fb);
+//        mm.freeList.remove(mm.fb);
+//        FreeBlock nuFree = new FreeBlock(mm.mm.length - Serializer.serialize(start).length, start);
+//        mm.fb = nuFree; 
+//        mm.freeList.insert(mm.fb);
         //head = update(head); 
         level = lev;
     }

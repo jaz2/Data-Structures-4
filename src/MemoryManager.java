@@ -55,188 +55,212 @@ public class MemoryManager {
      */
     public RandomAccessFile disk;
 
-    /**
-     * The bufferpool
-     */
-    public BufferPool bp;
 
-    /**
+
+	public byte[] m;
+
+
+	
+	public RandomAccessFile f;
+
+
+	public int bufSize;
+	
+	public BufferPool bp;
+
+
+	/**
      * The constructor
      * @param size the buffer size
      * @param s the string 
      * @throws IOException 
      */
     public MemoryManager(int size, String s) throws IOException
-    {
-        disk = new RandomAccessFile(s, "rw");
-        disk.setLength(0);
-        mm = new byte[size];
-        sz = size;
-        fly = -1;
-        freeList = new List();
-        fb = new FreeBlock(size, 0);
-        freeList.insert(fb);
-        count = 0;
-        //found = false;
-    }
+	{
+		//	RandomAccessFile f = new RandomAccessFile()
+		fly = -1;
+		count = 0;
+		m = new byte[size];
+		//System.out.println(size + " ml");
+		bufSize = size;
+		freeList = new List();
+		FreeBlock fb = new FreeBlock(size, 0);
+		freeList.insert(fb);
+		found = false;
+		f = new RandomAccessFile(RectangleDisk.dfile, "rw");
+		bp = new BufferPool(RectangleDisk.bufSize);
 
-    /**
-     * Inserts into the memory manager array 
-     * @param b the byte array given
-     * @return the handle
-     * @throws IOException 
-     */
-    public int insert(byte[] b) throws IOException
-    {
-    	found = false;
-        //int end = mm.length;
-        int position = 0;
-        if (b == null)
-        {
-            System.out.println("Error");
-            return fly; // return null handle
-        }
-        int bytesNeeded = b.length + 2;
-        /*if (count + bytesNeeded <= mm.length)*/
-        //        {               
-        //disk.write(b, b.length + 2, b.length);
-        //where ever it ends, update those two bytes to be a new block
-        for (int i = 0; i < freeList.length() && !found; i++)
-        {
-            if (bytesNeeded <= freeList.get(i).sz)
-            {                    
-                FreeBlock f1 = freeList.get(i);
-                found = true;
-                if (freeList.get(i).sz + freeList.get(i).p != mm.length)
-                {
-                    //FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
-                	position = freeList.get(i).p + 2;
-                    FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
-                    freeList.remove(f1);
-                    //freeList.remove(f2);
-                    freeList.insert(f3);
-                    //found = true;
-                    
-                   // found = false;
-                    //bp.write(disk, bytesNeeded, count, mm);
-                    ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-                    System.arraycopy(b, 0, mm, position, b.length);
-                    //position = count + 2; 
-                    //count += bytesNeeded;
-                }
-                else 
-                {
-                    FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
-                    freeList.remove(f1);
-                    freeList.insert(f4);
-                    //found = true;
-                    //found = false;
-                    //bp.write(disk, bytesNeeded, count, mm);
-                    ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-                    System.arraycopy(b, 0, mm, count + 2, b.length);
-                    position = count + 2; 
-                    count += bytesNeeded;
-                }  
-                //found = true;
-            }
-        }
-//        if (found)
+	}
+//    {
+//        disk = new RandomAccessFile(s, "rw");
+//        disk.setLength(0);
+//        mm = new byte[size];
+//        sz = size;
+//        fly = -1;
+//        freeList = new List();
+//        fb = new FreeBlock(size, 0);
+//        freeList.insert(fb);
+//        count = 0;
+//        //found = false;
+//    }
+//
+//    /**
+//     * Inserts into the memory manager array 
+//     * @param b the byte array given
+//     * @return the handle
+//     * @throws IOException 
+//     */
+//    public int insert(byte[] b) throws IOException
+//    {
+//    	found = false;
+//        //int end = mm.length;
+//        int position = 0;
+//        if (b == null)
 //        {
-//            found = false;
-//            //bp.write(disk, bytesNeeded, count, mm);
-//            ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-//            System.arraycopy(b, 0, mm, count + 2, b.length);
-//            position = count + 2; 
-//            count += bytesNeeded;
+//            System.out.println("Error");
+//            return fly; // return null handle
 //        }
-        //if u have 300, and take out 200,you get left with 100
-        // }
-        if (!found)
-        { 
-            int newSpace = 0;
-            int leftover = mm.length - count;
-            int spaceAdded = 0;
-            if (leftover + ((bytesNeeded / sz)) * sz >= bytesNeeded) //we good
-            { 
-                newSpace = mm.length + ((bytesNeeded/sz))*sz;
-                spaceAdded = ((bytesNeeded / sz)) * sz;
-            }
-            else 
-            {
-                newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
-                spaceAdded = ((bytesNeeded / sz)) * sz;
-            }
-            byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
-            System.arraycopy(mm, 0, nu, 0, mm.length);
-            mm = nu;  
-            
-            FreeBlock old = find(count);
-            FreeBlock fu = new FreeBlock(leftover + spaceAdded, count);
-            freeList.remove(old);
-            freeList.insert(fu);
-            for (int i = 0; i < freeList.length() && !found; i++)
-            {
-                if (bytesNeeded <= freeList.get(i).sz)
-                {
-
-                    FreeBlock f1 = freeList.get(i);
-                    if (freeList.get(i).sz + freeList.get(i).p != mm.length)
-                    {
-                        FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
-                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
-                        freeList.remove(f1);
-                        freeList.remove(f2);
-                        freeList.insert(f3);
-                        found = true;
-                    }
-                    else 
-                    {
-                        FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
-                        freeList.remove(f1);
-                        freeList.insert(f4);
-                       // found = true;
-                    } 
-                    //found = true;
-                }
-            }
-            //if (found)
-            //{
-              //  found = false;
-                
-                ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-                System.arraycopy(b, 0, mm, count + 2, b.length);
-                //disk.write(b, b.length + 2, b.length);
-                position = count + 2;
-                //bp.write(disk, bytesNeeded, leftover, mm);
-                count = count + bytesNeeded; 
-            //}
-        } //every time you add something you need to update the freeblock
-        return position;
-    } //look at the last free block if it's longer than what u need
-    //grab what you need and then leave the rest -> pull off bytes from the front
-    //if what you want is bigger than what you want take out small and give bigger
-    //when you grow the header node, have to update -> have to give back the block 
-    //that was using the header but never use it
-    //can be done in adjust head, so take the handle for the old header 
-    //and tell mm to delete it and then insert the new one
-
-    /**
-     * Gets the node at the position 
-     * in the array
-     * @param handle the handle given
-     * @return the length of the message
-     */
-    public byte[] getNode(int handle)
-    {
-        if (handle == fly)
-        {
-            return null;
-        }    
-        short size = ByteBuffer.wrap(mm).getShort(handle - 2);
-        byte[] b = new byte[size];
-        System.arraycopy(mm, handle, b, 0, size);
-        return b;
-    }
+//        int bytesNeeded = b.length + 2;
+//        /*if (count + bytesNeeded <= mm.length)*/
+//        //        {               
+//        //disk.write(b, b.length + 2, b.length);
+//        //where ever it ends, update those two bytes to be a new block
+//        for (int i = 0; i < freeList.length() && !found; i++)
+//        {
+//            if (bytesNeeded <= freeList.get(i).sz)
+//            {                    
+//                FreeBlock f1 = freeList.get(i);
+//                found = true;
+//                if (freeList.get(i).sz + freeList.get(i).p != mm.length)
+//                {
+//                    //FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
+//                	position = freeList.get(i).p + 2;
+//                    FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
+//                    freeList.remove(f1);
+//                    //freeList.remove(f2);
+//                    freeList.insert(f3);
+//                    //found = true;
+//                    
+//                   // found = false;
+//                    //bp.write(disk, bytesNeeded, count, mm);
+//                    ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+//                    System.arraycopy(b, 0, mm, position, b.length);
+//                    //position = count + 2; 
+//                    //count += bytesNeeded;
+//                }
+//                else 
+//                {
+//                    FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
+//                    freeList.remove(f1);
+//                    freeList.insert(f4);
+//                    //found = true;
+//                    //found = false;
+//                    //bp.write(disk, bytesNeeded, count, mm);
+//                    ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+//                    System.arraycopy(b, 0, mm, count + 2, b.length);
+//                    position = count + 2; 
+//                    count += bytesNeeded;
+//                }  
+//                //found = true;
+//            }
+//        }
+////        if (found)
+////        {
+////            found = false;
+////            //bp.write(disk, bytesNeeded, count, mm);
+////            ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+////            System.arraycopy(b, 0, mm, count + 2, b.length);
+////            position = count + 2; 
+////            count += bytesNeeded;
+////        }
+//        //if u have 300, and take out 200,you get left with 100
+//        // }
+//        if (!found)
+//        { 
+//            int newSpace = 0;
+//            int leftover = mm.length - count;
+//            int spaceAdded = 0;
+//            if (leftover + ((bytesNeeded / sz)) * sz >= bytesNeeded) //we good
+//            { 
+//                newSpace = mm.length + ((bytesNeeded/sz))*sz;
+//                spaceAdded = ((bytesNeeded / sz)) * sz;
+//            }
+//            else 
+//            {
+//                newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
+//                spaceAdded = ((bytesNeeded / sz)) * sz;
+//            }
+//            byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
+//            System.arraycopy(mm, 0, nu, 0, mm.length);
+//            mm = nu;  
+//            
+//            FreeBlock old = find(count);
+//            FreeBlock fu = new FreeBlock(leftover + spaceAdded, count);
+//            freeList.remove(old);
+//            freeList.insert(fu);
+//            for (int i = 0; i < freeList.length() && !found; i++)
+//            {
+//                if (bytesNeeded <= freeList.get(i).sz)
+//                {
+//
+//                    FreeBlock f1 = freeList.get(i);
+//                    if (freeList.get(i).sz + freeList.get(i).p != mm.length)
+//                    {
+//                        FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
+//                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
+//                        freeList.remove(f1);
+//                        freeList.remove(f2);
+//                        freeList.insert(f3);
+//                        found = true;
+//                    }
+//                    else 
+//                    {
+//                        FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
+//                        freeList.remove(f1);
+//                        freeList.insert(f4);
+//                       // found = true;
+//                    } 
+//                    //found = true;
+//                }
+//            }
+//            //if (found)
+//            //{
+//              //  found = false;
+//                
+//                ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+//                System.arraycopy(b, 0, mm, count + 2, b.length);
+//                //disk.write(b, b.length + 2, b.length);
+//                position = count + 2;
+//                //bp.write(disk, bytesNeeded, leftover, mm);
+//                count = count + bytesNeeded; 
+//            //}
+//        } //every time you add something you need to update the freeblock
+//        return position;
+//    } //look at the last free block if it's longer than what u need
+//    //grab what you need and then leave the rest -> pull off bytes from the front
+//    //if what you want is bigger than what you want take out small and give bigger
+//    //when you grow the header node, have to update -> have to give back the block 
+//    //that was using the header but never use it
+//    //can be done in adjust head, so take the handle for the old header 
+//    //and tell mm to delete it and then insert the new one
+//
+//    /**
+//     * Gets the node at the position 
+//     * in the array
+//     * @param handle the handle given
+//     * @return the length of the message
+//     */
+//    public byte[] getNode(int handle)
+//    {
+//        if (handle == fly)
+//        {
+//            return null;
+//        }    
+//        short size = ByteBuffer.wrap(mm).getShort(handle - 2);
+//        byte[] b = new byte[size];
+//        System.arraycopy(mm, handle, b, 0, size);
+//        return b;
+//    }
 
     /**
      * Updates and puts into memory manager
@@ -257,31 +281,207 @@ public class MemoryManager {
         System.arraycopy(b, 0, mm, h, b.length);
         //bp.write(disk, b.length, h, b); //array of data to write in
     }
-
-
+    
     /**
-     * Find the free block
-     * @param x the handle
-     * @return the freeblock
-     */
-    public FreeBlock find(int x)
-    {
-        for (int i = 0; i < freeList.length(); i++)
-        {
-            if (freeList.get(i).p == x)
-            {
-                return freeList.get(i);
-            }
-        }
-        return null;
-    }
+	 * turns used space to free space
+	 * @param h
+	 */
+	public void makeFree(int h)
+	{
+		byte[] a = new byte[2];
+		
+		short size = ByteBuffer.wrap(m).getShort(h - 2);
+		FreeBlock f = new FreeBlock(size + 2, h - 2); 
+		freeList.insert(f);		
+	}
 
-    /**
-     * To close the file
-     * @throws IOException
-     */
-    public void quit() throws IOException
-    {
-        disk.close();
-    }
-} //don't need to connect it to BP for milestone 2
+	/**
+	 * inserts byte array into memory array
+	 * @param b bytes representing array
+	 * @return the handle of object
+	 */
+	public int insert(byte[] b)
+	{
+		//look at last free block, if its longer then what you need, grab what you need and leave the rest ->pull off bytes from front
+		found = false;
+		int end = m.length;
+		if(b == null) 
+		{
+			//System.out.println("error");
+			return fly;
+		}
+		int bytesNeeded = b.length + 2;
+		int pos = 0;
+		//System.out.println(count +  " l"); 
+		//System.out.println(b.length + " bl");
+		//System.out.println(m.length + " ml");
+
+		for (int i = 0; i < freeList.length() && !found; i++)
+		{
+			if (bytesNeeded <= freeList.get(i).sz)
+			{
+				found = true;
+				FreeBlock f1 = freeList.get(i);
+				if (freeList.get(i).p + freeList.get(i).sz != m.length) //not at end
+				{
+					//FreeBlock f2 = find(f1.pos + f1.size);
+				/*	System.out.println(f1.size + "size");
+					System.out.println(f1.pos + "pos");
+					System.out.println(freeList.length() + " freelen");
+					System.out.println(count + " count");
+					System.out.println(m.length + " mlen");*/
+				//	FreeBlock f2 = find(f1.pos + f1.size);
+				//	if (f2 == null) System.out.println("kill");
+				//	System.out.println(f2.size);
+					pos = freeList.get(i).p + 2;
+					FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
+					freeList.remove(f1);
+				//	freeList.remove(f2);
+					freeList.insert(f3);
+					
+					ByteBuffer.wrap(m).putShort(count, (short) b.length);
+					System.arraycopy(b, 0, m, pos, b.length);
+				}
+				else //at end
+				{
+					FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), count + bytesNeeded);
+					freeList.remove(f1);
+					freeList.insert(f4);
+					
+					ByteBuffer.wrap(m).putShort(count, (short) b.length);
+					System.arraycopy(b, 0, m, count + 2, b.length);
+					pos = count + 2;
+					count = count + b.length + 2;
+				}
+				
+				//				freeList.remove(freeList.get(i));
+				/*	FreeBlock f = new FreeBlock(m.length - b.length, m.length - m[i]);
+					fb = f;
+					freeList.insert(fb);  */                 
+			}
+		}
+	
+
+		if (found == false)  //make more mem 
+		{
+			int newSpace = 0;
+			int spaceAdded = 0;
+			int leftover = m.length - count;
+			if(leftover + ((bytesNeeded/bufSize))*bufSize >= bytesNeeded) //round buff number down
+			{ 
+				newSpace = m.length + ((bytesNeeded/bufSize)*bufSize);
+				spaceAdded = ((bytesNeeded/bufSize)*bufSize);
+			}
+			else
+			{
+				newSpace = m.length + (((bytesNeeded/bufSize)+1)*bufSize);
+				spaceAdded = (((bytesNeeded/bufSize)+1)*bufSize);
+
+			}
+			byte[] newm = new byte[newSpace];
+			System.arraycopy(m, 0, newm, 0, m.length);
+			m = newm;
+
+			FreeBlock fold = find(count);
+			FreeBlock fnew = new FreeBlock(leftover + spaceAdded, count);
+			freeList.remove(fold);
+			freeList.insert(fnew);
+			//inserts 
+			for (int i = 0; i < freeList.length() && !found; i++)
+			{
+				if (bytesNeeded <= freeList.get(i).sz)
+				{
+					found = true;
+					FreeBlock f1 = freeList.get(i);
+					if (freeList.get(i).p + freeList.get(i).sz != m.length) //not at end
+					{
+	
+						FreeBlock f2 = find(f1.p + f1.sz);
+						if (f2 == null) System.out.println("kill");
+						FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
+						freeList.remove(f1);
+						freeList.remove(f2);
+						freeList.insert(f3);
+					}
+					else //at end
+					{
+						FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), count + bytesNeeded);
+						freeList.remove(f1);
+						freeList.insert(f4);
+					}                
+				}
+			}
+			//bp.write(disk, bytesNeeded, count, mm);
+
+			//freeList.removeByPos(count);
+			//System.out.println(count + " c");
+			ByteBuffer.wrap(m).putShort(count, (short) b.length);
+			System.arraycopy(b, 0, m, count + 2, b.length);
+			pos = count + 2;
+			count = count + b.length + 2;
+
+		}
+
+		return pos;
+	}
+
+	public FreeBlock find(int x)
+	{
+		for(int i = 0; i < freeList.length(); i++)
+		{
+			if (freeList.get(i).p == x)
+			{
+				return freeList.get(i);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 
+	 * @param x the object handle 
+	 * @return the byte array that describes object
+	 */
+	public byte[] getNode(int x)
+	{
+		if(x == fly) 
+			return null;
+		else 
+		{
+			//System.out.println(x-2 + " x-2");
+			short size = ByteBuffer.wrap(m).getShort(x - 2);
+			//System.out.println(size);
+			byte[] b = new byte[size];
+			System.arraycopy(m, x, b, 0, size);
+			return b;
+		}
+	}
+}
+//
+//
+//    /**
+//     * Find the free block
+//     * @param x the handle
+//     * @return the freeblock
+//     */
+//    public FreeBlock find(int x)
+//    {
+//        for (int i = 0; i < freeList.length(); i++)
+//        {
+//            if (freeList.get(i).p == x)
+//            {
+//                return freeList.get(i);
+//            }
+//        }
+//        return null;
+//    }
+//
+//    /**
+//     * To close the file
+//     * @throws IOException
+//     */
+//    public void quit() throws IOException
+//    {
+//        disk.close();
+//    }
+//} //don't need to connect it to BP for milestone 2

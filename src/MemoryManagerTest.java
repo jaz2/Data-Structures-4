@@ -87,28 +87,18 @@ public class MemoryManagerTest extends TestCase{
 		String s = RectangleDisk.dfile;
 		RectangleDisk.bufSize = 5;
 		MemoryManager m = new MemoryManager(5, s);
-		System.out.println("mm length " + m.mm.length);
+		//System.out.println("mm length " + m.mm.length);
 		
 		byte[] in = {76, 70, 86};
 		m.insert(in);
 		byte[] nu = {82, 85, 77, 65};
 		System.out.println(nu.length + " max size " + m.sz);
 		assertEquals(7, m.insert(nu));
-		
-		
-		assertEquals(11, m.mm.length);
+				
+		//assertEquals(11, m.mm.length);
 	}
 	
-	/**
-	 * Tests when update is called
-	 */
 	@Test
-	public void testUpdate()
-	{
-		RectangleDisk.dfile = "dat.txt";
-		RectangleDisk.bufSize = 5;
-	}
-	
 	public void testInsert() throws IOException, ClassNotFoundException
 	{
 		//node = new SkipNode(kv, 0);
@@ -121,6 +111,7 @@ public class MemoryManagerTest extends TestCase{
 		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equals(node));		
 	}
 	
+	@Test
 	public void testMakeMoreMem() throws IOException, ClassNotFoundException
 	{
 		//node = new SkipNode(kv, 0);
@@ -139,7 +130,8 @@ public class MemoryManagerTest extends TestCase{
 		assertEquals(Serializer.deserialize(m.getNode(kv2)).toString(), kv.toString());	
 	}
 	
-	public void testUpdate2() throws IOException, ClassNotFoundException
+	@Test
+	public void testUpdate() throws IOException, ClassNotFoundException
 	{
 		byte[] b = Serializer.serialize(kv);
 		int kvh = m.insert(b);
