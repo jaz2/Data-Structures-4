@@ -133,25 +133,27 @@ public class MemoryManager {
             position = count + 2; 
             count += bytesNeeded;
         }
-
         //if u have 300, and take out 200,you get left with 100
         // }
         else
-        { //look at the last free block if it's longer than what u need
-            //grab what you need and then leave the rest -> pull off bytes from the front
-            //if what you want is bigger than what you want take out small and give bigger
-            //when you grow the header node, have to update -> have to give back the block 
-            //that was using the header but never use it
-            //can be done in adjust head, so take the handle for the old header 
-            //and tell mm to delete it and then insert the new one
+        { 
             int newSpace = 0;
             int leftover = mm.length - count;
+            int spaceAdded = 0;
             if (leftover + ((bytesNeeded / sz)) * sz >= bytesNeeded) //we good
             { 
                 newSpace = mm.length + ((bytesNeeded/sz))*sz;
+                spaceAdded = ((bytesNeeded / sz)) * sz;
             }
-            else newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
-            FreeBlock fu = new FreeBlock(leftover + newSpace, mm.length - count);
+            else 
+            {
+                newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
+                spaceAdded = ((bytesNeeded / sz)) * sz;
+            }
+            FreeBlock old = find(count);
+            FreeBlock fu = new FreeBlock(leftover + spaceAdded, count);
+            freeList.remove(old);
+            freeList.insert(fu);
             for (int i = 0; i < freeList.length() && !found; i++)
             {
                 if (bytesNeeded <= freeList.get(i).sz)
@@ -177,8 +179,8 @@ public class MemoryManager {
                     //found = true;
                 }
             }
-            if (found)
-            {
+            //if (found)
+            //{
                 found = false;
                 byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
                 System.arraycopy(mm, 0, nu, 0, mm.length);
@@ -189,10 +191,16 @@ public class MemoryManager {
                 position = count/*end*/ + 2;
                 //bp.write(disk, bytesNeeded, leftover, mm);
                 count = count + bytesNeeded; 
-            }
+            //}
         } //every time you add something you need to update the freeblock
         return position;
-    }
+    } //look at the last free block if it's longer than what u need
+    //grab what you need and then leave the rest -> pull off bytes from the front
+    //if what you want is bigger than what you want take out small and give bigger
+    //when you grow the header node, have to update -> have to give back the block 
+    //that was using the header but never use it
+    //can be done in adjust head, so take the handle for the old header 
+    //and tell mm to delete it and then insert the new one
 
     /**
      * Gets the node at the position 
