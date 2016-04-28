@@ -58,4 +58,14 @@ public class SkipNode implements java.io.Serializable {
     {
         return lev;
     }
+    
+    /**
+     * To check if same
+     * @param s the skipnode
+     * @return t or f
+     */
+    public boolean equalss(SkipNode s)
+    {
+    	return (s.element() == element);
+    }
 }
