@@ -1,9 +1,12 @@
 //import static org.junit.Assert.*;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 //import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+
 import student.TestCase;
 import org.junit.Test;
 
@@ -20,10 +23,13 @@ public class CommandProcessorTest extends TestCase
 {
     /**
      *  This method sets up the tests that follow.
+     * @throws FileNotFoundException 
      */
-    public void setUp()
+    public void setUp() throws FileNotFoundException
     {
         //Rectangle1 r = new Rectangle1();
+    	RandomAccessFile s = new RandomAccessFile("test2.txt", "rw");
+    	RectangleDisk.dfile = s;
     }
 
     /**
@@ -40,8 +46,7 @@ public class CommandProcessorTest extends TestCase
         FileWriter fi = new FileWriter(f);
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
-        w.close();
-        RectangleDisk.dfile = "diskf.txt";
+        w.close(); 
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -62,7 +67,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
         RectangleDisk.bufSize = 900;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -139,7 +143,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -162,7 +165,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -183,7 +185,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -204,7 +205,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -302,7 +302,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -358,14 +357,13 @@ public class CommandProcessorTest extends TestCase
             throws IOException, ClassNotFoundException
     {
         RectangleDisk.bufSize = 1000;
-        RectangleDisk.dfile = "s.txt";
         String s = "insert a 1 1 2 4";
         File f = new File("test.txt");
         FileWriter fi = new FileWriter(f);
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
+
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -446,7 +444,7 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
+
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -526,7 +524,7 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
+      
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -761,7 +759,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "testf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -784,7 +781,7 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "testf.txt";
+  
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -805,7 +802,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(d);
         w.close();
-        RectangleDisk.dfile = "testf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -827,7 +823,7 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "testf.txt";
+    
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -849,7 +845,7 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "testf.txt";
+
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -872,7 +868,7 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "testf.txt";
+ 
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -894,7 +890,7 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(s);
         w.close();
-        RectangleDisk.dfile = "testf.txt";
+  
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -1008,7 +1004,6 @@ public class CommandProcessorTest extends TestCase
         w.write(d);
         w.close();
 
-        RectangleDisk.dfile = "testf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -1093,7 +1088,6 @@ public class CommandProcessorTest extends TestCase
      */
     public void testRegionSearc16() throws IOException, ClassNotFoundException
     {
-        RectangleDisk.dfile = "testf.txt";
         RectangleDisk.bufSize = 1000;
         String d = "regionsearch   2 2 1 1";
         File f = new File("test.txt");
@@ -1161,7 +1155,6 @@ public class CommandProcessorTest extends TestCase
         BufferedWriter w = new BufferedWriter(fi);
         w.write(d);
         w.close();
-        RectangleDisk.dfile = "diskf.txt";
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
@@ -1178,7 +1171,7 @@ public class CommandProcessorTest extends TestCase
     @Test
     public void testNotDump() throws IOException, ClassNotFoundException
     {
-        RectangleDisk.dfile = "diskf.txt";
+
         RectangleDisk.bufSize = 1000;
         String x = "test should not work";
         File f = new File("test.txt");

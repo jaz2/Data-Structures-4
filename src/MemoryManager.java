@@ -341,7 +341,7 @@ public class MemoryManager {
 					byte[] a = new byte[2];				
 					ByteBuffer.wrap(a).putShort(0, (short) b.length);
 
-					bp.write(f, 2, pos - 2, a);
+					bp.write(f, 2, count, a);
 					bp.write(f, b.length, pos, b);
 				}
 				else //at end
