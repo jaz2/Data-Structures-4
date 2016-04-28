@@ -154,7 +154,7 @@ public class MemoryManager {
             {
                 if (bytesNeeded <= freeList.get(i).sz)
                 {
-                    found = true;
+                    
                     FreeBlock f1 = freeList.get(i);
                     if (freeList.get(i).sz + freeList.get(i).p != mm.length)
                     {
@@ -169,7 +169,8 @@ public class MemoryManager {
                         FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
                         freeList.remove(f1);
                         freeList.insert(f4);
-                    }                
+                    } 
+                    found = true;
                 }
             }
             if (found)

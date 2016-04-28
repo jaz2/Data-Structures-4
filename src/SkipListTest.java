@@ -51,6 +51,7 @@ public class SkipListTest extends TestCase
     @Test
     public void testInsert() throws ClassNotFoundException, IOException {
     	//String st = "data.txt";
+    	RectangleDisk.bufSize = 4096;
     	MemoryManager m = new MemoryManager(4096, "data.txt");
         Rect re = new Rect("a", 1, 2, 3, 4);
         //RectangleDisk.bufSize = 4096;
@@ -62,9 +63,8 @@ public class SkipListTest extends TestCase
         assertFuzzyEquals("SkipList dump: \n"
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
-                + "Node has depth 0, Value (b, 1, 2, 3, 4)\n"
-                + "SkipList size is: 2\n"
-                + "Freelist Blocks: \n(2, " + m.mm.length + ")", output);
+                + "SkipList size is: 1\n"
+                + "Freelist Blocks: \n(" + (m.mm.length - m.count) + ", " + m.mm.length + ")", output);
     } 
 
     /**
@@ -94,7 +94,7 @@ public class SkipListTest extends TestCase
                + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                + "Node has depth 0, Value (b, 1, 2, 3, 4)\n"
                + "SkipList size is: 2\n"
-               + "Freelist Blocks: \n(4, " + m.mm.length + ")", output);
+               + "Freelist Blocks: \n(" + (m.mm.length - m.count) + ", " + m.mm.length + ")", output);
     }
 //
 //    /**
