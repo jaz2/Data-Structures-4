@@ -69,9 +69,6 @@ public class RectangleDisk {
             File f = new File(input);
             CommandProcessor cmd = new CommandProcessor(f);
             
-            //RandomAccessFile disk = new RandomAccessFile(args[1], "rw");
-            //disk.setLength(0);
-           //disk.close();
         }
     }
 }

@@ -126,12 +126,13 @@ public class MemoryManager {
             if (found)
             {
                 found = false;
+                //bp.write(disk, bytesNeeded, count, mm);
                 ByteBuffer.wrap(mm).putShort(count, (short) b.length);
                 System.arraycopy(b, 0, mm, count + 2, b.length);
                 position = count + 2; 
                 count = count + bytesNeeded;
             }
-            //bp.write(disk, bytesNeeded, count, mm);
+            
             //if u have 300, and take out 200,you get left with 100
         }
         else 
@@ -171,13 +172,6 @@ public class MemoryManager {
                     }                
                 }
             }
-            //            if (leftover + bytesNeeded > mm.length)
-            //            {
-            //                FreeBlock fo = new FreeBlock(mm.length, mm.length + 1);
-            //                freeList.insert(fo);
-            //            }
-            // FreeBlock f = new FreeBlock(mm.length, mm.length + 1);
-            //freeList.insert(f); //see if this works
             if (found)
             {
             	found = false;
