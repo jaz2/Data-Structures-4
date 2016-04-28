@@ -96,48 +96,47 @@ public class MemoryManager {
             return fly; // return null handle
         }
         int bytesNeeded = b.length + 2;
-        if (!found)/*if (count + bytesNeeded <= mm.length)*/
-        {               
-            //disk.write(b, b.length + 2, b.length);
-
-            //where ever it ends, update those two bytes to be a new block
-            for (int i = 0; i < freeList.length() && !found; i++)
-            {
-                if (bytesNeeded <= freeList.get(i).sz)
-                {                    
-                    FreeBlock f1 = freeList.get(i);
-                    if (freeList.get(i).sz + freeList.get(i).p != mm.length)
-                    {
-                        FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
-                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
-                        freeList.remove(f1);
-                        freeList.remove(f2);
-                        freeList.insert(f3);
-                        found = true;
-                    }
-                    else 
-                    {
-                        FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
-                        freeList.remove(f1);
-                        freeList.insert(f4);
-                        found = true;
-                    }  
-                    //found = true;
+        /*if (count + bytesNeeded <= mm.length)*/
+        //        {               
+        //disk.write(b, b.length + 2, b.length);
+        //where ever it ends, update those two bytes to be a new block
+        for (int i = 0; i < freeList.length() && !found; i++)
+        {
+            if (bytesNeeded <= freeList.get(i).sz)
+            {                    
+                FreeBlock f1 = freeList.get(i);
+                if (freeList.get(i).sz + freeList.get(i).p != mm.length)
+                {
+                    FreeBlock f2 = find(freeList.get(i).p + freeList.get(i).sz);
+                    FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
+                    freeList.remove(f1);
+                    freeList.remove(f2);
+                    freeList.insert(f3);
+                    found = true;
                 }
+                else 
+                {
+                    FreeBlock f4 = new FreeBlock(f1.sz - bytesNeeded, count + bytesNeeded);
+                    freeList.remove(f1);
+                    freeList.insert(f4);
+                    found = true;
+                }  
+                //found = true;
             }
-            if (found)
-            {
-                found = false;
-                //bp.write(disk, bytesNeeded, count, mm);
-                ByteBuffer.wrap(mm).putShort(count, (short) b.length);
-                System.arraycopy(b, 0, mm, count + 2, b.length);
-                position = count + 2; 
-                count = count + bytesNeeded;
-            }
-            
-            //if u have 300, and take out 200,you get left with 100
         }
-        else 
+        if (found)
+        {
+            found = false;
+            //bp.write(disk, bytesNeeded, count, mm);
+            ByteBuffer.wrap(mm).putShort(count, (short) b.length);
+            System.arraycopy(b, 0, mm, count + 2, b.length);
+            position = count + 2; 
+            count += bytesNeeded;
+        }
+
+        //if u have 300, and take out 200,you get left with 100
+        // }
+        else
         { //look at the last free block if it's longer than what u need
             //grab what you need and then leave the rest -> pull off bytes from the front
             //if what you want is bigger than what you want take out small and give bigger
@@ -152,11 +151,12 @@ public class MemoryManager {
                 newSpace = mm.length + ((bytesNeeded/sz))*sz;
             }
             else newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
+            FreeBlock fu = new FreeBlock(leftover + newSpace, mm.length - count);
             for (int i = 0; i < freeList.length() && !found; i++)
             {
                 if (bytesNeeded <= freeList.get(i).sz)
                 {
-                    
+
                     FreeBlock f1 = freeList.get(i);
                     if (freeList.get(i).sz + freeList.get(i).p != mm.length)
                     {
@@ -179,7 +179,7 @@ public class MemoryManager {
             }
             if (found)
             {
-            	found = false;
+                found = false;
                 byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
                 System.arraycopy(mm, 0, nu, 0, mm.length);
                 mm = nu;  
