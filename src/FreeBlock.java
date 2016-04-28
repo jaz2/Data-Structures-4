@@ -29,4 +29,13 @@ public class FreeBlock {
 		sz = size;
 		p = pos;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String dump()
+	{	
+	   pospos + size
+	}
 }

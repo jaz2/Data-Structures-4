@@ -245,19 +245,6 @@ public class MemoryManager {
         }
         return null;
     }
-
-    /**
-     * Dumps the freeblocks
-     */
-    public String dump()
-    {
-    	String s = "";
-    	for (int i = 0; i < freeList.length(); i++)
-    	{
-    		freeList.g
-    	}
-    	System.out.println("(" + freeList.);
-    }
     
     /**
      * To close the file
