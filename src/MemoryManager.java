@@ -54,6 +54,11 @@ public class MemoryManager {
      * The file we will write into
      */
     public RandomAccessFile disk;
+    
+    /**
+     * The bufferpool
+     */
+    public BufferPool bp;
 
     /**
      * The constructor
@@ -109,9 +114,10 @@ public class MemoryManager {
                     count = count + bytesNeeded;
                     FreeBlock f = new FreeBlock(mm.length - b.length, mm.length - mm[i]);
                     fb = f;
-                    freeList.insert(fb);
+                    freeList.insert(fb);                   
                 }
             }
+           // bp.write(disk, bytesNeeded, count, mm);
             //if u have 300, and take out 200,you get left with 100
         }
         else 
@@ -124,13 +130,19 @@ public class MemoryManager {
             //and tell mm to delete it and then insert the new one
             int newSpace = 0;
             int leftover = mm.length - count;
-            if(leftover + ((bytesNeeded / sz)) * sz >= bytesNeeded) //we good
-            { 
-                newSpace = mm.length + ((bytesNeeded/sz))*sz;
+//            if(leftover + ((bytesNeeded / sz)) * sz >= bytesNeeded) //we good
+//            { 
+//                newSpace = mm.length + ((bytesNeeded/sz))*sz;
+//            }
+//            else newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
+            
+            if (leftover + bytesNeeded > mm.length)
+            {
+            	FreeBlock fo = new FreeBlock(mm.length, mm.length + 1);
+            	freeList.insert(fo);
             }
-            else newSpace = mm.length + ((bytesNeeded/sz)+1)*sz;
-            FreeBlock f = new FreeBlock(mm.length, mm.length + 1);
-            freeList.insert(f); //see if this works
+           // FreeBlock f = new FreeBlock(mm.length, mm.length + 1);
+            //freeList.insert(f); //see if this works
             
             byte[] nu = new byte[mm.length + Math.max(sz, bytesNeeded)];
             System.arraycopy(mm, 0, nu, 0, mm.length);
@@ -140,7 +152,7 @@ public class MemoryManager {
             System.arraycopy(b, 0, mm, count/*end*/ + 2, b.length);
             //disk.write(b, b.length + 2, b.length);
             position = count/*end*/ + 2;
-
+            bp.write(disk, bytesNeeded, leftover, mm);
             count = count + bytesNeeded;            
         } //every time you add something you need to update the freeblock
         return position;
