@@ -117,7 +117,7 @@ public class MemoryManager {
                     freeList.insert(fb);                   
                 }
             }
-           // bp.write(disk, bytesNeeded, count, mm);
+            //bp.write(disk, bytesNeeded, count, mm);
             //if u have 300, and take out 200,you get left with 100
         }
         else 
