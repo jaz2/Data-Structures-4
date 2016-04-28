@@ -447,38 +447,40 @@ public class SkipList<K extends Comparable<K>, E> {
     //        return true;
     //    }
 
-    //    /**
-    //     * The RegionSearch method
-    //     * @param x x coordinate
-    //     * @param y y coordinate 
-    //     * @param h height
-    //     * @param w width 
-    //     */
-    //    public void regionsearch(int x, int y, int w, int h)
-    //    {
-    //        System.out.println("Rectangles intersecting region (" + x
-    //                + ", " + y + ", " + w + ", " + h + "):");
-    //        SkipNode node = head;
-    //        Rect r;
-    //        Rect rect = new Rect("rs", x, y, w, h);
-    //        for (int i = 1; i <= size + 0; i++)
-    //        {
-    //            r = (Rect) node.forward[0].element.value();
-    //            if (r.intersects(rect))
-    //            {
-    //                if (rect.intersects(r))
-    //                {
-    //                    System.out.println("(" 
-    //                            + node.forward[0].element.key() + ", "
-    //                            + node.forward[0].element.value()
-    //                                .toString() + ")");
-    //                }
-    //            }
-    //            node = node.forward[0];
-    //        } 
-    //    }
-    //
-    //    
+        /**
+         * The RegionSearch method
+         * @param x x coordinate
+         * @param y y coordinate 
+         * @param h height
+         * @param w width 
+         */
+    public void regionsearch(int x, int y, int w, int h) 
+    		throws ClassNotFoundException, IOException
+	{
+		System.out.println("Rectangles intersecting region (" + x
+				+ ", " + y + ", " + w + ", " + h + "):");
+		int node = head;
+		Rect r;
+		Rect rect = new Rect("rs", x, y, w, h);
+		//		int rh = insertObject(rect);
+		for (int i = 1; i <= size + 0; i++)
+		{ 
+			r = (Rect) getKV(getNode(getNode(node).forward[0]).element).value();
+			if (r.intersects(rect))
+			{
+				if (rect.intersects(r))
+				{
+					System.out.println("(" 
+							+ (getKV(getNode(getNode(node).forward[0]).element)).key() + ", "
+							+ (getKV(getNode(getNode(node).forward[0]).element)).value().toString() + ")");
+				}
+			}
+			node = getNode(node).forward[0];
+			//node = node.forward[0];
+		} 
+	}
+    
+        
         /**
          * Intersections method
          *  
