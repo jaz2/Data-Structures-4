@@ -186,5 +186,23 @@ public class BufferPoolTest extends TestCase {
         f.close();
     }
     
-    public void testWriteMore()
+    /**
+     * Tests when there is more than one buffer
+     * @throws IOException
+     */
+    public void testMultipleBuffers() throws IOException
+	{
+		RectangleDisk.bufSize = 5;
+		RandomAccessFile f = new RandomAccessFile("file", "rw");
+		byte[] bytes = new byte[6]; 
+		byte[] b = {12, 9, 7, 23, 45, 0};
+		buf.write(f, 6, 2, b);
+
+		buf.read(f, 6, 2, bytes);
+		System.out.println(b[3]);
+		System.out.println(bytes[3]);
+		assertTrue(Arrays.equals(b, bytes));
+
+	}
+   
 }
