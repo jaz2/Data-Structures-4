@@ -314,7 +314,6 @@ public class MemoryManager {
 		}
 		int bytesNeeded = b.length + 2;
 		int pos = 0;
-
 		for (int i = 0; i < freeList.length() && !found; i++)
 		{
 			if (bytesNeeded <= freeList.get(i).sz)
@@ -360,61 +359,61 @@ public class MemoryManager {
 				}              
 			}
 		}
-//		if (found == false)  //make more mem 
-//		{
-//			int newSpace = 0;
-//			int spaceAdded = 0;
-//			int leftover = end - count;
-//			if(leftover + ((bytesNeeded/bufSize))*bufSize >= bytesNeeded) //round buff number down
-//			{ 
-//				newSpace = end + ((bytesNeeded/bufSize)*bufSize);
-//				spaceAdded = ((bytesNeeded/bufSize)*bufSize);
-//			}
-//			else
-//			{
-//				newSpace = end + (((bytesNeeded/bufSize)+1)*bufSize);
-//				spaceAdded = (((bytesNeeded/bufSize)+1)*bufSize);
-//
-//			}
+		if (found == false)  //make more mem 
+		{
+			int newSpace = 0;
+			int spaceAdded = 0;
+			int leftover = end - count;
+			if(leftover + ((bytesNeeded/bufSize))*bufSize >= bytesNeeded) //round buff number down
+			{ 
+				newSpace = end + ((bytesNeeded/bufSize)*bufSize);
+				spaceAdded = ((bytesNeeded/bufSize)*bufSize);
+			}
+			else
+			{
+				newSpace = end + (((bytesNeeded/bufSize)+1)*bufSize);
+				spaceAdded = (((bytesNeeded/bufSize)+1)*bufSize);
+
+			}
 //			byte[] newm = new byte[newSpace];
 //			System.arraycopy(m, 0, newm, 0, end);
 //			
 //			m = newm;
-//
-//			FreeBlock fold = find(count);
-//			FreeBlock fnew = new FreeBlock(leftover + spaceAdded, count);
-//			freeList.remove(fold);
-//			freeList.insert(fnew);
-//			//inserts 
-//			for (int i = 0; i < freeList.length() && !found; i++)
-//			{
-//				if (bytesNeeded <= freeList.get(i).sz)
-//				{
-//					found = true;
-//					FreeBlock f1 = freeList.get(i);
-//					if (freeList.get(i).p + freeList.get(i).sz != m.length) //not at end
-//					{
-//
-//						FreeBlock f2 = find(f1.p + f1.sz);
-//						if (f2 == null) System.out.println("kill");
-//						FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
-//						freeList.remove(f1);
-//						freeList.remove(f2);
-//						freeList.insert(f3);
-//					}
-//					else //at end
-//					{
-//						FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), count + bytesNeeded);
-//						freeList.remove(f1);
-//						freeList.insert(f4);
-//					}                
-//				}
-//			}
-//			ByteBuffer.wrap(m).putShort(count, (short) b.length);
-//			System.arraycopy(b, 0, m, count + 2, b.length);
-//			pos = count + 2;
-//			count = count + b.length + 2;
-//		}
+
+			FreeBlock fold = find(count);
+			FreeBlock fnew = new FreeBlock(leftover + spaceAdded, count);
+			freeList.remove(fold);
+			freeList.insert(fnew);
+			//inserts 
+			for (int i = 0; i < freeList.length() && !found; i++)
+			{
+				if (bytesNeeded <= freeList.get(i).sz)
+				{
+					found = true;
+					FreeBlock f1 = freeList.get(i);
+					if (freeList.get(i).p + freeList.get(i).sz != m.length) //not at end
+					{
+
+						FreeBlock f2 = find(f1.p + f1.sz);
+						if (f2 == null) System.out.println("kill");
+						FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
+						freeList.remove(f1);
+						freeList.remove(f2);
+						freeList.insert(f3);
+					}
+					else //at end
+					{
+						FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), count + bytesNeeded);
+						freeList.remove(f1);
+						freeList.insert(f4);
+					}                
+				}
+			}
+			ByteBuffer.wrap(m).putShort(count, (short) b.length);
+			System.arraycopy(b, 0, m, count + 2, b.length);
+			pos = count + 2;
+			count = count + b.length + 2;
+		}
 		return pos;
 	}
 
