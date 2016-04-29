@@ -384,6 +384,7 @@ public class MemoryManager {
 			FreeBlock fnew = new FreeBlock(leftover + spaceAdded, count);
 			freeList.remove(fold);
 			freeList.insert(fnew);
+			end = end + spaceAdded;
 			//inserts 
 			for (int i = 0; i < freeList.length() && !found; i++)
 			{
