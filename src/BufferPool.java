@@ -60,8 +60,13 @@ public class BufferPool {
         //block number 
         //file identifier (file 1 or 2 or something)
         //check if its dirty or not
-    }
+    } 
 
+    
+    //Things to change:
+    // -span of blocks
+    // ?
+    
     /**
      * Array holding the buffers
      */
@@ -106,8 +111,8 @@ public class BufferPool {
             int bytePos, byte[] bytes) throws IOException
     {
         //locToStart = blocknum * block_size + posInBlock;
-        int blockN = bytePos / 4096; //block
-        int posInBlock = bytePos % 4096; //pos in block
+        int blockN = bytePos / RectangleDisk.bufSize; //block
+        int posInBlock = bytePos % RectangleDisk.bufSize; //pos in block
         int i = 0;
         while (i < blox.length
                 && blox[i] != null 
@@ -133,8 +138,8 @@ public class BufferPool {
         }
         else 
         { //read from file, place into buffer and send that back
-            f.seek(blockN * 4096);
-            Buffer b = new Buffer(f, blockN, 4096);
+            f.seek(blockN * RectangleDisk.bufSize);
+            Buffer b = new Buffer(f, blockN, RectangleDisk.bufSize);
             f.read(b.data);
             System.arraycopy(b.data, posInBlock, 
                     bytes, 0, numBytesRead);
@@ -163,8 +168,8 @@ public class BufferPool {
             int bytePos, byte[] bytes) throws IOException
     {
         //when you flush, reset the dirty bit to false
-        int blockN = bytePos / 4096;
-        int posInBlock = bytePos % 4096;
+        int blockN = bytePos / RectangleDisk.bufSize;
+        int posInBlock = bytePos % RectangleDisk.bufSize;
         int i = 0;
         while ( i < blox.length 
                 && blox[i] != null 
@@ -186,8 +191,8 @@ public class BufferPool {
         }
         else 
         {
-            f.seek(blockN * 4096);
-            Buffer b = new Buffer(f, blockN, 4096);
+            f.seek(blockN * RectangleDisk.bufSize);
+            Buffer b = new Buffer(f, blockN, RectangleDisk.bufSize);
             f.read(b.data);
             System.arraycopy(bytes, 0, b.data, 
                     posInBlock, numBytesToWrite);
@@ -211,7 +216,7 @@ public class BufferPool {
     {
         if (bu != null && bu.dbit)
         {
-            bu.file.seek(bu.block * 4096);
+            bu.file.seek(bu.block * RectangleDisk.bufSize);
             bu.file.write(bu.data);
             bu.dbit = false;
             writes++;
