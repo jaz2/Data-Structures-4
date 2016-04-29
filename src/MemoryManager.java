@@ -78,7 +78,7 @@ public class MemoryManager {
 	public MemoryManager(int size, RandomAccessFile s) throws IOException
 	{
 		//disk = new RandomAccessFile(s, "rw");
-		s.setLength(0);
+		s.setLength(RectangleDisk.bufSize);
 		fly = -1;
 		count = 0;
 		m = new byte[size];
