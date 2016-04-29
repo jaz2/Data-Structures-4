@@ -178,7 +178,6 @@ public class BufferPoolTest extends TestCase {
         for (int i = 0; i < buf.blox.length; i++)
         {
             buf.flush(buf.blox[i]);
-            System.out.println(i);
         }
         buf.read(f, 4, 5000, bytes); 
         assertTrue(Arrays.equals(bytes, b));
@@ -202,6 +201,7 @@ public class BufferPoolTest extends TestCase {
 		System.out.println(b[2]);
 		System.out.println(bytes[2]);
 		assertTrue(Arrays.equals(b, bytes));
+		f.close();
 
 	}
    
