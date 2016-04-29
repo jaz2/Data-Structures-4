@@ -176,7 +176,7 @@ public class BufferPool {
 			int bytesReadFirst = RectangleDisk.bufSize - start;
 			write1(f, bytesReadFirst, start, bytes);
 
-			int nuStart = (blockN * RectangleDisk.bufSize) + 1;
+			int nuStart = (blockN + 1) * RectangleDisk.bufSize;
 			int leftover = numBytesRead - bytesReadFirst; //10   100
 			int bytesLeft = Math.abs(nuStart - leftover); //90
 			if (nuStart + bytesLeft < nuStart + RectangleDisk.bufSize)
