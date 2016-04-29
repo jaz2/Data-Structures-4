@@ -162,49 +162,45 @@ public class BufferPool {
 	 * @param bytes
 	 * @throws IOException
 	 */
-	public void write(RandomAccessFile f, int numBytesRead, 
+	public void write(RandomAccessFile f, int numBytesToWrite, 
 			int bytePos, byte[] bytes) throws IOException
 	{
 		int blockN = bytePos / RectangleDisk.bufSize; //block
 		int posInBlock = bytePos % RectangleDisk.bufSize; //pos in block
-		if (posInBlock + numBytesRead > RectangleDisk.bufSize)         
-		{  //10 ->13  
-			//10 - 3 = 7
-			int start = posInBlock;
-			int end = bytePos + numBytesRead;
-
-			int bytesReadFirst = RectangleDisk.bufSize - start; //3
-			write1(f, bytesReadFirst, start, bytes);
-
-			int nuStart = (blockN + 1) * RectangleDisk.bufSize; //6
-			int leftover = numBytesRead - bytesReadFirst; //5
-			int bytesLeft = Math.abs(nuStart - leftover); //1
-			if (nuStart + leftover < nuStart + RectangleDisk.bufSize) //11 < 11
+		int start = bytePos;
+		int posInBytes = 0;
+		System.out.println(posInBlock + " start");
+		int s = posInBlock;
+		int buffers = ((posInBlock + numBytesToWrite)/RectangleDisk.bufSize) + 1;
+		System.out.println(buffers + " buffs");
+		int totalEnd = bytePos + numBytesToWrite;
+		int end = ((blockN + 1) * RectangleDisk.bufSize);
+		for (int i = 0; i < buffers; i++)
+		{
+			if (end > totalEnd)
 			{
-				write1(f, leftover, nuStart, bytes);
+				System.out.println(end + " end");
+				System.out.println(totalEnd + " tend");
+				int aSize = totalEnd - start;
+				System.out.println(aSize + " asize");
+				System.out.println(posInBytes + " startpos");
+				byte[] a = new byte[aSize];
+				System.arraycopy(bytes, posInBytes, a, 0, totalEnd - start);
+				write1(f, totalEnd - start, start, a);
+				posInBytes = posInBytes + aSize;
 			}
 			else
 			{
-				int readBytes = RectangleDisk.bufSize;
-				for (int i = (blockN + 1) * RectangleDisk.bufSize; i < end; i++)
-				{
-					write1(f, readBytes, nuStart, bytes);
-					if ((bytesLeft - readBytes) > 0)
-					{
-						bytesLeft -= readBytes;
-						//readBytes += RectangleDisk.bufSize;
-					}
-					else
-					{
-						readBytes = bytesLeft;
-					}
-					nuStart += RectangleDisk.bufSize;
-				}
+				System.out.println(end + " end");
+				System.out.println(start + " start");
+				int aSize = end - start;
+				byte[] a = new byte[aSize];
+				System.arraycopy(bytes, posInBytes, a, 0, end - start);
+				write1(f, end - start, start, a);
+				start = end;
+				posInBytes = posInBytes + aSize;
+				end = end + RectangleDisk.bufSize;
 			}
-		}
-		else 
-		{
-			write1(f, numBytesRead, bytePos, bytes);
 		}
 	}
 
