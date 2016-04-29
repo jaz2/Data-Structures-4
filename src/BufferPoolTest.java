@@ -199,7 +199,7 @@ public class BufferPoolTest extends TestCase {
 
 		buf.read(f, 6, 2, bytes);
 		System.out.println(b[3]);
-		System.out.println(bytes[2] + bytes[3] + bytes[4]);
+		System.out.println(bytes[2] + ", " + bytes[3] +  ", " + bytes[4]);
 		assertTrue(Arrays.equals(b, bytes));
 		f.close();
 
