@@ -401,8 +401,13 @@ public class MemoryManager {
 					}                
 				}
 			}
-			ByteBuffer.wrap(m).putShort(count, (short) b.length);
-			System.arraycopy(b, 0, m, count + 2, b.length);
+			//ByteBuffer.wrap(m).putShort(count, (short) b.length);
+			//System.arraycopy(b, 0, m, count + 2, b.length);
+			byte[] a = new byte[2];				
+			ByteBuffer.wrap(a).putShort(0, (short) b.length);
+
+			bp.write(f, 2, count, a);
+			bp.write(f, b.length, count + 2, b);
 			pos = count + 2;
 			count = count + b.length + 2;
 		}
