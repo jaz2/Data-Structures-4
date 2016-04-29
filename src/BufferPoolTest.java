@@ -185,4 +185,6 @@ public class BufferPoolTest extends TestCase {
 
         f.close();
     }
+    
+    public void testWriteMore()
 }
