@@ -100,14 +100,51 @@ public class BufferPool {
     }
 
     /**
-     * 
+     * Will handle going over blocks
+     * @param f the file to read in
+     * @param numBytesRead number of bytes to read
+     * @param bytePos the position of byte
+     * @param bytes the array to return
+     * @throws IOException 
+     */
+    public void read(RandomAccessFile f, int numBytesRead, 
+            int bytePos, byte[] bytes) throws IOException
+    {
+    	 int blockN = bytePos / RectangleDisk.bufSize; //block
+         int posInBlock = bytePos % RectangleDisk.bufSize; //pos in block
+         if (posInBlock + numBytesRead > RectangleDisk.bufSize)         
+         {  //10 ->13  
+        	 //10 - 3 = 7
+        	 int start = posInBlock;
+        	 int end = bytePos + numBytesRead;
+        	 
+        	 int bytesReadFirst = RectangleDisk.bufSize - start;
+        	 read1(f, bytesReadFirst, start, bytes);
+             
+        	 int nuStart = (blockN + 1) * RectangleDisk.bufSize;
+        	 int leftover = numBytesRead - bytesReadFirst; //10   100
+        	 int bytesLeft = Math.abs(nuStart - leftover); //90
+        	 if ()
+        	 for (int i = nuStart; i < end; i++)
+        	 {
+        		 read1(f, bytesLeft, nuStart, bytes);
+        	 }
+         }
+         else 
+         {
+        	 read1(f, numBytesRead, bytePos, bytes);
+         }
+    }
+    
+    /**
+     * Old version which only handles one block
      * @param f the file to read
      * @param numBytesRead will always be 4 for this project
      * @param bytePos the position of the byte
      * @param bytes the array to return 
      * @throws IOException 
      */
-    public void read(RandomAccessFile f, int numBytesRead, 
+    private void read1(RandomAccessFile f, int numBytesRead, 
             int bytePos, byte[] bytes) throws IOException
     {
         //locToStart = blocknum * block_size + posInBlock;
@@ -153,7 +190,7 @@ public class BufferPool {
         }
     } //for each buffer flush if it's dirty
 
-
+    
     //first thing to do is take info and put it into buffers
     /**
      * Writes over the buffer, or the file
