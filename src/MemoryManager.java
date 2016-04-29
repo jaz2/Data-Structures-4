@@ -407,7 +407,7 @@ public class MemoryManager {
 			ByteBuffer.wrap(a).putShort(0, (short) b.length);
 
 			bp.write(f, 2, count, a);
-			bp.write(f, b.length, count + 2, b);
+			bp.write(f, b.length, count + 2, a);
 			pos = count + 2;
 			count = count + b.length + 2;
 		}

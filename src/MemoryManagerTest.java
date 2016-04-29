@@ -30,6 +30,7 @@ public class MemoryManagerTest extends TestCase{
     	RectangleDisk.dfile = s;
 		m = new MemoryManager(512, RectangleDisk.dfile); 
 		RectangleDisk.bufSize = 4096;
+		RectangleDisk.numBuffs = 3;
 	   // skip = new SkipList(m);
 	//    KVPair kv = new KVPair(id, rec);
 	    Rect re = new Rect("a", 1, 2, 3, 4);
