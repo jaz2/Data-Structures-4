@@ -198,8 +198,8 @@ public class BufferPoolTest extends TestCase {
 		buf.write(f, 6, 2, b);
 
 		buf.read(f, 6, 2, bytes);
-		System.out.println(b[2]);
-		System.out.println(bytes[2]);
+		System.out.println(b[3]);
+		System.out.println(bytes[3]);
 		assertTrue(Arrays.equals(b, bytes));
 		f.close();
 
