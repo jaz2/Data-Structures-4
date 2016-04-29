@@ -443,14 +443,15 @@ public class MemoryManager {
 			return null;
 		else 
 		{
-			//byte[] a = new byte[2];				
+			byte[] a = new byte[2];		
+			bp.read(f, 2, x - 2, a);
 			//ByteBuffer.wrap(a).putShort(0, (short) b.length);		
 			
-			short size = ByteBuffer.wrap(m).getShort(x - 2);
+			short size = ByteBuffer.wrap(a).getShort(0);
 			byte[] b = new byte[size];
 			//System.arraycopy(m, x, b, 0, size);
-			bp.write(f, 2, x - 2, b);
-			bp.write(f, b.length, x + 2, b);
+			bp.read(f, size, x, b);
+			//bp.write(f, b.length, x + 2, b);
 			return b;
 		}
 	}
