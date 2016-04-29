@@ -31,6 +31,7 @@ public class BufferPoolTest extends TestCase {
      */
     @Before
     public void setUp() throws Exception {
+    	RectangleDisk.bufSize = 1024;
         buf = new BufferPool(3);
     } //to randomaccessfile write something and then flush it 
     //make sure it's there
