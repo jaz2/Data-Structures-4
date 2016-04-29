@@ -192,14 +192,14 @@ public class BufferPoolTest extends TestCase {
     public void testMultipleBuffers() throws IOException
 	{
 		RectangleDisk.bufSize = 5;
-		RandomAccessFile f = new RandomAccessFile("file", "rw");
+		RandomAccessFile f = new RandomAccessFile("file.txt", "rw");
 		byte[] bytes = new byte[6]; 
 		byte[] b = {12, 9, 7, 23, 45, 0};
 		buf.write(f, 6, 2, b);
 
 		buf.read(f, 6, 2, bytes);
-		System.out.println(b[3]);
-		System.out.println(bytes[2] + ", " + bytes[3] +  ", " + bytes[4]);
+		System.out.println(b[3] + ", " + b[4]);
+		System.out.println(bytes[0] + ", " + bytes[1] + ", " + bytes[2] + ", " + bytes[3] +  ", " + bytes[4] + ", " + bytes[5]);
 		assertTrue(Arrays.equals(b, bytes));
 		f.close();
 
