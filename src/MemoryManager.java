@@ -322,15 +322,6 @@ public class MemoryManager {
 				FreeBlock f1 = freeList.get(i);
 				if (freeList.get(i).p + freeList.get(i).sz != end) //not at end
 				{
-					//FreeBlock f2 = find(f1.pos + f1.size);
-					/*	System.out.println(f1.size + "size");
-					System.out.println(f1.pos + "pos");
-					System.out.println(freeList.length() + " freelen");
-					System.out.println(count + " count");
-					System.out.println(m.length + " mlen");*/
-					//	FreeBlock f2 = find(f1.pos + f1.size);
-					//	if (f2 == null) System.out.println("kill");
-					//	System.out.println(f2.size);
 					pos = freeList.get(i).p + 2;
 					FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
 					freeList.remove(f1);
@@ -340,7 +331,7 @@ public class MemoryManager {
 					byte[] a = new byte[2];				
 					ByteBuffer.wrap(a).putShort(0, (short) b.length);
 
-					bp.write(f, 2, count, a);
+					bp.write(f, 2, pos - 2, a);
 					bp.write(f, b.length, pos, b);
 				}
 				else //at end
@@ -392,7 +383,7 @@ public class MemoryManager {
 				{
 					found = true;
 					FreeBlock f1 = freeList.get(i);
-					if (freeList.get(i).p + freeList.get(i).sz != m.length) //not at end
+					if (freeList.get(i).p + freeList.get(i).sz != end) //not at end
 					{
 
 						FreeBlock f2 = find(f1.p + f1.sz);
