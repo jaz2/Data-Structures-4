@@ -36,7 +36,7 @@ public class List {
 		if (size == 0)
 		{
 			found = true;
-			l[size] = p;
+			l[0] = p;
 			size++;
 		}
 		else 
