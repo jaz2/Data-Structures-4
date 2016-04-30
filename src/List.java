@@ -74,7 +74,7 @@ public class List {
 		{
 			len = len * 2; //change 
 			FreeBlock[] n = new FreeBlock[len];
-			for (int i = 0; i < len / 2; i++)
+			for (int i = 0; i < size; i++)
 			{
 				n[i] = l[i];
 			}
