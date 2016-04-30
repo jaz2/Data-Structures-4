@@ -159,18 +159,18 @@ public class CommandProcessor {
                     System.out.println("Rectangle rejected: (" + n1 + ", " + n2
                             + ", " + n3    + ", " + n4 + ")");               
                 }
-                //                else 
-                //                {
-                //                    db.skip.regionsearch(n1, n2, n3, n4); 
-                //                }
+                else 
+                {
+                	db.skip.regionsearch(n1, n2, n3, n4); 
+                }
             }
             else if (str.contains("intersections")) {
                 System.out.println("Intersection pairs: ");
-                //                db.skip.intersections();
+                               db.skip.intersections();
             } 
             else if (str.contains("search")) {
                 String id = in.next().toString();
-                //                db.skip.search(id);
+                                db.skip.search(id);
             } 
             else if (str.contains("dump")) {
                 db.skip.dump();

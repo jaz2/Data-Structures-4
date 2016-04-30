@@ -192,7 +192,7 @@ public class MemoryManager{
 //            }
 //            else
 //            {
-                spaceAdded = (((bytesNeeded/bufSize) + 0) * bufSize);
+                spaceAdded = (((bytesNeeded/bufSize) + 1) * bufSize);
 //            }
             //FreeBlock fold = find(count);
             FreeBlock fnew = new FreeBlock((end - last.p) + spaceAdded, last.p);

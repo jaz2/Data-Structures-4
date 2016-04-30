@@ -971,7 +971,7 @@ public class CommandProcessorTest extends TestCase
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         //assertFuzzyEquals("Rectangle not found: me", output);
-        assertFuzzyEquals("", output);
+        assertFuzzyEquals("Rectangle not found: me", output);
     }
 
     /**
@@ -1100,9 +1100,8 @@ public class CommandProcessorTest extends TestCase
 
         new CommandProcessor(f);
         String output = systemOut().getHistory();
-        //assertFuzzyEquals("Rectangles intersecting "
-        // + "region (2, 2, 1, 1):", output);
-        assertFuzzyEquals("", output);
+        assertFuzzyEquals("Rectangles intersecting "
+         + "region (2, 2, 1, 1):", output);
     }
 
 
