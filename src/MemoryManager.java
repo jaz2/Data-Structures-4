@@ -151,8 +151,8 @@ public class MemoryManager{
             {
                 found = true;
                 FreeBlock f1 = freeList.get(i);
-//                if (freeList.get(i).p + freeList.get(i).sz != end) //not at end
-//                {
+                if (freeList.get(i).p + freeList.get(i).sz != end) //not at end
+                {
                     pos = freeList.get(i).p + 2;
                     FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
                     freeList.remove(f1);
@@ -164,22 +164,22 @@ public class MemoryManager{
 
                     bp.write(f, 2, pos - 2, a);
                     bp.write(f, b.length, pos, b);
-//                }
-//                else //at end
-//                {
-//                	pos = freeList.get(i).p + 2;
-//                    FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
-//                    freeList.remove(f1);
-//                    freeList.insert(f4);                    
-//
-//                    byte[] a = new byte[2];                
-//                    ByteBuffer.wrap(a).putShort(0, (short) b.length);
-//
-//                    bp.write(f, 2, pos - 2, a);
-//                    bp.write(f, b.length, pos, b);
-//                    //pos = count + 2;
-//                    count = count + b.length + 2;
-//                }              
+                }
+                else //at end
+                {
+                	pos = freeList.get(i).p + 2;
+                    FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
+                    freeList.remove(f1);
+                    freeList.insert(f4);                    
+
+                    byte[] a = new byte[2];                
+                    ByteBuffer.wrap(a).putShort(0, (short) b.length);
+
+                    bp.write(f, 2, pos - 2, a);
+                    bp.write(f, b.length, pos, b);
+                    //pos = count + 2;
+                    count = count + b.length + 2;
+                }              
             }
         }
         if (found == false)  //make more mem 
