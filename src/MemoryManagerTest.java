@@ -15,9 +15,13 @@ import student.TestCase;
  * @author Jazz
  *
  */
-public class MemoryManagerTest extends TestCase{
+public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 
-	SkipList skip;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	SkipList<String, Rect> skip;
 	SkipNode node;
 	MemoryManager m;
 	KVPair kv;
@@ -26,15 +30,20 @@ public class MemoryManagerTest extends TestCase{
 	 */
 	@Before
 	public void setUp() throws Exception {
-		RandomAccessFile s = new RandomAccessFile("test2.txt", "rw");
-    	RectangleDisk.dfile = s;
-		m = new MemoryManager(512, RectangleDisk.dfile); 
-		RectangleDisk.bufSize = 4096;
+		RandomAccessFile s = new RandomAccessFile("test.txt", "rw");
+		RectangleDisk.dfile = s;
 		RectangleDisk.numBuffs = 3;
-	    Rect re = new Rect("a", 1, 2, 3, 4);
-	    kv = new KVPair(re.getName(), re);
+		
+		RectangleDisk.bufSize = 4096;
+		m = new MemoryManager(RectangleDisk.bufSize, RectangleDisk.dfile); 
+		// skip = new SkipList(m);
+		//    KVPair kv = new KVPair(id, rec);
+		Rect re = new Rect("a", 1, 2, 3, 4);
+		//	KVPair<String,Rect> p = new KVPair<String,Rect>(re.getId(), re);
+		kv = new KVPair(re.getName(), re);
+		//node = new SkipNode()
 	}
-	
+
 	/**
 	 * Tests when one thing is inserted into 
 	 * Memory Manager
@@ -49,7 +58,7 @@ public class MemoryManagerTest extends TestCase{
 		assertEquals(2, m.insert(in));
 		//assertEquals(510, m.fb);
 	}
-	
+
 	/**
 	 * Tests when two things are inserted
 	 * @throws IOException
@@ -64,7 +73,7 @@ public class MemoryManagerTest extends TestCase{
 		byte[] nu = {89, 68, 67, 72};
 		assertEquals(7, m.insert(nu));
 	}
-	
+
 	/**
 	 * Tests when at end of memory manager
 	 * @throws IOException 
@@ -75,16 +84,16 @@ public class MemoryManagerTest extends TestCase{
 		RectangleDisk.bufSize = 5;
 		MemoryManager m = new MemoryManager(5, RectangleDisk.dfile);
 		//System.out.println("mm length " + m.mm.length);
-		
+
 		byte[] in = {76, 70, 86};
 		m.insert(in);
 		byte[] nu = {82, 85, 77, 65};
 		System.out.println(nu.length + " max size " + m.sz);
 		assertEquals(7, m.insert(nu));
-				
+
 		//assertEquals(11, m.mm.length);
 	}
-	
+
 	@Test
 	public void testInsert() throws IOException, ClassNotFoundException
 	{
@@ -95,9 +104,9 @@ public class MemoryManagerTest extends TestCase{
 		b = Serializer.serialize(node);
 		int nh = m.insert(b);
 		assertEquals(Serializer.deserialize(m.getNode(kvh)).toString(), kv.toString());	
-		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equalss(node));		
+		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equalss(node));	
 	}
-	
+
 	@Test
 	public void testMakeMoreMem() throws IOException, ClassNotFoundException
 	{
@@ -116,7 +125,7 @@ public class MemoryManagerTest extends TestCase{
 		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equalss(node));		
 		assertEquals(Serializer.deserialize(m.getNode(kv2)).toString(), kv.toString());	
 	}
-	
+
 	@Test
 	public void testUpdate() throws IOException, ClassNotFoundException
 	{

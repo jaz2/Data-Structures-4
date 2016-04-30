@@ -364,7 +364,6 @@ public class MemoryManager{
             {
                // newSpace = end + (((bytesNeeded/bufSize)+1)*bufSize);
                 spaceAdded = (((bytesNeeded/bufSize)+1)*bufSize);
-
             }
             //            byte[] newm = new byte[newSpace];
             //            System.arraycopy(m, 0, newm, 0, end);
