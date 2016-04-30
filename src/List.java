@@ -49,13 +49,13 @@ public class List {
 					found = true;
 					FreeBlock next = l[i];
 					l[i] = p;
-					size++;
-					//System.out.println("Size is: " + size);
+					//size++;
 					for (int j = size; j > i + 1; j--)
 					{
 						l[j] = l[j - 1];						
 					}
 					l[i + 1] = next;
+					size++
 				}
 			}
 			if (!found)
