@@ -376,37 +376,38 @@ public class MemoryManager{
             freeList.insert(fnew);
             end = end + spaceAdded;
             //inserts 
-            for (int i = 0; i < freeList.length() && !found; i++)
-            {
-                if (bytesNeeded <= freeList.get(i).sz)
-                {
-                    found = true;
-                    FreeBlock f1 = freeList.get(i);
-                    if (freeList.get(i).p + freeList.get(i).sz != end) //not at end
-                    {
+//            for (int i = 0; i < freeList.length() && !found; i++)
+//            {
+//                if (bytesNeeded <= freeList.get(i).sz)
+//                {
+//                    found = true;
+//                    FreeBlock f1 = freeList.get(i);
+//                    if (freeList.get(i).p + freeList.get(i).sz != end) //not at end
+//                    {
+//
+//                        FreeBlock f2 = find(f1.p + f1.sz);
+//                        if (f2 == null) System.out.println("kill");
+//                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
+//                        freeList.remove(f1);
+//                        freeList.remove(f2);
+//                        freeList.insert(f3);
+//                    }
+//                    else //at end
+//                    {
+//                        FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), count + bytesNeeded);
+//                        freeList.remove(f1);
+//                        freeList.insert(f4);
+//                    }                
+//                }
+//            }
+//            byte[] a = new byte[2];                
+//            ByteBuffer.wrap(a).putShort(0, (short) b.length);
 
-                        FreeBlock f2 = find(f1.p + f1.sz);
-                        if (f2 == null) System.out.println("kill");
-                        FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded) + f2.sz, count + bytesNeeded);
-                        freeList.remove(f1);
-                        freeList.remove(f2);
-                        freeList.insert(f3);
-                    }
-                    else //at end
-                    {
-                        FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), count + bytesNeeded);
-                        freeList.remove(f1);
-                        freeList.insert(f4);
-                    }                
-                }
-            }
-            byte[] a = new byte[2];                
-            ByteBuffer.wrap(a).putShort(0, (short) b.length);
-
-            bp.write(f, 2, count, a);
-            bp.write(f, b.length, count + 2, b);
-            pos = count + 2;
-            count = count + b.length + 2;
+////            bp.write(f, 2, count, a);
+//            bp.write(f, b.length, count + 2, b);
+//            pos = count + 2;
+//            count = count + b.length + 2;
+            return insert(b);
         }
         return pos;
     }
