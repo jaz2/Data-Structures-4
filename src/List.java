@@ -50,7 +50,7 @@ public class List {
 					FreeBlock next = l[i];
 					l[i] = p;
 					size++;
-					System.out.println("Size is: " + size);
+					//System.out.println("Size is: " + size);
 					for (int j = size; j > i + 1; j--)
 					{
 						l[j] = l[j - 1];						
