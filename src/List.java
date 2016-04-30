@@ -199,7 +199,6 @@ public class List {
 		String s = "";
 		for (int i = 0; i < l.length; i++)
 		{
-			//	l.toString()
 			System.out.println(l.toString());
 		}
 		return s;

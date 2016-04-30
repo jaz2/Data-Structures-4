@@ -120,6 +120,9 @@ public class ListTest {
     	l.insert(new FreeBlock(250, 400));
     	l.insert(new FreeBlock(150, 100));
     	l.insert(new FreeBlock(400, 200));
-    	assertEquals();
+        String output = systemOut().getHistory();
+        assertFuzzyEquals("SkipList dump:\n Node has "
+                + "depth 1, Value (null)\n SkipList size is: 0\n"
+                + "Freelist Blocks: \n(0, 1000)", output);
     }
 }
