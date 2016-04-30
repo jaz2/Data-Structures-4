@@ -124,7 +124,7 @@ public class ListTest extends TestCase {
     	l.insert(new FreeBlock(4, 3));
     	l.insert(new FreeBlock(25, 4));
     	l.insert(new FreeBlock(15, 1));
-    	l.insert(new FreeBlock(40, 2));
+    	//l.insert(new FreeBlock(40, 2));
     	l.dump();
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump:\n Node has "
