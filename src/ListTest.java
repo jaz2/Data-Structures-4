@@ -127,8 +127,9 @@ public class ListTest extends TestCase {
     	l.insert(new FreeBlock(40, 2));
     	l.dump();
         String output = systemOut().getHistory();
-        assertFuzzyEquals("SkipList dump:\n Node has "
-                + "depth 1, Value (null)\n SkipList size is: 0\n"
-                + "Freelist Blocks: \n(0, 1000)", output);
+        assertFuzzyEquals("1\n"
+        		+ "2\n"
+        		+ "3\n"
+        		+ "4\n", output);
     }
 }
