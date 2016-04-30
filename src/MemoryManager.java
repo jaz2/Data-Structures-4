@@ -346,7 +346,7 @@ public class MemoryManager{
 
                     bp.write(f, 2, pos - 2, a);
                     bp.write(f, b.length, pos, b);
-                    pos = count + 2;
+                    //pos = count + 2;
                     count = count + b.length + 2;
                 }              
             }
