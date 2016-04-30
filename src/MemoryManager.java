@@ -199,6 +199,7 @@ public class MemoryManager{
             freeList.remove(last);
             freeList.insert(fnew);
             end = end + spaceAdded;
+            f.setLength(end);
             //inserts 
 //            for (int i = 0; i < freeList.length() && !found; i++)
 //            {
