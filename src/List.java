@@ -55,7 +55,7 @@ public class List {
 						l[j] = l[j - 1];						
 					}
 					l[i + 1] = next;
-					size++
+					size++;
 				}
 			}
 			if (!found)
