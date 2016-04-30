@@ -112,4 +112,14 @@ public class ListTest {
     	assertFalse(l.isEmpty());
     	assertEquals(1, l.length());
     }
+    
+    public void testListMany()
+    {
+    	List l = new List();
+    	l.insert(new FreeBlock(400, 300));
+    	l.insert(new FreeBlock(250, 400));
+    	l.insert(new FreeBlock(150, 100));
+    	l.insert(new FreeBlock(400, 200));
+    	assertEquals();
+    }
 }
