@@ -52,7 +52,7 @@ public class List {
 					size++;
 					for (int j = size; j > i + 1; j--)
 					{
-						l[j] = l[j + 1];						
+						l[j] = l[j - 1];						
 					}
 					l[i + 1] = next;
 				}
