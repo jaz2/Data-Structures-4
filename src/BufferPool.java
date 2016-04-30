@@ -116,19 +116,13 @@ public class BufferPool {
 		int posInBytes = 0;
 		int s = posInBlock;
 		int buffers = ((posInBlock + numBytesRead)/RectangleDisk.bufSize) + 1;
-		//System.out.println(buffers + " buffs");
 		int totalEnd = bytePos + numBytesRead;
 		int end = ((blockN + 1) * RectangleDisk.bufSize);
 		for (int i = 0; i < buffers; i++)
 		{
-			//System.out.println(i);
 			if (end > totalEnd)
 			{
-				//System.out.println(end + " end");
-				//System.out.println(totalEnd + " tend");
 				int aSize = totalEnd - start;
-				//System.out.println(aSize + " asize");
-				//System.out.println(posInBytes + " startpos");
 				byte[] a = new byte[aSize];
 				read1(f, totalEnd - start, start, a);
 				System.arraycopy(a, 0, bytes, posInBytes, totalEnd - start);
@@ -138,8 +132,6 @@ public class BufferPool {
 			}
 			else
 			{
-				//System.out.println(end + " end");
-				//System.out.println(start + " start");
 				int aSize = end - start;
 				byte[] a = new byte[aSize];
 				read1(f, end - start, start, a);
@@ -169,10 +161,8 @@ public class BufferPool {
 		int posInBlock = bytePos % RectangleDisk.bufSize; //pos in block
 		int start = bytePos;
 		int posInBytes = 0;
-		//System.out.println(posInBlock + " start");
 		int s = posInBlock;
 		int buffers = ((posInBlock + numBytesToWrite)/RectangleDisk.bufSize) + 1;
-		//System.out.println(buffers + " buffs");
 		int totalEnd = bytePos + numBytesToWrite;
 		int end = ((blockN + 1) * RectangleDisk.bufSize);
 		for (int i = 0; i < buffers; i++)
