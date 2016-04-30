@@ -112,44 +112,44 @@ public class BufferPool {
 	{
 		int blockN = bytePos / RectangleDisk.bufSize; //block
 		int posInBlock = bytePos % RectangleDisk.bufSize; //pos in block
-		if (posInBlock + numBytesRead > RectangleDisk.bufSize)         
-		{  //10 ->13  
-			//10 - 3 = 7
-			int start = posInBlock;
-			int end = bytePos + numBytesRead;
-
-			int bytesReadFirst = RectangleDisk.bufSize - start;
-			read1(f, bytesReadFirst, start, bytes);
-
-			int nuStart = (blockN + 1) * RectangleDisk.bufSize; //5
-			int leftover = numBytesRead - bytesReadFirst; //3
-			int bytesLeft = Math.abs(nuStart - leftover); //2
-			if (nuStart + leftover < nuStart + RectangleDisk.bufSize) //5 + 2 < 10
+		int start = bytePos;
+		int posInBytes = 0;
+		int s = posInBlock;
+		int buffers = ((posInBlock + numBytesRead)/RectangleDisk.bufSize) + 1;
+		//System.out.println(buffers + " buffs");
+		int totalEnd = bytePos + numBytesRead;
+		int end = ((blockN + 1) * RectangleDisk.bufSize);
+		for (int i = 0; i < buffers; i++)
+		{
+			///System.out.println(i);
+			if (end > totalEnd)
 			{
-				read1(f, leftover, nuStart, bytes);
+				//System.out.println(end + " end");
+				//System.out.println(totalEnd + " tend");
+				int aSize = totalEnd - start;
+				//System.out.println(aSize + " asize");
+				//System.out.println(posInBytes + " startpos");
+				byte[] a = new byte[aSize];
+				read1(f, totalEnd - start, start, a);
+				//System.arraycopy(a, 0, bytes, posInBytes, totalEnd - start);
+				//System.arraycopy(bytes, posInBytes, a, 0, totalEnd - start);
+				//read1(f, totalEnd - start, start, a);
+				posInBytes = posInBytes + aSize;
 			}
 			else
 			{
-				int readBytes = RectangleDisk.bufSize;
-				for (int i = (blockN + 1) * RectangleDisk.bufSize; i < end; i++)
-				{
-					read1(f, readBytes, nuStart, bytes);
-					if ((bytesLeft - readBytes) > 0)
-					{
-						bytesLeft -= readBytes;
-						//readBytes += RectangleDisk.bufSize;
-					}
-					else
-					{
-						readBytes = bytesLeft;
-					}
-					nuStart += RectangleDisk.bufSize;
-				}
+				//System.out.println(end + " end");
+				//System.out.println(start + " start");
+				int aSize = end - start;
+				byte[] a = new byte[aSize];
+				read1(f, end - start, start, a);
+				//System.arraycopy(a, 0, bytes, posInBytes, end - start);
+				//System.arraycopy(bytes, posInBytes, a, 0, end - start);
+				//read1(f, end - start, start, a);
+				start = end;
+				posInBytes = posInBytes + aSize;
+				end = end + RectangleDisk.bufSize;
 			}
-		}
-		else 
-		{
-			read1(f, numBytesRead, bytePos, bytes);
 		}
 	}
 	
@@ -169,33 +169,33 @@ public class BufferPool {
 		int posInBlock = bytePos % RectangleDisk.bufSize; //pos in block
 		int start = bytePos;
 		int posInBytes = 0;
-		System.out.println(posInBlock + " start");
+		//System.out.println(posInBlock + " start");
 		int s = posInBlock;
 		int buffers = ((posInBlock + numBytesToWrite)/RectangleDisk.bufSize) + 1;
-		System.out.println(buffers + " buffs");
+		//System.out.println(buffers + " buffs");
 		int totalEnd = bytePos + numBytesToWrite;
 		int end = ((blockN + 1) * RectangleDisk.bufSize);
 		for (int i = 0; i < buffers; i++)
 		{
 			if (end > totalEnd)
 			{
-				System.out.println(end + " end");
-				System.out.println(totalEnd + " tend");
+				//System.out.println(end + " end");
+				//System.out.println(totalEnd + " tend");
 				int aSize = totalEnd - start;
-				System.out.println(aSize + " asize");
-				System.out.println(posInBytes + " startpos");
+				//System.out.println(aSize + " asize");
+				//System.out.println(posInBytes + " startpos");
 				byte[] a = new byte[aSize];
-				System.arraycopy(bytes, posInBytes, a, 0, totalEnd - start);
+				//System.arraycopy(bytes, posInBytes, a, 0, totalEnd - start);
 				write1(f, totalEnd - start, start, a);
 				posInBytes = posInBytes + aSize;
 			}
 			else
 			{
-				System.out.println(end + " end");
-				System.out.println(start + " start");
+				//System.out.println(end + " end");
+				//System.out.println(start + " start");
 				int aSize = end - start;
 				byte[] a = new byte[aSize];
-				System.arraycopy(bytes, posInBytes, a, 0, end - start);
+				//System.arraycopy(bytes, posInBytes, a, 0, end - start);
 				write1(f, end - start, start, a);
 				start = end;
 				posInBytes = posInBytes + aSize;

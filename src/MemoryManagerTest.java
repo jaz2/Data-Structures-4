@@ -15,7 +15,7 @@ import student.TestCase;
  * @author Jazz
  *
  */
-public class MemoryManagerTest extends TestCase{
+public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 
 	SkipList skip;
 	SkipNode node;
@@ -31,14 +31,14 @@ public class MemoryManagerTest extends TestCase{
 		m = new MemoryManager(512, RectangleDisk.dfile); 
 		RectangleDisk.bufSize = 4096;
 		RectangleDisk.numBuffs = 3;
-	   // skip = new SkipList(m);
-	//    KVPair kv = new KVPair(id, rec);
 	    Rect re = new Rect("a", 1, 2, 3, 4);
-	//	KVPair<String,Rect> p = new KVPair<String,Rect>(re.getId(), re);
 	    kv = new KVPair(re.getName(), re);
-	    //node = new SkipNode()
 	}
 
+	/**
+	 * Tests 
+	 * @throws IOException
+	 */
 	@Test
 	public void testConstructor() throws IOException {
 		String s = "data.txt";
@@ -121,7 +121,7 @@ public class MemoryManagerTest extends TestCase{
 		int nh3 = m.insert(b);
 		int nh4 = m.insert(b); 
 		b = Serializer.serialize(kv);
-		int kv2 = m.insert(b);
+		int kv2 = m.insert(b); //debug!!! 
 		assertEquals(Serializer.deserialize(m.getNode(kvh)).toString(), kv.toString());	
 		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equalss(node));		
 		assertEquals(Serializer.deserialize(m.getNode(kv2)).toString(), kv.toString());	

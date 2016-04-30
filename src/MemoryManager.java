@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
  * @version April 14th
  *
  */
-public class MemoryManager {
+public class MemoryManager implements java.io.Serializable {
 
     //make a data file just open and close it
 
