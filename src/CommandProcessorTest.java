@@ -30,6 +30,8 @@ public class CommandProcessorTest extends TestCase
         //Rectangle1 r = new Rectangle1();
     	RandomAccessFile s = new RandomAccessFile("test2.txt", "rw");
     	RectangleDisk.dfile = s;
+    	RectangleDisk.bufSize = 4096;
+    	RectangleDisk.numBuffs = 3;
     }
 
     /**

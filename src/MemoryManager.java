@@ -66,7 +66,7 @@ public class MemoryManager{
 
     public int bufSize;
 
-    public BufferPool bp;
+    public static BufferPool bp;
 
 
     /**
