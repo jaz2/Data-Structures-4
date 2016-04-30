@@ -190,6 +190,10 @@ public class List {
 		return found;
 	}
 
+	/**
+	 * Dumps apparently
+	 * @return string
+	 */
 	public String dump()
 	{
 		String s = "";
