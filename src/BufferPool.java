@@ -183,15 +183,15 @@ public class BufferPool {
 				//System.out.println(totalEnd + " tend");
 				int aSize = totalEnd - start;
 				//System.out.println(aSize + " asize");
-				//System.out.println(posInBytes + " startpos");
+				System.out.println(posInBytes + " startpos");
 				byte[] a = new byte[aSize];
-				//System.arraycopy(bytes, posInBytes, a, 0, totalEnd - start);
+				System.arraycopy(bytes, posInBytes, a, 0, totalEnd - start);
 				write1(f, totalEnd - start, start, a);
 				posInBytes = posInBytes + aSize;
 			}
 			else
 			{
-				//System.out.println(end + " end");
+				System.out.println(end + " end");
 				System.out.println(start + " start");
 				int aSize = end - start;
 				byte[] a = new byte[aSize];
