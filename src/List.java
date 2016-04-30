@@ -199,7 +199,7 @@ public class List {
 		String s = "";
 		for (int i = 0; i < l.length; i++)
 		{
-			System.out.println(l.toString());
+			System.out.println(l[i]);
 		}
 		return s;
 	}
