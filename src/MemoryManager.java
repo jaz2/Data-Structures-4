@@ -356,20 +356,16 @@ public class MemoryManager{
             //int newSpace = 0;
             int spaceAdded = 0;
             int leftover = end - count;
-            if(leftover + ((bytesNeeded/bufSize))*bufSize >= bytesNeeded) //round buff number down
+            if(leftover + ((bytesNeeded/bufSize)) * bufSize >= bytesNeeded) //round buff number down
             { 
               //  newSpace = end + ((bytesNeeded/bufSize)*bufSize);
-                spaceAdded = ((bytesNeeded/bufSize)*bufSize);
+                spaceAdded = ((bytesNeeded/bufSize) * bufSize);
             }
             else
             {
                // newSpace = end + (((bytesNeeded/bufSize)+1)*bufSize);
-                spaceAdded = (((bytesNeeded/bufSize)+1)*bufSize);
+                spaceAdded = (((bytesNeeded/bufSize)+1) * bufSize);
             }
-            //            byte[] newm = new byte[newSpace];
-            //            System.arraycopy(m, 0, newm, 0, end);
-            //            
-            //            m = newm;
             FreeBlock fold = find(count);
             FreeBlock fnew = new FreeBlock(leftover + spaceAdded, count);
             freeList.remove(fold);
