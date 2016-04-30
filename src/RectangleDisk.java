@@ -65,7 +65,7 @@ public class RectangleDisk {
         }
         else 
         {
-            System.out.println("Found expected parameter list.");
+            //System.out.println("Found expected parameter list.");
             
             dfile = new RandomAccessFile(args[1], "rw");
             numBuffs = Integer.parseInt(args[2]);              
