@@ -336,15 +336,16 @@ public class MemoryManager{
                 }
                 else //at end
                 {
-                    FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), count + bytesNeeded);
+                	pos = freeList.get(i).p + 2;
+                    FreeBlock f4 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
                     freeList.remove(f1);
                     freeList.insert(f4);                    
 
                     byte[] a = new byte[2];                
                     ByteBuffer.wrap(a).putShort(0, (short) b.length);
 
-                    bp.write(f, 2, count, a);
-                    bp.write(f, b.length, count + 2, b);
+                    bp.write(f, 2, pos - 2, a);
+                    bp.write(f, b.length, pos, b);
                     pos = count + 2;
                     count = count + b.length + 2;
                 }              
