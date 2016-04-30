@@ -73,6 +73,10 @@ public class RectangleDisk {
             String input = args[0].trim(); 
             File f = new File(input);
             CommandProcessor cmd = new CommandProcessor(f);
+            for (int i = 0; i < MemoryManager.bp.blox.length; i++)
+            {
+            	MemoryManager.bp.flush(MemoryManager.bp.blox[i]);
+            }
             dfile.close();
         }
     }
