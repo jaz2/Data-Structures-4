@@ -336,7 +336,7 @@ public class SkipList<K extends Comparable<K>, E> {
                 //mm.update(node, getObject(node));
                 //node = update(node); 
             } 
-            System.out.println("SkipList size is: " + size);
+            //System.out.println("SkipList size is: " + size);
             System.out.println("Freelist Blocks: \n" + dumpFreeBlocks());
         }
     }

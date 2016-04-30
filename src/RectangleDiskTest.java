@@ -44,7 +44,7 @@ public class RectangleDiskTest extends TestCase {
 //        RectangleDisk.main(params);
 //        assertFuzzyEquals("Found expected parameter list.", 
 //            systemOut().getHistory());
-    }
+   // }
     
     
     public void testMoreParams() throws IOException, ClassNotFoundException 
