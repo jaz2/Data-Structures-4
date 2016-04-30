@@ -3,6 +3,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import student.TestCase;
+
 /**
  * 
  */
@@ -12,7 +14,7 @@ import org.junit.Test;
  * @version March 14 2016
  *
  */
-public class ListTest {
+public class ListTest extends TestCase {
 
     /**
      * @throws java.lang.Exception
@@ -113,13 +115,17 @@ public class ListTest {
     	assertEquals(1, l.length());
     }
     
+    /**
+     * Tests things
+     */
     public void testListMany()
     {
     	List l = new List();
-    	l.insert(new FreeBlock(400, 300));
-    	l.insert(new FreeBlock(250, 400));
-    	l.insert(new FreeBlock(150, 100));
-    	l.insert(new FreeBlock(400, 200));
+    	l.insert(new FreeBlock(400, 3));
+    	l.insert(new FreeBlock(250, 4));
+    	l.insert(new FreeBlock(150, 1));
+    	l.insert(new FreeBlock(400, 2));
+    	l.dump();
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump:\n Node has "
                 + "depth 1, Value (null)\n SkipList size is: 0\n"
