@@ -50,7 +50,7 @@ public class List {
 					FreeBlock next = l[i];
 					l[i] = p;
 					size++;
-					for (int j = size; j > i + 1; j--)
+					for (int j = size -1; j > i + 1; j--)
 					{
 						l[j] = l[j - 1];						
 					}
@@ -78,9 +78,7 @@ public class List {
 			{
 				n[i] = l[i];
 			}
-			//n[size] = p;
 			l = n;
-			//size++;
 		}
 	}
 
