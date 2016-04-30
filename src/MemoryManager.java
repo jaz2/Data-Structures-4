@@ -181,7 +181,7 @@ public class MemoryManager{
 //                }              
             }
         }
-        if (found == false)  //make more mem 
+        if (!found)  //make more mem 
         {
             int spaceAdded = 0;
             FreeBlock last = findLast();
