@@ -15,7 +15,7 @@ import student.TestCase;
  * @author Jazz
  *
  */
-public class MemoryManagerTest extends TestCase implements java.io.Serializable{
+public class MemoryManagerTest extends TestCase{
 
 	SkipList skip;
 	SkipNode node;
@@ -33,16 +33,6 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		RectangleDisk.numBuffs = 3;
 	    Rect re = new Rect("a", 1, 2, 3, 4);
 	    kv = new KVPair(re.getName(), re);
-	}
-
-	/**
-	 * Tests 
-	 * @throws IOException
-	 */
-	@Test
-	public void testConstructor() throws IOException {
-		String s = "data.txt";
-		MemoryManager main = new MemoryManager(4096, RectangleDisk.dfile);
 	}
 	
 	/**
