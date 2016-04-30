@@ -156,7 +156,6 @@ public class MemoryManager{
                     pos = freeList.get(i).p + 2;
                     FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
                     freeList.remove(f1);
-                    //    freeList.remove(f2);
                     freeList.insert(f3);
 
                     byte[] a = new byte[2];                
@@ -178,25 +177,26 @@ public class MemoryManager{
                     bp.write(f, 2, pos - 2, a);
                     bp.write(f, b.length, pos, b);
                     //pos = count + 2;
-                    count = count + b.length + 2;
+                    //count = count + b.length + 2;
                 }              
             }
         }
         if (found == false)  //make more mem 
         {
             int spaceAdded = 0;
-            int leftover = end - count;
-            if(leftover + ((bytesNeeded/bufSize)) * bufSize >= bytesNeeded) //round buff number down
-            { 
-                spaceAdded = ((bytesNeeded/bufSize) * bufSize);
-            }
-            else
-            {
+            FreeBlock last = findLast();
+           // int leftover = end - count;
+//            if(leftover + ((bytesNeeded/bufSize)) * bufSize >= bytesNeeded) //round buff number down
+//            { 
+//                spaceAdded = ((bytesNeeded/bufSize) * bufSize);
+//            }
+//            else
+//            {
                 spaceAdded = (((bytesNeeded/bufSize)+1) * bufSize);
-            }
-            FreeBlock fold = find(count);
-            FreeBlock fnew = new FreeBlock(leftover + spaceAdded, count);
-            freeList.remove(fold);
+//            }
+            //FreeBlock fold = find(count);
+            FreeBlock fnew = new FreeBlock((end - last.p) + spaceAdded, last.p);
+            freeList.remove(last);
             freeList.insert(fnew);
             end = end + spaceAdded;
             //inserts 
@@ -243,7 +243,7 @@ public class MemoryManager{
      */
     public FreeBlock find(int x)
     {
-        for(int i = 0; i < freeList.length(); i++)
+        for (int i = 0; i < freeList.length(); i++)
         {
             if (freeList.get(i).p == x)
             {
@@ -251,6 +251,24 @@ public class MemoryManager{
             }
         }
         return null;
+    }
+    
+    /**
+     * Find the last thing in the list
+     * @param x compares if it is last thing
+     * @return free block
+     */
+    public FreeBlock findLast()
+    {
+    	FreeBlock max = freeList.get(0);
+    	for (int i = 0; i < freeList.length(); i++)
+    	{
+    		if (freeList.get(i).p > max.p)
+    		{
+    			max = freeList.get(i);
+    		}
+    	}
+    	return max;
     }
 
     /**
