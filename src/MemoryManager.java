@@ -195,7 +195,7 @@ public class MemoryManager{
                 spaceAdded = (((bytesNeeded/bufSize) + 1) * bufSize);
 //            }
             //FreeBlock fold = find(count);
-            FreeBlock fnew = new FreeBlock((end - last.p) + spaceAdded, last.p);
+            FreeBlock fnew = new FreeBlock((last.sz - bytesNeeded) + spaceAdded, last.p);
             freeList.remove(last);
             freeList.insert(fnew);
             end = end + spaceAdded;
