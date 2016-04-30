@@ -121,10 +121,10 @@ public class ListTest extends TestCase {
     public void testListMany()
     {
     	List l = new List();
-    	l.insert(new FreeBlock(400, 3));
-    	l.insert(new FreeBlock(250, 4));
-    	l.insert(new FreeBlock(150, 1));
-    	l.insert(new FreeBlock(400, 2));
+    	l.insert(new FreeBlock(4, 3));
+    	l.insert(new FreeBlock(25, 4));
+    	l.insert(new FreeBlock(15, 1));
+    	l.insert(new FreeBlock(40, 2));
     	l.dump();
         String output = systemOut().getHistory();
         assertFuzzyEquals("SkipList dump:\n Node has "
