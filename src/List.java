@@ -194,19 +194,19 @@ public class List {
 		return found;
 	}
 
-	/**
-	 * Dumps apparently
-	 * @return string
-	 */
-	public String dump()
-	{
-		String s = "";
-		for (int i = 0; i < l.length; i++)
-		{
-			System.out.println(l[i].p);
-		}
-		return s;
-	}
+//	/**
+//	 * Dumps apparently
+//	 * @return string
+//	 */
+//	public String dump()
+//	{
+//		String s = "";
+//		for (int i = 0; i < l.length; i++)
+//		{
+//			System.out.println(l[i].p);
+//		}
+//		return s;
+//	}
 
 	/**
 	 * Returns the size
