@@ -152,7 +152,7 @@ public class SkipList<K extends Comparable<K>, E> {
 			//update the nodes before and after
 			for (int i = getNode(x).forward.length - 1; i >= 0; i--)
 			{
-				getNode(store[i]).forward[i] = getNode(x).forward[i];
+				//getNode(store[i]).forward[i] = getNode(x).forward[i];
 
 				SkipNode pred = getNode(store[i]);
 				pred.forward[i] = getNode(x).forward[i];
@@ -205,7 +205,10 @@ public class SkipList<K extends Comparable<K>, E> {
 			//now remove key
 			for (int i = 0; i <= getNode(nodeToRemove).forward.length - 1; i++)
 			{
-				getNode(store[i]).forward[i] = getNode(nodeToRemove).forward[i];
+				//getNode(store[i]).forward[i] = getNode(nodeToRemove).forward[i];
+				SkipNode pred = getNode(store[i]);
+				pred.forward[i] = getNode(nodeToRemove).forward[i];
+				mm.update(store[i], pred); 
 			}
 			size--;
 			System.out.println("Rectangle removed: ("

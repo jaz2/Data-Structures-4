@@ -196,23 +196,23 @@ public class MemoryManager{
 		int newE = end;
 		//find fb before and after, check if touching, if so merge
 		FreeBlock before = freeList.get(0);
-		boolean foundBefore = false;
+		//boolean foundBefore = false;
 		for (int i = 0; i < freeList.length(); i++)
 		{
 			if (freeList.get(i).p < start)
 			{
 				before = freeList.get(i);
-				foundBefore = true; 
+				//foundBefore = true; 
 			}
 		}
 		FreeBlock after = freeList.get(freeList.length() - 1);
-		boolean foundAfter = false;
+		//boolean foundAfter = false;
 		for (int i = freeList.length() - 1; i >= 0; i--)
 		{
 			if (freeList.get(i).p > start)
 			{
 				after = freeList.get(i);
-				foundAfter = true;
+				//foundAfter = true;
 			}
 		}
 		//check if touching 
