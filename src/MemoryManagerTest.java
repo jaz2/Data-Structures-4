@@ -141,8 +141,8 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		int re2h = m.insert(Serializer.serialize(re2));
 		Rect re3 = new Rect("a", 1, 2, 3, 4);
 		int re3h = m.insert(Serializer.serialize(re3));
-		Rect re4 = new Rect("a", 1, 2, 3, 4);
-		Rect re5 = new Rect("a", 1, 2, 3, 4);
+		//Rect re4 = new Rect("a", 1, 2, 3, 4);
+		//Rect re5 = new Rect("a", 1, 2, 3, 4);
 		m.remove(kvh);
 		assertEquals(m.freeList.length(), 2);
 		m.remove(re2h);

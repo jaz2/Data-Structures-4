@@ -256,7 +256,7 @@ public class MemoryManager{
 	 */
 	public byte[] getNode(int x) throws IOException
 	{
-		if(x == fly) 
+		if (x == fly) 
 			return null;
 		else 
 		{
