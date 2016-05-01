@@ -125,6 +125,35 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equalss(node));		
 		assertEquals(Serializer.deserialize(m.getNode(kv2)).toString(), kv.toString());	
 	}
+	
+	/**
+	 * Tests remove
+	 * @throws IOException
+	 */
+	@Test
+	public void testRemove() throws IOException
+	{
+		byte[] b = Serializer.serialize(kv);
+		int kvh = m.insert(b);
+		Rect re1 = new Rect("a", 1, 2, 3, 4);
+		int re1h = m.insert(Serializer.serialize(re1));
+		Rect re2 = new Rect("b", 1, 2, 3, 4);
+		int re2h = m.insert(Serializer.serialize(re2));
+		Rect re3 = new Rect("a", 1, 2, 3, 4);
+		int re3h = m.insert(Serializer.serialize(re3));
+		Rect re4 = new Rect("a", 1, 2, 3, 4);
+		Rect re5 = new Rect("a", 1, 2, 3, 4);
+		m.remove(kvh);
+		assertEquals(m.freeList.length(), 2);
+		m.remove(re2h);
+		assertEquals(m.freeList.length(), 3);
+		m.remove(re1h);
+		assertEquals(m.freeList.length(), 2);
+		assertEquals(m.freeList.get(0).pos, 0);
+		assertEquals(m.freeList.get(0).size, re3h - 2);
+		int ref = m.insert(Serializer.serialize(re1));
+		assertEquals(ref, 2);
+	}
 
 	@Test
 	public void testUpdate() throws IOException, ClassNotFoundException
