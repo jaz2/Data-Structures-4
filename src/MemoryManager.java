@@ -230,24 +230,6 @@ public class MemoryManager{
 		freeList.insert(newBlock);		
 	}
 
-
-//	/**
-//	 * Finds the handle
-//	 * @param x the handle
-//	 * @return as a freeblock
-//	 */
-//	public FreeBlock find(int x)
-//	{
-//		for (int i = 0; i < freeList.length(); i++)
-//		{
-//			if (freeList.get(i).p == x)
-//			{
-//				return freeList.get(i);
-//			}
-//		}
-//		return null;
-//	}
-
 	/**
 	 * Find the last thing in the list
 	 * @param x compares if it is last thing
