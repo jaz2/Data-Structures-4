@@ -107,7 +107,7 @@ public class Rect implements java.io.Serializable {
      */
     public String toString()
     {
-        String s = r.x + ", " + r.y + ", " + r.width + ", " + r.height;
+        String s = xx + ", " + yy + ", " + width + ", " + height;
         return s;
     }
 

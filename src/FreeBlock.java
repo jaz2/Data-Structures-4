@@ -37,6 +37,6 @@ public class FreeBlock {
 	 */
 	public String dump()
 	{	
-	   return "(" + p + ", " + (p + sz) + ")\n";
+	   return "(" + p + ", " + sz + ")\n";
 	}
 }
