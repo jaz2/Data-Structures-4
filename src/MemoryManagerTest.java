@@ -91,6 +91,11 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		//assertEquals(11, m.mm.length);
 	}
 
+	/**
+	 * Tests insertion
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@Test
 	public void testInsert() throws IOException, ClassNotFoundException
 	{
@@ -104,6 +109,11 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(nh)))).equalss(node));	
 	}
 
+	/**
+	 * Makes more memory
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@Test
 	public void testMakeMoreMem() throws IOException, ClassNotFoundException
 	{
@@ -180,7 +190,7 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		assertEquals(m.freeList.length(), 2);
 		assertEquals(m.freeList.get(0).p, 0);
 		assertEquals(m.freeList.get(0).sz, re3h - 2);
-		assertEquals(1, m.freeList.get(2).p);
+		assertEquals(500, m.freeList.get(2).p);
 		int ref = m.insert(Serializer.serialize(re1));
 		assertEquals(ref, 2);
 	}
