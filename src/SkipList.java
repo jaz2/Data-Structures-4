@@ -74,9 +74,8 @@ public class SkipList<K extends Comparable<K>, E> {
         return lev; 
     }
 
-
     /** 
-     * Insert a KVPair into the skiplist 
+     * Insert a KVPair into the skipList 
      * @param it the element
      * @return the values
      * @throws IOException 
@@ -100,15 +99,7 @@ public class SkipList<K extends Comparable<K>, E> {
                     (k.compareTo(((getKV((getNode((getNode(x)).forward[i])).element())).key())) > 0))
             {
                 x = (getNode(x)).forward[i];
-                //System.out.println("x is " + x);
-            }
-            //            while (((getNode(x)).forward[i] != MemoryManager.fly) && 
-            //                    (k.compareTo((( 
-            //                            getKV((getNode(
-            //                                    (getNode(x)).forward[i])).
-            //                                        element())).key())) > 0))
-            //
-            //                x = (getNode(x)).forward[i];   
+            } 
             update[i] = x;               // Track end at level i   
         }   
         int kv = insertObject(it);
@@ -234,7 +225,7 @@ public class SkipList<K extends Comparable<K>, E> {
         int x = head;                     // Dummy header node   
         for (int i = level; i >= 0; i--)           // For each level...     
             while ((getNode(x).forward[i] != MemoryManager.fly) &&            
-                    (key.compareTo(getKV(getNode(getNode(x).forward[0]).element).key()) > 0)) // go forward       
+                    (key.compareTo(getKV(getNode(getNode(x).forward[i]).element).key()) > 0)) // go forward       
                 x = getNode(x).forward[i];              // Go one last step   
         x = getNode(x).forward[0];  // Move to actual record, if it exists
         if ((x != MemoryManager.fly) && 
