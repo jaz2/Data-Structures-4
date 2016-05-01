@@ -286,6 +286,7 @@ public class SkipList<K extends Comparable<K>, E> {
 		int start = head;
 		SkipNode oldHead = getNode(head);
 		oldHead.forward = nu;
+		oldHead.lev = lev;
 		//release head
 		mm.makeFree(head);
 		head = insertObject(oldHead);
