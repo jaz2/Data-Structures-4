@@ -216,7 +216,7 @@ public class MemoryManager{
 			}
 		}
 		//check if touching 
-		if (before.p + before.sz == start) //touches before
+		if (before.p + before.sz == start + 1) //touches before
 		{
 			newS = before.p;
 			freeList.remove(before);
