@@ -40,11 +40,6 @@ public class Rect implements java.io.Serializable {
     public int height;
 
     /**
-     * the Rectangle
-     */
-    public Rectangle r;
-
-    /**
      * Object class that handles Rectangles
      * @param id the name
      * @param x  the x coord
@@ -59,7 +54,6 @@ public class Rect implements java.io.Serializable {
         yy = y;
         width = w;
         height = h;
-        r = new Rectangle(x, y, w, h);
     }
 
     /**
