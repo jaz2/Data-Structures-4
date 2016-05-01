@@ -149,8 +149,8 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		assertEquals(m.freeList.length(), 3);
 		m.remove(re1h);
 		assertEquals(m.freeList.length(), 2);
-		assertEquals(m.freeList.get(0).pos, 0);
-		assertEquals(m.freeList.get(0).size, re3h - 2);
+		assertEquals(m.freeList.get(0).p, 0);
+		assertEquals(m.freeList.get(0).sz, re3h - 2);
 		int ref = m.insert(Serializer.serialize(re1));
 		assertEquals(ref, 2);
 	}

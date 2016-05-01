@@ -45,19 +45,21 @@ public class Database
         skip.insert(p); 
     }
 
-//    /**
-//     * Calls the skiplist remove by coord
-//     * @param x the x coord
-//     * @param y the y coord
-//     * @param w the width
-//     * @param h the height
-//     */
-//    public void skipRemoveCoord(int x, int y, int w, int h)
-//    {
-//        Rect r = new Rect(null, x, y, w, h);
-//        KVPair<String, Rect> p = new KVPair<String, Rect>(null, r);
-//        skip.removeByCoord(r);
-//    }
+    /**
+     * Calls the skiplist remove by coord
+     * @param x the x coord
+     * @param y the y coord
+     * @param w the width
+     * @param h the height
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public void skipRemoveCoord(int x, int y, int w, int h) throws ClassNotFoundException, IOException
+    {
+        Rect r = new Rect(null, x, y, w, h);
+        KVPair<String, Rect> p = new KVPair<String, Rect>(null, r);
+        skip.removeByCoord(r);
+    }
     
     //    /**
     //     * Searches for the rectangle through name

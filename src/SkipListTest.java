@@ -107,335 +107,380 @@ public class SkipListTest extends TestCase
 				//+ "SkipList size is: 2\n"
 				+ "Freelist Blocks: \n(" + m.count + ", " + m.m.length + ")", output);
 	}
-	//
-	//    /**
-	//     * Tests remove by coord when succesful
-	//     */
-	//    @Test
-	//    public void testRemoveCoordYes()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        Rect y = new Rect("a", 0, 1, 5, 4);
-	//        KVPair<String, Rect> l = new KVPair<String, Rect>(y.getName(), y);
-	//        s.insert(l);
-	//
-	//        Rect re = new Rect("b", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, 
-	//                Rect>(re.getName(), re);        
-	//        s.insert(p);
-	//
-	//        Rect f = new Rect("f", 5, 200, 3, 4);
-	//        KVPair<String, Rect> g = new KVPair<String, Rect>(f.getName(), f);
-	//        s.insert(g);
-	//
-	//        s.removeByCoord(re);
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle removed: (b, 1, 2, 3, 4)", output);
-	//    }
-	//
-	//    /**
-	//     * Tests when there is more than one instance
-	//     */
-	//    @Test
-	//    public void testRemoveCoordMult()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//
-	//        Rect i = new Rect("q", 0, 0, 1, 1);
-	//        KVPair<String, Rect> w = new KVPair<String, Rect>(i.getName(), i);
-	//        s.insert(w);
-	//
-	//        Rect re = new Rect("a", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//
-	//        s.insert(p);
-	//
-	//        Rect nu = new Rect("a", 2, 4, 3, 4);
-	//        KVPair<String, Rect> m = new KVPair<String, Rect>(nu.getName(), nu);
-	//        s.insert(m);
-	//
-	//        Rect eh = new Rect("k", 6, 10, 7, 8);
-	//        KVPair<String, Rect> n = new KVPair<String, Rect>(eh.getName(), eh);
-	//        s.insert(n);
-	//
-	//        s.removeByCoord(re);
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle removed: (a, 1, 2, 3, 4)", output);
-	//    }
-	//
-	//    /**
-	//     * Tests when two rectangles have same dimensions 
-	//     * but different names
-	//     */
-	//    public void testRemoveCoordDouble()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//
-	//        Rect i = new Rect("a", 1, 1, 30, 30);
-	//        KVPair<String, Rect> w = new KVPair<String, Rect>(i.getName(), i);
-	//        s.insert(w);
-	//
-	//        Rect re = new Rect("b", 1, 1, 30, 30);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//
-	//        s.insert(p);
-	//
-	//        Rect nu = new Rect("c", 2, 4, 3, 4);
-	//        KVPair<String, Rect> m = new KVPair<String, Rect>(nu.getName(), nu);
-	//        s.insert(m);
-	//
-	//        Rect eh = new Rect("k", 6, 10, 7, 8);
-	//        KVPair<String, Rect> n = new KVPair<String, Rect>(eh.getName(), eh);
-	//        s.insert(n);
-	//
-	//        s.removeByCoord(i);
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle removed: (a, 1, 1, 30, 30)", output);
-	//    }
-	//    
-	//    /**
-	//     * Tests when you cannot find something
-	//     * in remove
-	//     */
-	//    @Test
-	//    public void testRemoveCoordNah()
-	//    {
-	//        Rect re = new Rect("a", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        s.insert(p);
-	//        
-	//        Rect m = new Rect(null, 1, 2, 4, 4);
-	//
-	//        s.removeByCoord(m);
-	//        String outt = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle not removed: (1, 2, 4, 4,)", outt);
-	//    }
-	//    
-	//    /**
-	//     * Tests when you cannot find something but the x 
-	//     * is equal in remove
-	//     *
-	//     */
-	//    @Test
-	//    public void testRemoveCoordNahX()
-	//    {
-	//        Rect re = new Rect("a", 1, 5, 3, 6);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        s.insert(p);
-	//        
-	//        Rect m = new Rect(null, 1, 2, 4, 4);
-	//
-	//        s.removeByCoord(m);
-	//        String outt = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle not removed: (1, 2, 4, 4,)", outt);
-	//    }
-	//    
-	//    /**
-	//     * Tests when you cannot find something but the y 
-	//     * is equal in remove
-	//     *
-	//     */
-	//    @Test
-	//    public void testRemoveCoordNahY()
-	//    {
-	//        Rect re = new Rect("a", 1, 2, 3, 6);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        s.insert(p);
-	//        
-	//        Rect m = new Rect(null, 1, 2, 4, 4);
-	//
-	//        s.removeByCoord(m);
-	//        String outt = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle not removed: (1, 2, 4, 4,)", outt);
-	//    }
-	//    
-	//    /**
-	//     * Tests when you cannot find something but the width 
-	//     * is equal in remove
-	//     *
-	//     */
-	//    @Test
-	//    public void testRemoveCoordNahW()
-	//    {
-	//        Rect re = new Rect("a", 1, 2, 4, 6);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        s.insert(p);
-	//        
-	//        Rect m = new Rect(null, 1, 2, 4, 4);
-	//
-	//        s.removeByCoord(m);
-	//        String outt = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle not removed: (1, 2, 4, 4,)", outt);
-	//    }   
-	//
-	//    /**
-	//     * Tests when x.forward[i] is null
-	//     */
-	//    @Test
-	//    public void testRemoveCoordNull()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        Rect hm = new Rect(null, 1, 2, 3, 4);
-	//        s.removeByCoord(hm);
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle not removed: (1, 2, 3, 4)", output);
-	//    }
-	//
-	//    /**
-	//     * Tests remove by name when successful
-	//     */
-	//    @Test
-	//    public void testRemoveNameYasM()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        Rect y = new Rect("a", 0, 1, 5, 4);
-	//        KVPair<String, Rect> l = new KVPair<String, Rect>(y.getName(), y);
-	//        s.insert(l);
-	//
-	//        Rect re = new Rect("b", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, 
-	//                Rect>(re.getName(), re);        
-	//        s.insert(p);
-	//
-	//        Rect f = new Rect("f", 5, 200, 3, 4);
-	//        KVPair<String, Rect> g = new KVPair<String, Rect>(f.getName(), f);
-	//        s.insert(g);
-	//
-	//        s.removeByName("a");
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle removed: (a, 0, 1, 5, 4)", output);
-	//    }
-	//    
-	//    /**
-	//     * Tests remove by name when successful on first
-	//     * element
-	//     */
-	//    @Test
-	//    public void testRemoveNameYasF()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        Rect y = new Rect("a", 0, 1, 5, 4);
-	//        KVPair<String, Rect> l = new KVPair<String, Rect>(y.getName(), y);
-	//        s.insert(l);
-	//
-	//        Rect re = new Rect("b", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, 
-	//                Rect>(re.getName(), re);        
-	//        s.insert(p);
-	//
-	//        Rect f = new Rect("f", 5, 200, 3, 4);
-	//        KVPair<String, Rect> g = new KVPair<String, Rect>(f.getName(), f);
-	//        s.insert(g);
-	//
-	//        s.removeByName("b");
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle removed: (b, 1, 2, 3, 4)", output);
-	//    }
-	//    
-	//    /**
-	//     * Tests remove by name when successful on last 
-	//     * element
-	//     */
-	//    @Test
-	//    public void testRemoveNameYasL()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        Rect y = new Rect("a", 0, 1, 5, 4);
-	//        KVPair<String, Rect> l = new KVPair<String, Rect>(y.getName(), y);
-	//        s.insert(l);
-	//
-	//        Rect re = new Rect("b", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, 
-	//                Rect>(re.getName(), re);        
-	//        s.insert(p);
-	//
-	//        Rect f = new Rect("f", 5, 200, 3, 4);
-	//        KVPair<String, Rect> g = new KVPair<String, Rect>(f.getName(), f);
-	//        s.insert(g);
-	//
-	//        s.removeByName("f");
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle removed: (f, 5, 200, 3, 4)", output);
-	//    }
-	//
-	//    /**
-	//     * Tests when there is more than one instance
-	//     */
-	//    @Test
-	//    public void testRemoveNameMult()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//
-	//        Rect i = new Rect("q", 0, 0, 1, 1);
-	//        KVPair<String, Rect> w = new KVPair<String, Rect>(i.getName(), i);
-	//        s.insert(w);
-	//
-	//        Rect re = new Rect("a", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//
-	//        s.insert(p);
-	//
-	//        Rect nu = new Rect("a", 2, 4, 3, 4);
-	//        KVPair<String, Rect> m = new KVPair<String, Rect>(nu.getName(), nu);
-	//        s.insert(m);
-	//
-	//        Rect eh = new Rect("k", 6, 10, 7, 8);
-	//        KVPair<String, Rect> n = new KVPair<String, Rect>(eh.getName(), eh);
-	//        s.insert(n);
-	//
-	//        s.removeByName("a");
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle removed: (a, 2, 4, 3, 4)", output);
-	//    }
-	//
-	//    /**
-	//     * Tests when you cannot find something
-	//     * in remove
-	//     */
-	//    @Test
-	//    public void testRemoveNameNah()
-	//    {
-	//        Rect re = new Rect("a", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        s.insert(p);
-	//
-	//        s.removeByName("b");
-	//        String outt = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle not found: b", outt);
-	//    }
-	//    
-	//    /**
-	//     * Tests when you cannot find something
-	//     * in remove checking compareTo
-	//     */
-	//    @Test
-	//    public void testRemoveNameNah2()
-	//    {
-	//        Rect re = new Rect("b", 1, 2, 3, 4);
-	//        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        s.insert(p);
-	//        s.removeByName("a");
-	//        String outt = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle not found: a", outt);
-	//    }
-	//
-	//    /**
-	//     * Tests when x.forward[i] is null
-	//     */
-	//    @Test
-	//    public void testRemoveNameNull()
-	//    {
-	//        SkipList<String, Rect> s = new SkipList<String, Rect>();
-	//        s.removeByName("roar");
-	//        String output = systemOut().getHistory();
-	//        assertFuzzyEquals("Rectangle not found: roar", output);
-	//    }
+	
+	    /**
+	     * Tests remove by coord when succesful
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveCoordYes() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+	        Rect y = new Rect("a", 0, 1, 5, 4);
+	        KVPair<String, Rect> l = new KVPair<String, Rect>(y.getName(), y);
+	        s.insert(l);
+	
+	        Rect re = new Rect("b", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, 
+	                Rect>(re.getName(), re);        
+	        s.insert(p);
+	
+	        Rect f = new Rect("f", 5, 200, 3, 4);
+	        KVPair<String, Rect> g = new KVPair<String, Rect>(f.getName(), f);
+	        s.insert(g);
+	
+	        s.removeByCoord(re);
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle removed: (b, 1, 2, 3, 4)", output);
+	    }
+	
+	    /**
+	     * Tests when there is more than one instance
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveCoordMult() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
+	
+	        Rect i = new Rect("q", 0, 0, 1, 1);
+	        KVPair<String, Rect> w = new KVPair<String, Rect>(i.getName(), i);
+	        s.insert(w);
+	
+	        Rect re = new Rect("a", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	
+	        s.insert(p);
+	
+	        Rect nu = new Rect("a", 2, 4, 3, 4);
+	        KVPair<String, Rect> m = new KVPair<String, Rect>(nu.getName(), nu);
+	        s.insert(m);
+	
+	        Rect eh = new Rect("k", 6, 10, 7, 8);
+	        KVPair<String, Rect> n = new KVPair<String, Rect>(eh.getName(), eh);
+	        s.insert(n);
+	
+	        s.removeByCoord(re);
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle removed: (a, 1, 2, 3, 4)", output);
+	    }
+	
+	    /**
+	     * Tests when two rectangles have same dimensions 
+	     * but different names
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    public void testRemoveCoordDouble() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
+	
+	        Rect i = new Rect("a", 1, 1, 30, 30);
+	        KVPair<String, Rect> w = new KVPair<String, Rect>(i.getName(), i);
+	        s.insert(w);
+	
+	        Rect re = new Rect("b", 1, 1, 30, 30);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	
+	        s.insert(p);
+	
+	        Rect nu = new Rect("c", 2, 4, 3, 4);
+	        KVPair<String, Rect> m = new KVPair<String, Rect>(nu.getName(), nu);
+	        s.insert(m);
+	
+	        Rect eh = new Rect("k", 6, 10, 7, 8);
+	        KVPair<String, Rect> n = new KVPair<String, Rect>(eh.getName(), eh);
+	        s.insert(n);
+	
+	        s.removeByCoord(i);
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle removed: (a, 1, 1, 30, 30)", output);
+	    }
+	    
+	    /**
+	     * Tests when you cannot find something
+	     * in remove
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveCoordNah() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
+	        Rect re = new Rect("a", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
+	        s.insert(p);
+	        
+	        Rect m = new Rect(null, 1, 2, 4, 4);
+	
+	        s.removeByCoord(m);
+	        String outt = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle not removed: (1, 2, 4, 4,)", outt);
+	    }
+	    
+	    /**
+	     * Tests when you cannot find something but the x 
+	     * is equal in remove
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     *
+	     */
+	    @Test
+	    public void testRemoveCoordNahX() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
+	        Rect re = new Rect("a", 1, 5, 3, 6);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
+	        s.insert(p);
+	        
+	        Rect m = new Rect(null, 1, 2, 4, 4);
+	
+	        s.removeByCoord(m);
+	        String outt = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle not removed: (1, 2, 4, 4,)", outt);
+	    }
+	    
+	    /**
+	     * Tests when you cannot find something but the y 
+	     * is equal in remove
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     *
+	     */
+	    @Test
+	    public void testRemoveCoordNahY() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
+	        Rect re = new Rect("a", 1, 2, 3, 6);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
+	        s.insert(p);
+	        
+	        Rect m = new Rect(null, 1, 2, 4, 4);
+	
+	        s.removeByCoord(m);
+	        String outt = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle not removed: (1, 2, 4, 4,)", outt);
+	    }
+	    
+	    /**
+	     * Tests when you cannot find something but the width 
+	     * is equal in remove
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     *
+	     */
+	    @Test
+	    public void testRemoveCoordNahW() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
+	        Rect re = new Rect("a", 1, 2, 4, 6);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
+	        s.insert(p);
+	        
+	        Rect m = new Rect(null, 1, 2, 4, 4);
+	
+	        s.removeByCoord(m);
+	        String outt = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle not removed: (1, 2, 4, 4,)", outt);
+	    }   
+	
+	    /**
+	     * Tests when x.forward[i] is null
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveCoordNull() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+	        Rect hm = new Rect(null, 1, 2, 3, 4);
+	        s.removeByCoord(hm);
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle not removed: (1, 2, 3, 4)", output);
+	    }
+	
+	    /**
+	     * Tests remove by name when successful
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveNameYasM() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+	        Rect y = new Rect("a", 0, 1, 5, 4);
+	        KVPair<String, Rect> l = new KVPair<String, Rect>(y.getName(), y);
+	        s.insert(l);
+	
+	        Rect re = new Rect("b", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, 
+	                Rect>(re.getName(), re);        
+	        s.insert(p);
+	
+	        Rect f = new Rect("f", 5, 200, 3, 4);
+	        KVPair<String, Rect> g = new KVPair<String, Rect>(f.getName(), f);
+	        s.insert(g);
+	
+	        s.removeByName("a");
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle removed: (a, 0, 1, 5, 4)", output);
+	    }
+	    
+	    /**
+	     * Tests remove by name when successful on first
+	     * element
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveNameYasF() throws IOException, ClassNotFoundException
+	    {
+	    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+	        Rect y = new Rect("a", 0, 1, 5, 4);
+	        KVPair<String, Rect> l = new KVPair<String, Rect>(y.getName(), y);
+	        s.insert(l);
+	
+	        Rect re = new Rect("b", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, 
+	                Rect>(re.getName(), re);        
+	        s.insert(p);
+	
+	        Rect f = new Rect("f", 5, 200, 3, 4);
+	        KVPair<String, Rect> g = new KVPair<String, Rect>(f.getName(), f);
+	        s.insert(g);
+	
+	        s.removeByName("b");
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle removed: (b, 1, 2, 3, 4)", output);
+	    }
+	    
+	    /**
+	     * Tests remove by name when successful on last 
+	     * element
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveNameYasL() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+	        Rect y = new Rect("a", 0, 1, 5, 4);
+	        KVPair<String, Rect> l = new KVPair<String, Rect>(y.getName(), y);
+	        s.insert(l);
+	
+	        Rect re = new Rect("b", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, 
+	                Rect>(re.getName(), re);        
+	        s.insert(p);
+	
+	        Rect f = new Rect("f", 5, 200, 3, 4);
+	        KVPair<String, Rect> g = new KVPair<String, Rect>(f.getName(), f);
+	        s.insert(g);
+	
+	        s.removeByName("f");
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle removed: (f, 5, 200, 3, 4)", output);
+	    }
+	
+	    /**
+	     * Tests when there is more than one instance
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveNameMult() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
+	
+	        Rect i = new Rect("q", 0, 0, 1, 1);
+	        KVPair<String, Rect> w = new KVPair<String, Rect>(i.getName(), i);
+	        s.insert(w);
+	
+	        Rect re = new Rect("a", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	
+	        s.insert(p);
+	
+	        Rect nu = new Rect("a", 2, 4, 3, 4);
+	        KVPair<String, Rect> m = new KVPair<String, Rect>(nu.getName(), nu);
+	        s.insert(m);
+	
+	        Rect eh = new Rect("k", 6, 10, 7, 8);
+	        KVPair<String, Rect> n = new KVPair<String, Rect>(eh.getName(), eh);
+	        s.insert(n);
+	
+	        s.removeByName("a");
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle removed: (a, 2, 4, 3, 4)", output);
+	    }
+	
+	    /**
+	     * Tests when you cannot find something
+	     * in remove
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveNameNah() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
+	        Rect re = new Rect("a", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+	        s.insert(p);
+	
+	        s.removeByName("b");
+	        String outt = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle not found: b", outt);
+	    }
+	    
+	    /**
+	     * Tests when you cannot find something
+	     * in remove checking compareTo
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveNameNah2() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
+	        Rect re = new Rect("b", 1, 2, 3, 4);
+	        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+	        s.insert(p);
+	        s.removeByName("a");
+	        String outt = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle not found: a", outt);
+	    }
+	
+	    /**
+	     * Tests when x.forward[i] is null
+	     * @throws IOException 
+	     * @throws ClassNotFoundException 
+	     */
+	    @Test
+	    public void testRemoveNameNull() throws ClassNotFoundException, IOException
+	    {
+	    	MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
+	        SkipList<String, Rect> s = new SkipList<String, Rect>(m);
+	        s.removeByName("roar");
+	        String output = systemOut().getHistory();
+	        assertFuzzyEquals("Rectangle not found: roar", output);
+	    }
 	    
 	/**
 	 * tests when the element should be in middle but not

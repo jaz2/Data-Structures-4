@@ -180,8 +180,8 @@ public class MemoryManager{
 	}
 	
 	/**
-	 * 
-	 * @param h
+	 * Removes!
+	 * @param h the handle
 	 * @throws IOException 
 	 */
 	public void remove(int h) throws IOException
