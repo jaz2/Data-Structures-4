@@ -139,7 +139,7 @@ public class SkipList<K extends Comparable<K>, E> {
 			{
 				x = getNode(x).forward[i];              // Go one last step 
 			}
-			store[i] = x;
+			store[i] = x; 
 		}
 		// now the store is populated
 		x = getNode(x).forward[0];  // Move to actual record, if it exists
@@ -161,6 +161,7 @@ public class SkipList<K extends Comparable<K>, E> {
 			size--;
 			System.out.println("Rectangle removed: ("
 					+ getKV(getNode(x).element).toString() + ")");
+			mm.remove(x);
 		}
 		if (found == false)
 		{
@@ -213,6 +214,7 @@ public class SkipList<K extends Comparable<K>, E> {
 			size--;
 			System.out.println("Rectangle removed: ("
 					+ getKV(getNode(nodeToRemove).element).toString() + ")");
+			mm.remove(x);
 		}
 		if (found == false)
 

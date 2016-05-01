@@ -231,22 +231,22 @@ public class MemoryManager{
 	}
 
 
-	/**
-	 * Finds the handle
-	 * @param x the handle
-	 * @return as a freeblock
-	 */
-	public FreeBlock find(int x)
-	{
-		for (int i = 0; i < freeList.length(); i++)
-		{
-			if (freeList.get(i).p == x)
-			{
-				return freeList.get(i);
-			}
-		}
-		return null;
-	}
+//	/**
+//	 * Finds the handle
+//	 * @param x the handle
+//	 * @return as a freeblock
+//	 */
+//	public FreeBlock find(int x)
+//	{
+//		for (int i = 0; i < freeList.length(); i++)
+//		{
+//			if (freeList.get(i).p == x)
+//			{
+//				return freeList.get(i);
+//			}
+//		}
+//		return null;
+//	}
 
 	/**
 	 * Find the last thing in the list
