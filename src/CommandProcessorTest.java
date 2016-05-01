@@ -530,9 +530,9 @@ public class CommandProcessorTest extends TestCase
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
-        //assertFuzzyEquals("Rectangle inserted: (a, 100, 0, 5, 5)\n"
-        // + "Rectangle removed: (a, 100, 0, 5, 5)", output);
-        assertFuzzyEquals("Rectangle inserted: (a, 100, 0, 5, 5)", output);
+        assertFuzzyEquals("Rectangle inserted: (a, 100, 0, 5, 5)\n"
+         + "Rectangle removed: (a, 100, 0, 5, 5)", output);
+        //assertFuzzyEquals("Rectangle inserted: (a, 100, 0, 5, 5)", output);
     }
 
     /**
@@ -764,8 +764,8 @@ public class CommandProcessorTest extends TestCase
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
-        //assertFuzzyEquals("Rectangle not removed: (1000, 10, 10, 4)", output);
-        assertFuzzyEquals("", output);
+        assertFuzzyEquals("Rectangle not removed: (1000, 10, 10, 4)", output);
+        //assertFuzzyEquals("", output);
     }
 
     /**
@@ -807,8 +807,8 @@ public class CommandProcessorTest extends TestCase
         RectangleDisk.bufSize = 1000;
         new CommandProcessor(f);
         String output = systemOut().getHistory();
-        //assertFuzzyEquals("Rectangle not removed: (1, 1, 2, 6)", output);
-        assertFuzzyEquals("", output);
+        assertFuzzyEquals("Rectangle not removed: (1, 1, 2, 6)", output);
+        //assertFuzzyEquals("", output);
     }
 
     /**
@@ -932,8 +932,8 @@ public class CommandProcessorTest extends TestCase
         w.close();
         new CommandProcessor(f);
         String output = systemOut().getHistory();
-        //assertFuzzyEquals("Rectangle not found: name", output);
-        assertFuzzyEquals("", output);
+        assertFuzzyEquals("Rectangle not found: name", output);
+        //assertFuzzyEquals("", output);
     }
 
     /**

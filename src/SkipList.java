@@ -317,7 +317,7 @@ public class SkipList<K extends Comparable<K>, E> {
 						+ (getKV(getNode(getNode(node).forward[0]).element)).value().toString() + ")");
 				node = getNode(node).forward[0];
 			} 
-			//System.out.println("SkipList size is: " + size);
+			System.out.println("SkipList size is: " + size);
 			System.out.println("Freelist Blocks: \n" + dumpFreeBlocks());
 		}
 	}
