@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import org.junit.Test;
 import student.TestCase;
@@ -24,9 +25,13 @@ public class DatabaseTest extends TestCase
     @Test
     public void testInsert() throws ClassNotFoundException, IOException
     {
+    	RandomAccessFile f = new RandomAccessFile("test", "rw");
+    	RectangleDisk.dfile = f;
+    	RectangleDisk.bufSize = 1024;
+    	RectangleDisk.numBuffs = 3;
         Database d = new Database();
         d.skipInsert("a", 1, 1, 3, 5);
-        assertEquals(19, d.skip.head);
+        assertEquals(99, d.skip.head);
     }
 
     /**
@@ -39,10 +44,14 @@ public class DatabaseTest extends TestCase
      * @throws ClassNotFoundException 
      */
     @Test
-    public void skipRemoveCoord(int x, int y, int w, int h) throws ClassNotFoundException, IOException
+    public void testSkipRemoveCoord() throws ClassNotFoundException, IOException
     {
+    	RandomAccessFile f = new RandomAccessFile("test", "rw");
+    	RectangleDisk.dfile = f;
+    	RectangleDisk.bufSize = 1024;
+    	RectangleDisk.numBuffs = 3;
         Database db = new Database();
-        Rect r = new Rect(null, x, y, w, h);
+        Rect r = new Rect(null, 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(null, r);
         db.skip.removeByCoord(r);
     }
