@@ -28,6 +28,7 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		RandomAccessFile s = new RandomAccessFile("test.txt", "rw");
@@ -36,12 +37,8 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		
 		RectangleDisk.bufSize = 4096;
 		m = new MemoryManager(RectangleDisk.bufSize, RectangleDisk.dfile); 
-		// skip = new SkipList(m);
-		//    KVPair kv = new KVPair(id, rec);
 		Rect re = new Rect("a", 1, 2, 3, 4);
-		//	KVPair<String,Rect> p = new KVPair<String,Rect>(re.getId(), re);
-		kv = new KVPair(re.getName(), re);
-		//node = new SkipNode()
+		kv = new KVPair<String, Rect>(re.getName(), re);
 	}
 
 	/**
@@ -183,7 +180,7 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		assertEquals(m.freeList.length(), 2);
 		assertEquals(m.freeList.get(0).p, 0);
 		assertEquals(m.freeList.get(0).sz, re3h - 2);
-		assertEquals(1, m.freeList.get(2).p);
+		assertEquals(1, m.freeList.get(4).p);
 		int ref = m.insert(Serializer.serialize(re1));
 		assertEquals(ref, 2);
 	}
