@@ -318,24 +318,24 @@ public class BufferPool {
 		}
 	}
 
-	/**
-	 * make a write stats method here
-	 * want to keep adding to the stat file
-	 * make variables to count the number of read and writes
-	 * 
-	 * @param s the file to be taken in
-	 * @param x the time 
-	 * @throws IOException 
-	 */
-	public void stats(File s, long x) throws IOException
-	{
-		FileWriter fw = new FileWriter(s, true);
-		BufferedWriter w = new BufferedWriter(fw);
-		w.write("\nCache hits: " + hits + "\n");
-		w.write("Disk reads: " + reads + "\n");
-		w.write("Disk writes: " + writes + "\n");
-		w.write("Time to sort: " + x + "\n");
-		w.write("---------------------------");
-		w.close();
-	}
+//	/**
+//	 * make a write stats method here
+//	 * want to keep adding to the stat file
+//	 * make variables to count the number of read and writes
+//	 * 
+//	 * @param s the file to be taken in
+//	 * @param x the time 
+//	 * @throws IOException 
+//	 */
+//	public void stats(File s, long x) throws IOException
+//	{
+//		FileWriter fw = new FileWriter(s, true);
+//		BufferedWriter w = new BufferedWriter(fw);
+//		w.write("\nCache hits: " + hits + "\n");
+//		w.write("Disk reads: " + reads + "\n");
+//		w.write("Disk writes: " + writes + "\n");
+//		w.write("Time to sort: " + x + "\n");
+//		w.write("---------------------------");
+//		w.close();
+//	}
 }
