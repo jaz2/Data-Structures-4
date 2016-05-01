@@ -178,7 +178,7 @@ public class MemoryManager{
 		}
 		return pos;
 	}
-	
+
 	/**
 	 * Removes!
 	 * @param h the handle
