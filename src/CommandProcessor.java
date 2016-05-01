@@ -137,15 +137,15 @@ public class CommandProcessor {
                                 "Rectangle rejected: (" + n1 + ", " 
                                         + n2 + ", " + n3 + ", " + n4 + ")");
                     }
-                    //                    else 
-                    //                    {
-                    //    db.skipRemoveCoord(n1, n2, n3, n4);
-                    //                    }
+                                        else 
+                                        {
+                        db.skipRemoveCoord(n1, n2, n3, n4);
+                                        }
                 } 
                 else // case where it's remove name
                 {
                     String id = in.next().toString();
-                    // db.skip.removeByName(id);
+                     db.skip.removeByName(id);
                 }
             } 
             else if (str.contains("regionsearch"))
