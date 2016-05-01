@@ -436,7 +436,7 @@ public class SkipListTest extends TestCase
 	//        String output = systemOut().getHistory();
 	//        assertFuzzyEquals("Rectangle not found: roar", output);
 	//    }
-	//    
+	    
 	/**
 	 * tests when the element should be in middle but not
 	 * @throws IOException 
@@ -572,6 +572,41 @@ public class SkipListTest extends TestCase
 		assertFuzzyEquals("Rectangle not found: b", outt);
 	}
 
+	/**
+	 * Tests when more things need to be searched
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 */
+	@Test
+	public void testSearchMore() throws IOException, ClassNotFoundException
+	{
+		RectangleDisk.bufSize = 4096;
+		MemoryManager mem = new MemoryManager(4096, RectangleDisk.dfile);
+		Rect re = new Rect("a", 1, 2, 3, 4);
+		KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+		SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+		s.insert(p);
+
+		Rect nu = new Rect("b", 2, 2, 4, 4);
+		KVPair<String, Rect> n = new KVPair<String, Rect>(nu.getName(), nu);
+		s.insert(n);
+
+		Rect or = new Rect("c", 2, 8, 4, 49);
+		KVPair<String, Rect> me = new KVPair<String, Rect>(or.getName(), or);
+		s.insert(me);
+
+		Rect or1 = new Rect("d", 2, 8, 4, 49);
+		KVPair<String, Rect> me1 = new KVPair<String, Rect>(or1.getName(), or1);
+		s.insert(me1);
+
+		s.search("a");
+		s.search("b");
+		s.search("c");
+		String output = systemOut().getHistory();
+		assertFuzzyEquals("(a, 1, 2, 3, 4)\n"
+				+ "(b, 2, 2, 4, 4)\n"
+				+ "(c, 2, 8, 4, 49)", output);
+	}
 
 	/**
 	 * Tests when search is the same

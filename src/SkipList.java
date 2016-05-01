@@ -288,12 +288,6 @@ public class SkipList<K extends Comparable<K>, E> {
         //release head
         mm.makeFree(head);
         head = insertObject(oldHead);
-        //mm.update(head, oldHead); //ask jessica if she had this
-//        mm.freeList.remove(mm.fb);
-//        FreeBlock nuFree = new FreeBlock(mm.mm.length - Serializer.serialize(start).length, start);
-//        mm.fb = nuFree; 
-//        mm.freeList.insert(mm.fb);
-        //head = update(head); 
         level = lev;
     }
 
@@ -326,15 +320,6 @@ public class SkipList<K extends Comparable<K>, E> {
                         ", Value (" + getKV(getNode(getNode(node).forward[0]).element).key() + ", "
                         + (getKV(getNode(getNode(node).forward[0]).element)).value().toString() + ")");
                 node = getNode(node).forward[0];
-                //                System.out.println("Node has depth " 
-                //                    + (getNode(node)).getLevel() +
-                //                        ", Value (" + getKV(getNode(getNode(node)
-                //                                .forward[0]).element).key() + ", "
-                //                        + (getKV(getNode(getNode(node).forward[0])
-                //                                .element)).value().toString() + ")");
-                //                node = getNode(node).forward[0];
-                //mm.update(node, getObject(node));
-                //node = update(node); 
             } 
             //System.out.println("SkipList size is: " + size);
             System.out.println("Freelist Blocks: \n" + dumpFreeBlocks());
