@@ -161,7 +161,8 @@ public class MemoryManager
                 found = true;
                 FreeBlock f1 = freeList.get(i);
                 pos = freeList.get(i).p + 2;
-                FreeBlock f3 = new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
+                FreeBlock f3 = 
+                        new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
                 freeList.remove(f1);
                 freeList.insert(f3);
 
@@ -178,7 +179,8 @@ public class MemoryManager
             int spaceAdded = 0;
             FreeBlock last = findLast();
             spaceAdded = (((bytesNeeded / bufSize) + 1) * bufSize);
-            FreeBlock fnew = new FreeBlock((last.sz - bytesNeeded) + spaceAdded, last.p);
+            FreeBlock fnew = 
+                    new FreeBlock((last.sz - bytesNeeded) + spaceAdded, last.p);
             freeList.remove(last);
             freeList.insert(fnew);
             end = end + spaceAdded;
@@ -241,7 +243,6 @@ public class MemoryManager
 
     /**
      * Find the last thing in the list
-     * @param x compares if it is last thing
      * @return free block
      */
     public FreeBlock findLast()
