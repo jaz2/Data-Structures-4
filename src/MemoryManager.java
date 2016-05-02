@@ -122,19 +122,19 @@ public class MemoryManager
         bp.write(f, b.length, h, b);
     }
 
-    /**
-     * turns used space to free space
-     * @param h the handle
-     * @throws IOException 
-     */
-    public void makeFree(int h) throws IOException
-    {
-        byte[] a = new byte[2];
-        bp.read(f, 2, h - 2, a);
-        short size = ByteBuffer.wrap(a).getShort(0);
-        FreeBlock fr = new FreeBlock(size + 2, h - 2); 
-        freeList.insert(fr);        
-    }
+//    /**
+//     * turns used space to free space
+//     * @param h the handle
+//     * @throws IOException 
+//     */
+//    public void makeFree(int h) throws IOException
+//    {
+//        byte[] a = new byte[2];
+//        bp.read(f, 2, h - 2, a);
+//        short size = ByteBuffer.wrap(a).getShort(0);
+//        FreeBlock fr = new FreeBlock(size + 2, h - 2); 
+//        freeList.insert(fr);        
+//    }
 
     /**
      * inserts byte array into memory array
