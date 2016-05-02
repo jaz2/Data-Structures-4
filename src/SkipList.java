@@ -345,7 +345,7 @@ public class SkipList<K extends Comparable<K>, E> {
 
     /**
      * Dumps all free blocks
-     * @return
+     * @return the string
      */
     public String dumpFreeBlocks()
     {
