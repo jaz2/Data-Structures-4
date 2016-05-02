@@ -8,7 +8,8 @@ import org.junit.Test;
  */
 
 /**
- * @author Jazz
+ * @author Jazmine Zurita and Jessica McCready
+ * @version May 1 2016
  *
  */
 public class SkipNodeTest {
@@ -20,6 +21,9 @@ public class SkipNodeTest {
 	public void setUp() throws Exception {
 	}
 
+	/**
+	 * Simple test for this class
+	 */
 	@Test
 	public void testNode() {
 		SkipNode s = new SkipNode(3, 10);
