@@ -180,7 +180,7 @@ public class MemoryManager
             FreeBlock last = findLast();
             spaceAdded = (((bytesNeeded / bufSize) + 1) * bufSize);
             FreeBlock fnew = 
-                    new FreeBlock((last.sz - bytesNeeded) + spaceAdded, last.p);
+                    new FreeBlock(last.sz + spaceAdded, last.p);
             freeList.remove(last);
             freeList.insert(fnew);
             end = end + spaceAdded;
