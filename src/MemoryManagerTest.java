@@ -221,7 +221,9 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		assertNull(m.getNode(hand));
 		
 		int kvh = m.insert(b);
-		assertEquals(MemoryManager.fly, m.insert(b));
+		
+		byte[] c = null;
+		assertEquals(MemoryManager.fly, m.insert(c));
 		node = new SkipNode(kvh, 0);
 		m.update(hand, node);
 		 String output = systemOut().getHistory();
