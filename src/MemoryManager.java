@@ -34,7 +34,7 @@ public class MemoryManager
     /**
      * The first free block
      */
-    public FreeBlock fb;
+    public FreeBlock free;
 
     /**
      * Keeps track of size
@@ -92,8 +92,8 @@ public class MemoryManager
         m = new byte[size];
         bufSize = size;
         freeList = new List();
-        FreeBlock fb = new FreeBlock(size, 0);
-        freeList.insert(fb);
+        FreeBlock free = new FreeBlock(size, 0);
+        freeList.insert(free);
         found = false;
         f = s;
         //f = new RandomAccessFile(RectangleDisk.dfile, "rw");
