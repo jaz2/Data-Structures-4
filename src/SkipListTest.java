@@ -944,10 +944,10 @@ implements java.io.Serializable
         MemoryManager mem = new MemoryManager(1, RectangleDisk.dfile);
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = null;
-       // p = null;
+        // p = null;
         SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
         assertFalse(s.insert(p));
-        
+
         int handle = MemoryManager.fly;
         assertNull(s.getKV(handle));
         assertNull(s.getObject(handle));
