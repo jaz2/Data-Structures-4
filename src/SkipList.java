@@ -246,7 +246,8 @@ public class SkipList<K extends Comparable<K>, E> {
         for (int i = level; i >= 0; i--)           // For each level...     
             while ((getNode(x).forward[i] != MemoryManager.fly) &&            
                     (key.compareTo(getKV(getNode(getNode(x)
-                            .forward[i]).element).key()) > 0)) // go forward       
+                            .forward[i]).element)
+                            .key()) > 0)) // go forward       
                 x = getNode(x).forward[i];              // Go one last step   
         x = getNode(x).forward[0];  // Move to actual record, if it exists
         if ((x != MemoryManager.fly) && 
@@ -262,7 +263,8 @@ public class SkipList<K extends Comparable<K>, E> {
                 while (x != MemoryManager.fly && key.
                         equals(getKV(getNode(x).element).key()))
                 {
-                    System.out.println("(" + getKV(getNode(x).element).toString() + ")");
+                    System.out.println("(" + getKV(getNode(x)
+                            .element).toString() + ")");
                     x = getNode(x).forward[0];
                 }
             }
@@ -477,7 +479,8 @@ public class SkipList<K extends Comparable<K>, E> {
                             + (getKV(getNode(getNode(node).forward[0])
                                     .element)).key() + ", "
                                     + (getKV(getNode(getNode(node).forward[0])
-                                            .element)).value().toString() + ")");
+                                            .element)).value()
+                                    .toString() + ")");
                 }
             }
             node = getNode(node).forward[0];
