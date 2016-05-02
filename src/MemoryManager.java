@@ -162,7 +162,8 @@ public class MemoryManager
                 FreeBlock f1 = freeList.get(i);
                 pos = freeList.get(i).p + 2;
                 FreeBlock f3 = 
-                        new FreeBlock((f1.sz - bytesNeeded), f1.p + bytesNeeded);
+                        new FreeBlock((f1.sz - bytesNeeded), 
+                                f1.p + bytesNeeded);
                 freeList.remove(f1);
                 freeList.insert(f3);
 
