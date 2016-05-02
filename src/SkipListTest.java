@@ -1,6 +1,6 @@
 import static org.junit.Assert.*;
 
-import java.awt.Rectangle;
+//import java.awt.Rectangle;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -20,11 +20,9 @@ import org.junit.Test;
  *
  */
 public class SkipListTest extends TestCase 
-implements java.io.Serializable
+    implements java.io.Serializable
 {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -39,13 +37,19 @@ implements java.io.Serializable
         RectangleDisk.numBuffs = 3;
     }
 
+    /**
+     * Test when empty
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    @Test
     public void testEmpty() throws IOException, ClassNotFoundException
     {
         RectangleDisk.bufSize = 4096;
         MemoryManager m = new MemoryManager(4096, RectangleDisk.dfile);
-        Rect re = new Rect("a", 1, 2, 3, 4);
+        //Rect re = new Rect("a", 1, 2, 3, 4);
         //RectangleDisk.bufSize = 4096;
-        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
+       //KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
         SkipList<String, Rect> s = new SkipList<String, Rect>(m);
         s.dump();
         String output = systemOut().getHistory();
@@ -76,7 +80,8 @@ implements java.io.Serializable
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 //+ "SkipList size is: 1\n"
-                + "Freelist Blocks: \n(" + (m.count) + ", " + m.m.length + ")", output);
+                + "Freelist Blocks: \n(" + (m.count) 
+                + ", " + m.m.length + ")", output);
     } 
 
     /**
@@ -105,7 +110,8 @@ implements java.io.Serializable
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "Node has depth 0, Value (b, 1, 2, 3, 4)\n"
                 //+ "SkipList size is: 2\n"
-                + "Freelist Blocks: \n(" + m.count + ", " + m.m.length + ")", output);
+                + "Freelist Blocks: \n(" + m.count + ", " 
+                + m.m.length + ")", output);
     }
 
     /**
@@ -175,7 +181,8 @@ implements java.io.Serializable
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void testRemoveCoordDouble() throws ClassNotFoundException, IOException
+    public void testRemoveCoordDouble() 
+        throws ClassNotFoundException, IOException
     {
         MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
         SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
@@ -315,7 +322,8 @@ implements java.io.Serializable
      * @throws ClassNotFoundException 
      */         
     @Test
-    public void testRemoveCoordMultNEW() throws IOException, ClassNotFoundException
+    public void testRemoveCoordMultNEW() 
+        throws IOException, ClassNotFoundException
     {
         MemoryManager mm = new MemoryManager(4096, RectangleDisk.dfile);
         SkipList<String, Rect> s = new SkipList<String, Rect>(mm);
@@ -770,10 +778,10 @@ implements java.io.Serializable
      */
     @Test
     public void testDumpWith1Insert() 
-            throws IOException, ClassNotFoundException
+        throws IOException, ClassNotFoundException
     {
         RectangleDisk.bufSize = 512;
-        MemoryManager m = new MemoryManager(512,RectangleDisk.dfile);
+        MemoryManager m = new MemoryManager(512, RectangleDisk.dfile);
         TestableRandom.setNextInts(3, 3, 3);
         Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
@@ -787,7 +795,8 @@ implements java.io.Serializable
                 + "Node has depth 0, Value (null)\n"
                 + "Node has depth 0, Value (a, 1, 2, 3, 4)\n"
                 + "SkipList size is: 1\n"
-                + "Freelist Blocks: \n(" + m.count + ", " + m.m.length + ")", output);
+                + "Freelist Blocks: \n(" + m.count + ", " 
+                + m.m.length + ")", output);
     }
 
     /**
@@ -796,7 +805,8 @@ implements java.io.Serializable
      * @throws ClassNotFoundException 
      */
     @Test
-    public void testDumpWith2Inserts() throws ClassNotFoundException, IOException
+    public void testDumpWith2Inserts() 
+        throws ClassNotFoundException, IOException
     {
         TestableRandom.setNextInts(2, 2, 2);
         RectangleDisk.bufSize = 512;
@@ -828,7 +838,6 @@ implements java.io.Serializable
     //    @Test
     //    public void testInsertBool() {
     //        Rect re = new Rect("a", 1, 2, 3, 4);
-    //        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
     //        SkipList<String, Rect> s = new SkipList<String, Rect>();
     //        assertTrue(s.controlledInsert(p, 2));
     //        assertEquals(null, s.head.element());
@@ -841,12 +850,10 @@ implements java.io.Serializable
     //    public void testInsertBoolMore()
     //    {
     //        Rect re = new Rect("a", 1, 2, 3, 4);
-    //        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
     //        SkipList<String, Rect> s = new SkipList<String, Rect>();
     //        s.controlledInsert(p, 2);
     //
     //        Rect uh = new Rect("b", 1, 2, 3, 4);
-    //        KVPair<String, Rect> k = new KVPair<String, Rect>(uh.getName(), uh);
     //        s.controlledInsert(k, 2);
     //        assertEquals(null, s.head.element());
     //    }
@@ -892,8 +899,8 @@ implements java.io.Serializable
     @Test
     public void testIntersections() throws ClassNotFoundException, IOException
     {
-        RectangleDisk.bufSize = 512;;
-        MemoryManager m = new MemoryManager(512,RectangleDisk.dfile); 
+        RectangleDisk.bufSize = 512;
+        MemoryManager m = new MemoryManager(512, RectangleDisk.dfile); 
         SkipList<String, Rect> skip = new SkipList<String, Rect>(m);
         Rect r1 = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p1 = new KVPair<String, Rect>(r1.getName(), r1);
@@ -921,11 +928,8 @@ implements java.io.Serializable
     //     */
     //    public void testControlledInsert() {
     //        Rect re = new Rect("b", 1, 2, 3, 4);
-    //        KVPair<String, Rect> p = new KVPair<String, Rect>(re.getName(), re);
     //        Rect re1 = new Rect("c", 2, 2, 3, 4);
-    //        KVPair<String, Rect> p1 = new KVPair<String, Rect>(re1.getName(), re1);
     //        Rect re2 = new Rect("a", 2, 7, 3, 4);
-    //        KVPair<String, Rect> p2 = new KVPair<String, Rect>(re2.getName(), re2);
     //        SkipList<String, Rect> s = new SkipList<String, Rect>();
     //        s.controlledInsert(p, 4);
     //        s.controlledInsert(p1, 12);
@@ -942,7 +946,7 @@ implements java.io.Serializable
 
         RectangleDisk.bufSize = 1;
         MemoryManager mem = new MemoryManager(1, RectangleDisk.dfile);
-        Rect re = new Rect("a", 1, 2, 3, 4);
+        //Rect re = new Rect("a", 1, 2, 3, 4);
         KVPair<String, Rect> p = null;
         // p = null;
         SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
