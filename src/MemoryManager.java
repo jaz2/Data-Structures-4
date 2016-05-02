@@ -124,7 +124,7 @@ public class MemoryManager
 
     /**
      * turns used space to free space
-     * @param h
+     * @param h the handle
      * @throws IOException 
      */
     public void makeFree(int h) throws IOException
