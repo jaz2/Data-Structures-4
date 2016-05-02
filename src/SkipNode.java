@@ -10,11 +10,11 @@
 public class SkipNode implements java.io.Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
+    /**
      * forward array
      */
     public int[] forward;
@@ -58,7 +58,7 @@ public class SkipNode implements java.io.Serializable {
     {
         return lev;
     }
-    
+
     /**
      * To check if same
      * @param s the skipnode
@@ -66,6 +66,6 @@ public class SkipNode implements java.io.Serializable {
      */
     public boolean equalss(SkipNode s)
     {
-    	return (s.element() == element);
+        return (s.element() == element);
     }
 }
