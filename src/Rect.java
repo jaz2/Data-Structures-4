@@ -119,16 +119,9 @@ public class Rect implements java.io.Serializable {
     @Override
     public boolean equals(Object re)
     {       
-        if (xx == ((Rect) re).getX() && yy == ((Rect) re).getY() && 
+        return (xx == ((Rect) re).getX() && yy == ((Rect) re).getY() && 
                 width == ((Rect) re).getWidth() && 
-                height == ((Rect) re).getHeight())
-        {
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
+                height == ((Rect) re).getHeight());
     }
 
     /**
@@ -138,13 +131,6 @@ public class Rect implements java.io.Serializable {
      */
     public boolean intersects(Rect r1)
     {
-        if (xx + width > r1.getX() && yy + height > r1.getY()) 
-        {
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
+        return (xx + width > r1.getX() && yy + height > r1.getY());
     }
 }
