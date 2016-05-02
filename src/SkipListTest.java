@@ -931,4 +931,26 @@ implements java.io.Serializable
     //        s.controlledInsert(p1, 12);
     //        assertTrue(s.controlledInsert(p2, 6));
     //    }
+
+    /**
+     * Tests when insert is null
+     * @throws IOException 
+     * @throws ClassNotFoundException 
+     */
+    public void testInsertNull() throws IOException, ClassNotFoundException
+    {
+
+        RectangleDisk.bufSize = 1;
+        MemoryManager mem = new MemoryManager(1, RectangleDisk.dfile);
+        Rect re = new Rect("a", 1, 2, 3, 4);
+        KVPair<String, Rect> p = null;
+       // p = null;
+        SkipList<String, Rect> s = new SkipList<String, Rect>(mem);
+        assertFalse(s.insert(p));
+        
+        int handle = MemoryManager.fly;
+        assertNull(s.getKV(handle));
+        assertNull(s.getObject(handle));
+        assertNull(s.getNode(handle));
+    }
 }
