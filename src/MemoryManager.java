@@ -144,7 +144,8 @@ public class MemoryManager
      */
     public int insert(byte[] b) throws IOException
     {
-        //look at last free block, if its longer then what you need, grab what you need and leave the rest ->pull off bytes from front
+        //look at last free block, if its longer then what you need, 
+        //grab what you need and leave the rest ->pull off bytes from front
         found = false;
         int end = ((int)f.length());
         if (b == null) 
