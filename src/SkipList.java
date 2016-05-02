@@ -498,22 +498,28 @@ public class SkipList<K extends Comparable<K>, E> {
         Rect r2;
         for (int i = 1; i <= size; i++)
         {
-            r1 = (Rect) getKV(getNode(getNode(node1).forward[0]).element).value();
+            r1 = (Rect) getKV(getNode(getNode(node1)
+                    .forward[0]).element).value();
             //    r1 = (Rect) node1.forward[0].element.value();
             node2 = head;
             for (int j = 1; j <= size; j++)
             {
-                r2 = (Rect) getKV(getNode(getNode(node2).forward[0]).element).value();
+                r2 = (Rect) getKV(getNode(getNode(node2)
+                        .forward[0]).element).value();
                 if (getNode(node1).forward[0] != getNode(node2).forward[0])
                 {
                     if (r1.intersects(r2) && r2.intersects(r1))
                     {
                         System.out.println("(" 
-                                + getKV(getNode(getNode(node1).forward[0]).element).key()
-                                + ", "    + getKV(getNode(getNode(node1).forward[0]).element).value().toString()
+                                + getKV(getNode(getNode(node1)
+                                        .forward[0]).element).key()
+                                + ", "    + getKV(getNode(getNode(node1)
+                                        .forward[0]).element).value().toString()
                                 + " | " 
-                                + getKV(getNode(getNode(node2).forward[0]).element).key() + ", "
-                                + getKV(getNode(getNode(node2).forward[0]).element).value().toString() + ")");
+                                + getKV(getNode(getNode(node2).forward[0])
+                                        .element).key() + ", "
+                                        + getKV(getNode(getNode(node2).forward[0])
+                                                .element).value().toString() + ")");
                     }
                 }
                 node2 = getNode(node2).forward[0];
