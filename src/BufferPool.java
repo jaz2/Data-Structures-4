@@ -1,6 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -149,7 +147,7 @@ public class BufferPool {
     /**
      * handles when things go over a single block
      * @param f the file
-     * @param numBytesRead the number of bytes to read
+     * @param numBytesToWrite the number of bytes to read
      * @param bytePos the position of the byte
      * @param bytes the byte array
      * @throws IOException
@@ -162,7 +160,8 @@ public class BufferPool {
         int start = bytePos;
         int posInBytes = 0;
         //int s = posInBlock;
-        int buffers = ((posInBlock + numBytesToWrite) / RectangleDisk.bufSize) + 1;
+        int buffers = ((posInBlock + numBytesToWrite) 
+                / RectangleDisk.bufSize) + 1;
         int totalEnd = bytePos + numBytesToWrite;
         int end = ((blockN + 1) * RectangleDisk.bufSize);
         for (int i = 0; i < buffers; i++)

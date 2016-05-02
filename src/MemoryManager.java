@@ -267,7 +267,9 @@ public class MemoryManager
     public byte[] getNode(int x) throws IOException
     {
         if (x == fly) 
+        {
             return null;
+        }
         else 
         {
             byte[] a = new byte[2];        
