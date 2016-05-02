@@ -109,28 +109,10 @@ public class ListTest extends TestCase {
     @Test
     public void testList()
     {
-    	List l = new List();
-    	assertTrue(l.isEmpty());
-    	l.insert(new FreeBlock(400, 400));
-    	assertFalse(l.isEmpty());
-    	assertEquals(1, l.length());
-    }
-    
-    /**
-     * Tests things
-     */
-    public void testListMany()
-    {
-    	List l = new List();
-    	l.insert(new FreeBlock(4, 3));
-    	l.insert(new FreeBlock(2, 4));
-    	l.insert(new FreeBlock(1, 1));
-    	l.insert(new FreeBlock(4, 2));
-//    	l.dump();
-//        String output = systemOut().getHistory();
-//        assertFuzzyEquals("1\n"
-//        		+ "2\n"
-//        		+ "3\n"
-//        		+ "4\n", output);
+        List l = new List();
+        assertTrue(l.isEmpty());
+        l.insert(new FreeBlock(400, 400));
+        assertFalse(l.isEmpty());
+        assertEquals(1, l.length());
     }
 }
