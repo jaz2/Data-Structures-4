@@ -216,14 +216,16 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 	@Test
 	public void testNull() throws ClassNotFoundException, IOException
 	{
+		byte[] c = null;
+		assertEquals(MemoryManager.fly, m.insert(c));
+		
 		byte[] b = Serializer.serialize(kv);
 		int hand = MemoryManager.fly;
 		assertNull(m.getNode(hand));
 		
 		int kvh = m.insert(b);
 		
-		byte[] c = null;
-		assertEquals(MemoryManager.fly, m.insert(c));
+		
 		node = new SkipNode(kvh, 0);
 		m.update(hand, node);
 		 String output = systemOut().getHistory();
