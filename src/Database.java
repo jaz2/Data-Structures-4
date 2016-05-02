@@ -22,10 +22,11 @@ public class Database
      */
     public Database() throws IOException, ClassNotFoundException
     {
-    	MemoryManager mem = new MemoryManager(RectangleDisk.bufSize, RectangleDisk.dfile);
+        MemoryManager mem = 
+                new MemoryManager(RectangleDisk.bufSize, RectangleDisk.dfile);
         skip = new SkipList<String, Rect>(mem);
     }
- 
+
     /**
      * Inserts using the SkipList
      * 
@@ -38,7 +39,8 @@ public class Database
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void skipInsert(String id, int x, int y, int w, int h) throws IOException, ClassNotFoundException
+    public void skipInsert(String id, int x, int y, int w, int h) 
+        throws IOException, ClassNotFoundException
     {
         Rect r = new Rect(id, x, y, w, h);
         KVPair<String, Rect> p = new KVPair<String, Rect>(id, r);
@@ -54,13 +56,14 @@ public class Database
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void skipRemoveCoord(int x, int y, int w, int h) throws ClassNotFoundException, IOException
+    public void skipRemoveCoord(int x, int y, int w, int h) 
+        throws ClassNotFoundException, IOException
     {
         Rect r = new Rect(null, x, y, w, h);
-        KVPair<String, Rect> p = new KVPair<String, Rect>(null, r);
+        //KVPair<String, Rect> p = new KVPair<String, Rect>(null, r);
         skip.removeByCoord(r);
     }
-    
+
     //    /**
     //     * Searches for the rectangle through name
     //     * 
