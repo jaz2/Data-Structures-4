@@ -231,8 +231,10 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable 
         b = Serializer.serialize(node);
         m.update(kvh, node);
         //kvh should be node
-        assertEquals( (Serializer.deserialize(m.getNode(kvh))).getClass(), SkipNode.class);
-        assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(kvh)))).equalss(node));    
+        assertEquals( (Serializer.deserialize(m.
+                getNode(kvh))).getClass(), SkipNode.class);
+        assertTrue(((SkipNode) (Serializer.
+                deserialize(m.getNode(kvh)))).equalss(node));    
     }
 
     /**
