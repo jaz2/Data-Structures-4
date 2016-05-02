@@ -92,7 +92,7 @@ public class MemoryManager
         m = new byte[size];
         bufSize = size;
         freeList = new List();
-        FreeBlock free = new FreeBlock(size, 0);
+        free = new FreeBlock(size, 0);
         freeList.insert(free);
         found = false;
         f = s;
