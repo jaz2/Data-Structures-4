@@ -32,7 +32,7 @@ public class CommandProcessor {
      * @throws ClassNotFoundException 
      */
     public CommandProcessor(File file) 
-            throws IOException, ClassNotFoundException {
+        throws IOException, ClassNotFoundException {
         in = new Scanner(file);
         db = new Database();
         readInput();
