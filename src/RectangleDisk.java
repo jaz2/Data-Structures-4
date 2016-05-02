@@ -1,7 +1,8 @@
 import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+
 //On my honor: 
 // 
 // - I have not used source code obtained from another student, 
@@ -36,20 +37,20 @@ import java.io.RandomAccessFile;
  * @version April 13, 2016
  */
 public class RectangleDisk {
-	/**
-	 * To keep track of buffSize
-	 */
-	public static int bufSize;
-	 
-	/**
-	 * The data file
-	 */
-	public static RandomAccessFile dfile;
-	
-	/**
-	 * To keep track of the number of buffers
-	 */
-	public static int numBuffs;
+    /**
+     * To keep track of buffSize
+     */
+    public static int bufSize;
+     
+    /**
+     * The data file
+     */
+    public static RandomAccessFile dfile;
+    
+    /**
+     * To keep track of the number of buffers
+     */
+    public static int numBuffs;
 
     /**
      * The entry point for the application.
@@ -57,7 +58,8 @@ public class RectangleDisk {
      * @param args The command line arguments.
      * @throws IOException 
      */
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) 
+            throws IOException, ClassNotFoundException {
         if (args.length != 4) 
         {
             System.out.println("Usage: RectangleDisk <commandfile> "
@@ -72,10 +74,10 @@ public class RectangleDisk {
             bufSize = Integer.parseInt(args[3]);
             String input = args[0].trim(); 
             File f = new File(input);
-            CommandProcessor cmd = new CommandProcessor(f);
+            new CommandProcessor(f);
             for (int i = 0; i < MemoryManager.bp.blox.length; i++)
             {
-            	MemoryManager.bp.flush(MemoryManager.bp.blox[i]);
+                MemoryManager.bp.flush(MemoryManager.bp.blox[i]);
             }
             dfile.close();
         }

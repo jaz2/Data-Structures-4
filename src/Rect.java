@@ -1,4 +1,4 @@
-import java.awt.Rectangle;
+
 
 /**
  * The Rectangle class which acts an object for the KVPair
@@ -10,11 +10,11 @@ import java.awt.Rectangle;
  */
 public class Rect implements java.io.Serializable {
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
+    /**
      * the name of the id
      */
     public String name;
