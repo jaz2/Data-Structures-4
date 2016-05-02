@@ -132,8 +132,8 @@ public class MemoryManager
         byte[] a = new byte[2];
         bp.read(f, 2, h - 2, a);
         short size = ByteBuffer.wrap(a).getShort(0);
-        FreeBlock f = new FreeBlock(size + 2, h - 2); 
-        freeList.insert(f);        
+        FreeBlock fr = new FreeBlock(size + 2, h - 2); 
+        freeList.insert(fr);        
     }
 
     /**
