@@ -121,9 +121,14 @@ public class Rect implements java.io.Serializable {
     {       
         if (xx == ((Rect) re).getX() && yy == ((Rect) re).getY() && 
                 width == ((Rect) re).getWidth() && 
-                    height == ((Rect) re).getHeight())
+                height == ((Rect) re).getHeight())
+        {
             return true;
-        else return false;
+        }
+        else 
+        {
+            return false;
+        }
     }
 
     /**
