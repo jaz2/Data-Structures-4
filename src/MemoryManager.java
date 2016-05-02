@@ -147,7 +147,7 @@ public class MemoryManager
         //look at last free block, if its longer then what you need, grab what you need and leave the rest ->pull off bytes from front
         found = false;
         int end = ((int)f.length());
-        if(b == null) 
+        if (b == null) 
         {
             return fly;
         }
@@ -176,7 +176,7 @@ public class MemoryManager
         {
             int spaceAdded = 0;
             FreeBlock last = findLast();
-            spaceAdded = (((bytesNeeded/bufSize) + 1) * bufSize);
+            spaceAdded = (((bytesNeeded / bufSize) + 1) * bufSize);
             FreeBlock fnew = new FreeBlock((last.sz - bytesNeeded) + spaceAdded, last.p);
             freeList.remove(last);
             freeList.insert(fnew);
