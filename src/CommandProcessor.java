@@ -48,7 +48,7 @@ public class CommandProcessor {
      * @throws IOException
      */
     public void readInput() 
-            throws IOException, ClassNotFoundException { 
+        throws IOException, ClassNotFoundException { 
         while (in.hasNext()) {
             String str = in.next();
             if (str.contains("insert")) { // check that it is in bounds
