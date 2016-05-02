@@ -110,10 +110,10 @@ public class MemoryManager
     public void update(int h, Object o) 
             throws IOException, ClassNotFoundException
     {
-        if (h == fly)
-        {
-            System.out.println("Error!");
-        }
+//        if (h == fly)
+//        {
+//            System.out.println("Error!");
+//        }
         byte[] b = Serializer.serialize(o);
         byte[] a = new byte[2];
         ByteBuffer.wrap(a).putShort(0, (short) b.length);
