@@ -474,8 +474,10 @@ public class SkipList<K extends Comparable<K>, E> {
                 if (rect.intersects(r))
                 {
                     System.out.println("(" 
-                            + (getKV(getNode(getNode(node).forward[0]).element)).key() + ", "
-                            + (getKV(getNode(getNode(node).forward[0]).element)).value().toString() + ")");
+                            + (getKV(getNode(getNode(node).forward[0])
+                                    .element)).key() + ", "
+                                    + (getKV(getNode(getNode(node).forward[0])
+                                            .element)).value().toString() + ")");
                 }
             }
             node = getNode(node).forward[0];
