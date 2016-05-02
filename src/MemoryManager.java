@@ -108,7 +108,7 @@ public class MemoryManager
      * @throws ClassNotFoundException 
      */
     public void update(int h, Object o) 
-            throws IOException, ClassNotFoundException
+        throws IOException, ClassNotFoundException
     {
 //        if (h == fly)
 //        {
