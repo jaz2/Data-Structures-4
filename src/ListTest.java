@@ -89,19 +89,19 @@ public class ListTest extends TestCase {
 //        assertEquals(l.length(), 1);
 //    }
 //
-//    /**
-//     * Tests get name by name 3
-//     */
-//    @Test
-//    public void testgetNameByName3()
-//    {
-//        List l = new List();
-//        l.insert(new FreeBlock("a", 12, 6));
-//        l.insert(new FreeBlock("c", 12, 6)); 
-//        l.insert(new FreeBlock("b", 13, 6)); 
-//        l.getName("a", new FreeBlock("a", 12, 6));
-//        assertEquals(l.length(), 2);
-//    }
+    /**
+     * Tests get name by name 3
+     */
+    @Test
+    public void testMakingMoreMem()
+    {
+        List l = new List();
+        l.insert(new FreeBlock(12, 7));
+        l.insert(new FreeBlock(12, 1)); 
+        l.insert(new FreeBlock(13, 6)); 
+        l.insert(new FreeBlock(14, 3));
+        assertEquals(l.length(), 4);
+    }
 
     /**
      * The test for minor list things

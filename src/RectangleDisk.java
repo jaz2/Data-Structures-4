@@ -59,7 +59,7 @@ public class RectangleDisk {
      * @throws IOException 
      */
     public static void main(String[] args) 
-            throws IOException, ClassNotFoundException {
+        throws IOException, ClassNotFoundException {
         if (args.length != 4) 
         {
             System.out.println("Usage: RectangleDisk <commandfile> "
