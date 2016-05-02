@@ -186,6 +186,7 @@ public class List {
 					{
 						l[j] = l[j + 1];
 					}
+					l[size - 1] = null;
 					size--;
 				}
 				found = true;
