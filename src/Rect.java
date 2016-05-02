@@ -139,7 +139,12 @@ public class Rect implements java.io.Serializable {
     public boolean intersects(Rect r1)
     {
         if (xx + width > r1.getX() && yy + height > r1.getY()) 
+        {
             return true;
-        else return false;
+        }
+        else 
+        {
+            return false;
+        }
     }
 }
