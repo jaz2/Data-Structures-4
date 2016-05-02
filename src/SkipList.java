@@ -161,6 +161,7 @@ public class SkipList<K extends Comparable<K>, E> {
             size--;
             System.out.println("Rectangle removed: ("
                     + getKV(getNode(x).element).toString() + ")");
+            mm.remove(getNode(x).element);
             mm.remove(x);
         }
         if (!found)
@@ -214,7 +215,8 @@ public class SkipList<K extends Comparable<K>, E> {
             size--;
             System.out.println("Rectangle removed: ("
                     + getKV(getNode(nodeToRemove).element).toString() + ")");
-            mm.remove(x);
+            mm.remove(getNode(nodeToRemove).element);
+            mm.remove(nodeToRemove);
         }
         if (!found)
 
@@ -288,7 +290,7 @@ public class SkipList<K extends Comparable<K>, E> {
         oldHead.forward = nu;
         oldHead.lev = lev;
         //release head
-        mm.makeFree(head);
+        mm.remove(head);
         head = insertObject(oldHead);
         level = lev;
     }

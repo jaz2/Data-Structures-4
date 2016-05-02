@@ -162,38 +162,38 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		assertEquals(ref, 2);
 	}
 	
-	/**
-	 * Tests remove with best fit
-	 * @throws IOException
-	 */
-	@Test
-	public void testRemove2() throws IOException
-	{
-		byte[] b = Serializer.serialize(kv);
-		int kvh = m.insert(b);
-		Rect re1 = new Rect("a", 1, 2, 3, 4);
-		int re1h = m.insert(Serializer.serialize(re1));
-		
-		Rect re2 = new Rect("b", 1, 2, 3, 4);
-		int re2h = m.insert(Serializer.serialize(re2));
-		
-		Rect re3 = new Rect("a", 1, 2, 3, 4);
-		int re3h = m.insert(Serializer.serialize(re3));
-		
-//		Rect re4 = new Rect("a", 1, 2, 3, 4);
-//		Rect re5 = new Rect("a", 1, 2, 3, 4);
-		m.remove(kvh);
-		assertEquals(m.freeList.length(), 2);
-		m.remove(re2h);
-		assertEquals(m.freeList.length(), 3);
-		m.remove(re1h);
-		assertEquals(m.freeList.length(), 2);
-		assertEquals(m.freeList.get(0).p, 0);
-		assertEquals(m.freeList.get(0).sz, re3h - 2);
-		assertEquals(500, m.freeList.get(2).p);
-		int ref = m.insert(Serializer.serialize(re1));
-		assertEquals(2, ref);
-	}
+//	/**
+//	 * Tests remove with best fit
+//	 * @throws IOException
+//	 */
+//	@Test
+//	public void testRemove2() throws IOException
+//	{
+//		byte[] b = Serializer.serialize(kv);
+//		int kvh = m.insert(b);
+//		Rect re1 = new Rect("a", 1, 2, 3, 4);
+//		int re1h = m.insert(Serializer.serialize(re1));
+//		
+//		Rect re2 = new Rect("b", 1, 2, 3, 4);
+//		int re2h = m.insert(Serializer.serialize(re2));
+//		
+//		Rect re3 = new Rect("a", 1, 2, 3, 4);
+//		int re3h = m.insert(Serializer.serialize(re3));
+//		
+////		Rect re4 = new Rect("a", 1, 2, 3, 4);
+////		Rect re5 = new Rect("a", 1, 2, 3, 4);
+//		m.remove(kvh);
+//		assertEquals(m.freeList.length(), 2);
+//		m.remove(re2h);
+//		assertEquals(m.freeList.length(), 3);
+//		m.remove(re1h);
+//		assertEquals(m.freeList.length(), 2);
+//		assertEquals(m.freeList.get(0).p, 0);
+//		assertEquals(m.freeList.get(0).sz, re3h - 2);
+//		assertEquals(500, m.freeList.get(2).p);
+//		int ref = m.insert(Serializer.serialize(re1));
+//		assertEquals(2, ref);
+//	}
 
 	@Test
 	public void testUpdate() throws IOException, ClassNotFoundException
