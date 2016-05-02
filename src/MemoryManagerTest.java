@@ -16,28 +16,29 @@ import student.TestCase;
  * @version May 2 2016
  *
  */
-public class MemoryManagerTest extends TestCase implements java.io.Serializable {
+public class MemoryManagerTest extends 
+    TestCase implements java.io.Serializable {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * to keep track of skip list
      */
     SkipList<String, Rect> skip;
-    
+
     /**
      * to keep track of node
      */
     SkipNode node;
-    
+
     /**
      * To keep track of mm
      */
     MemoryManager m;
-    
+
     /**
      * To keep track of kv
      */
@@ -142,9 +143,9 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable 
         node = new SkipNode(kvh, 0);
         b = Serializer.serialize(node);
         int nh = m.insert(b);
-//        int nh2 = m.insert(b); 
-//        int nh3 = m.insert(b);
-//        int nh4 = m.insert(b); 
+        //        int nh2 = m.insert(b); 
+        //        int nh3 = m.insert(b);
+        //        int nh4 = m.insert(b); 
         b = Serializer.serialize(kv);
         int kv2 = m.insert(b); //debug!!! 
         assertEquals(Serializer.deserialize(m.

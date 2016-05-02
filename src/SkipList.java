@@ -82,21 +82,24 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws ClassNotFoundException 
      */ 
     public boolean insert(KVPair<K, E> it) 
-            throws IOException, ClassNotFoundException {  
+        throws IOException, ClassNotFoundException {  
         if (it == null)
         {
             return false;
         }
         int newLevel = randomLevel();   
         Comparable<K> k = it.key();  
-        if (level < newLevel)     
+        if (level < newLevel) 
+        {
             adjustHead(newLevel);
+        }
         @SuppressWarnings("unchecked")  //Generic array allocation   
         int[] update = new int[level + 1];   
         int x = head;        // Start at header node    
         for (int i = level; i >= 0; i--) { // Find insert position   
             while (((getNode(x)).forward[i] != MemoryManager.fly) &&
-                    (k.compareTo(((getKV((getNode((getNode(x)).forward[i])).element())).key())) > 0))
+                    (k.compareTo(((getKV((getNode((getNode(x)).
+                            forward[i])).element())).key())) > 0))
             {
                 x = (getNode(x)).forward[i];
             } 
@@ -125,7 +128,8 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void removeByName(Comparable<K> key) throws ClassNotFoundException, IOException
+    public void removeByName(Comparable<K> key) 
+        throws ClassNotFoundException, IOException
     {
         boolean found = false;   
         int x = head;                     // Dummy header node   
@@ -135,7 +139,8 @@ public class SkipList<K extends Comparable<K>, E> {
         { // For each level...     
             while ((getNode(x).forward[i] != MemoryManager.fly) &&            
                     (key.compareTo(((getKV((getNode((getNode(x))
-                            .forward[i])).element())).key())) > 0)) // go forward
+                            .forward[i])).element()))
+                                .key())) > 0)) // go forward
             {
                 x = getNode(x).forward[i];              // Go one last step 
             }
@@ -176,7 +181,8 @@ public class SkipList<K extends Comparable<K>, E> {
      * @throws IOException 
      * @throws ClassNotFoundException 
      */
-    public void removeByCoord(E val) throws ClassNotFoundException, IOException //while we haven't found it
+    public void removeByCoord(E val) 
+        throws ClassNotFoundException, IOException
     { //and we haven't gotten to the end go at level 0, 
         boolean found = false;   
         int x = head;                     // Dummy header node   
@@ -187,7 +193,8 @@ public class SkipList<K extends Comparable<K>, E> {
             store[i] = x;
         } //and not at the end
         while (getNode(x).forward[0] != MemoryManager.fly && 
-                ((Rect) getKV(getNode(getNode(x).forward[0]).element).value()).equals(val) == false)
+                ((Rect) getKV(getNode(getNode(x).forward[0]).element)
+                        .value()).equals(val) == false)
         {
             for (int i = getNode(x).forward.length - 1; i >= 0; i--)
             { /*each level in the current node*/
@@ -198,7 +205,8 @@ public class SkipList<K extends Comparable<K>, E> {
         }
         int nodeToRemove = getNode(x).forward[0];
         if (getNode(x).forward[0] != MemoryManager.fly && 
-                ((Rect) getKV(getNode(getNode(x).forward[0]).element).value()).equals(val) == true)
+                ((Rect) getKV(getNode(getNode(x).forward[0])
+                        .element).value()).equals(val) == true)
         {
             found = true;
         }
@@ -207,7 +215,6 @@ public class SkipList<K extends Comparable<K>, E> {
             //now remove key
             for (int i = 0; i <= getNode(nodeToRemove).forward.length - 1; i++)
             {
-                //getNode(store[i]).forward[i] = getNode(nodeToRemove).forward[i];
                 SkipNode pred = getNode(store[i]);
                 pred.forward[i] = getNode(nodeToRemove).forward[i];
                 mm.update(store[i], pred); 
@@ -232,31 +239,35 @@ public class SkipList<K extends Comparable<K>, E> {
      *  
      * @param key the key
      */
-    public void search(Comparable<K> key) throws ClassNotFoundException, IOException {   
+    public void search(Comparable<K> key) 
+        throws ClassNotFoundException, IOException {   
         boolean found = false;   
         int x = head;                     // Dummy header node   
         for (int i = level; i >= 0; i--)           // For each level...     
             while ((getNode(x).forward[i] != MemoryManager.fly) &&            
-                    (key.compareTo(getKV(getNode(getNode(x).forward[i]).element).key()) > 0)) // go forward       
+                    (key.compareTo(getKV(getNode(getNode(x)
+                            .forward[i]).element).key()) > 0)) // go forward       
                 x = getNode(x).forward[i];              // Go one last step   
         x = getNode(x).forward[0];  // Move to actual record, if it exists
         if ((x != MemoryManager.fly) && 
                 (key.compareTo(getKV(getNode(x).element).key()) == 0))    
         {
             found = true;
-            System.out.println("(" + getKV(getNode(x).element).toString() + ")");
+            System.out.println("(" + getKV(getNode(x)
+                    .element).toString() + ")");
             //look ahead at level 0 printing as long as it is an equal key
             if (getNode(x).forward[0] != MemoryManager.fly)
             {
                 x = getNode(x).forward[0];
-                while (x != MemoryManager.fly && key.equals(getKV(getNode(x).element).key()))
+                while (x != MemoryManager.fly && key.
+                        equals(getKV(getNode(x).element).key()))
                 {
                     System.out.println("(" + getKV(getNode(x).element).toString() + ")");
                     x = getNode(x).forward[0];
                 }
             }
         }
-        if (found == false)  //transfer tests
+        if (!found)  //transfer tests
         {
             System.out.println("Rectangle not found: " + key); 
         }
@@ -285,7 +296,6 @@ public class SkipList<K extends Comparable<K>, E> {
         {
             nu[i] = MemoryManager.fly;
         }
-        int start = head;
         SkipNode oldHead = getNode(head);
         oldHead.forward = nu;
         oldHead.lev = lev;
@@ -320,9 +330,12 @@ public class SkipList<K extends Comparable<K>, E> {
             int node = head;
             for (int i = 1; i <= size + 0; i++)
             {
-                System.out.println("Node has depth " + (getNode(node)).getLevel() +
-                        ", Value (" + getKV(getNode(getNode(node).forward[0]).element).key() + ", "
-                        + (getKV(getNode(getNode(node).forward[0]).element)).value().toString() + ")");
+                System.out.println("Node has depth " + (
+                        getNode(node)).getLevel() +
+                        ", Value (" + getKV(getNode(getNode(node)
+                                .forward[0]).element).key() + ", "
+                                + (getKV(getNode(getNode(node).forward[0])
+                                        .element)).value().toString() + ")");
                 node = getNode(node).forward[0];
             } 
             System.out.println("SkipList size is: " + size);
