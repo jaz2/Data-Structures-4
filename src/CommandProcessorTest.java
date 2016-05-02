@@ -533,7 +533,7 @@ public class CommandProcessorTest extends TestCase
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangle inserted: (a, 100, 0, 5, 5)\n"
-         + "Rectangle removed: (a, 100, 0, 5, 5)", output);
+                + "Rectangle removed: (a, 100, 0, 5, 5)", output);
         //assertFuzzyEquals("Rectangle inserted: (a, 100, 0, 5, 5)", output);
     }
 
@@ -916,7 +916,8 @@ public class CommandProcessorTest extends TestCase
     //        w.close();
     //        new CommandProcessor(f);
     //        String output = systemOut().getHistory();
-    //assertFuzzyEquals("Rectangle removed: (a, 0, 0, 1024, 1024)", output);
+    //assertFuzzyEquals("Rectangle removed: 
+    //(a, 0, 0, 1024, 1024)", output);
     //    }
 
     /**
@@ -1103,7 +1104,7 @@ public class CommandProcessorTest extends TestCase
         new CommandProcessor(f);
         String output = systemOut().getHistory();
         assertFuzzyEquals("Rectangles intersecting "
-         + "region (2, 2, 1, 1):", output);
+                + "region (2, 2, 1, 1):", output);
     }
 
 
