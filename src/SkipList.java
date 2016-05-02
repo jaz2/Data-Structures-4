@@ -243,7 +243,8 @@ public class SkipList<K extends Comparable<K>, E> {
         throws ClassNotFoundException, IOException {   
         boolean found = false;   
         int x = head;                     // Dummy header node   
-        for (int i = level; i >= 0; i--)           // For each level...     
+        for (int i = level; i >= 0; i--) // For each level...                 
+        {
             while ((getNode(x).forward[i] != MemoryManager.fly) &&            
                     (key.compareTo(getKV(getNode(getNode(x)
                             .forward[i]).element)
@@ -251,6 +252,7 @@ public class SkipList<K extends Comparable<K>, E> {
             {
                 x = getNode(x).forward[i];              // Go one last step   
             }
+        }
         x = getNode(x).forward[0];  // Move to actual record, if it exists
         if ((x != MemoryManager.fly) && 
                 (key.compareTo(getKV(getNode(x).element).key()) == 0))    
