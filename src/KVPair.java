@@ -10,12 +10,10 @@
  */
 public class KVPair<K extends Comparable<K>, E> 
     implements /*Comparable<KVPair<K, E>>*/ java.io.Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/**
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The key
      */
     K theKey;   
