@@ -521,8 +521,10 @@ public class SkipList<K extends Comparable<K>, E> {
                                 + " | " 
                                 + getKV(getNode(getNode(node2).forward[0])
                                         .element).key() + ", "
-                                        + getKV(getNode(getNode(node2).forward[0])
-                                                .element).value().toString() + ")");
+                                        + getKV(getNode(getNode(node2)
+                                                .forward[0])
+                                                .element).value()
+                                        .toString() + ")");
                     }
                 }
                 node2 = getNode(node2).forward[0];
