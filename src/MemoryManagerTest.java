@@ -207,5 +207,19 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 		assertEquals( (Serializer.deserialize(m.getNode(kvh))).getClass(), SkipNode.class);
 		assertTrue(((SkipNode) (Serializer.deserialize(m.getNode(kvh)))).equalss(node));	
 	}
+	
+	/**
+	 * Tests cases when null
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 */
+	@Test
+	public void testNull() throws ClassNotFoundException, IOException
+	{
+		int hand = MemoryManager.fly;
+		m.update(hand, new SkipNode(3, 4));
+		 String output = systemOut().getHistory();
+	        assertFuzzyEquals("Error!", output);
+	}
 
 }
