@@ -23,8 +23,12 @@ public class SkipNodeTest {
 	@Test
 	public void testNode() {
 		SkipNode s = new SkipNode(3, 10);
+		SkipNode y = new SkipNode(5, 4);
+		SkipNode x = new SkipNode(3, 10);
 		assertEquals(3, s.element());
 		assertEquals(10, s.getLevel());
+		assertTrue(s.equalss(x));
+		assertFalse(y.equals(s));
 	}
 
 }
