@@ -458,7 +458,7 @@ public class SkipList<K extends Comparable<K>, E> {
      * @param w width 
      */
     public void regionsearch(int x, int y, int w, int h) 
-            throws ClassNotFoundException, IOException
+        throws ClassNotFoundException, IOException
     {
         System.out.println("Rectangles intersecting region (" + x
                 + ", " + y + ", " + w + ", " + h + "):");
