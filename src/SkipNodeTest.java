@@ -32,6 +32,6 @@ public class SkipNodeTest {
         assertEquals(3, s.element());
         assertEquals(10, s.getLevel());
         assertTrue(s.equalss(x));
-        assertFalse(y.equals(s));
+        assertFalse(y.equalss(s));
     }
 }

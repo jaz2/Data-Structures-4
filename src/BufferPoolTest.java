@@ -1,8 +1,8 @@
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+//import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.Arrays;
 
@@ -31,7 +31,7 @@ public class BufferPoolTest extends TestCase {
      */
     @Before
     public void setUp() throws Exception {
-    	RectangleDisk.bufSize = 1024;
+        RectangleDisk.bufSize = 1024;
         buf = new BufferPool(3);
     } //to randomaccessfile write something and then flush it 
     //make sure it's there
@@ -190,19 +190,21 @@ public class BufferPoolTest extends TestCase {
      * @throws IOException
      */
     public void testMultipleBuffers() throws IOException
-	{
-		RectangleDisk.bufSize = 5;
-		RandomAccessFile f = new RandomAccessFile("file.txt", "rw");
-		byte[] bytes = new byte[6]; 
-		byte[] b = {12, 9, 7, 23, 45, 0};
-		buf.write(f, 6, 2, b);
+    {
+        RectangleDisk.bufSize = 5;
+        RandomAccessFile f = new RandomAccessFile("file.txt", "rw");
+        byte[] bytes = new byte[6]; 
+        byte[] b = {12, 9, 7, 23, 45, 0};
+        buf.write(f, 6, 2, b);
 
-		buf.read(f, 6, 2, bytes);
-		System.out.println(b[3] + ", " + b[4]);
-		System.out.println(bytes[0] + ", " + bytes[1] + ", " + bytes[2] + ", " + bytes[3] +  ", " + bytes[4] + ", " + bytes[5]);
-		assertTrue(Arrays.equals(b, bytes));
-		f.close();
+        buf.read(f, 6, 2, bytes);
+        System.out.println(b[3] + ", " + b[4]);
+        System.out.println(bytes[0] + ", " + bytes[1] 
+                + ", " + bytes[2] + ", " + bytes[3] +  ", " 
+                + bytes[4] + ", " + bytes[5]);
+        assertTrue(Arrays.equals(b, bytes));
+        f.close();
 
-	}
+    }
    
 }
