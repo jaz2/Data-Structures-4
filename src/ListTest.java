@@ -21,6 +21,7 @@ public class ListTest extends TestCase {
      */
     @Before
     public void setUp() throws Exception {
+        //initially had stuff
     }
 
 //    /**
