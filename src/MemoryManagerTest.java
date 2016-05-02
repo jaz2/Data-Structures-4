@@ -218,8 +218,9 @@ public class MemoryManagerTest extends TestCase implements java.io.Serializable{
 	{
 		byte[] b = Serializer.serialize(kv);
 		int hand = MemoryManager.fly;
-		m.insert(b);
-		m.update(hand, new SkipNode(3, 0));
+		int kvh = m.insert(b);
+		node = new SkipNode(kvh, 0);
+		m.update(hand, node);
 		 String output = systemOut().getHistory();
 	        assertFuzzyEquals("Error!", output);
 	}
