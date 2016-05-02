@@ -1,6 +1,6 @@
 import static org.junit.Assert.*;
 
-import java.awt.Rectangle;
+//import java.awt.Rectangle;
 import student.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +17,7 @@ public class RectTest extends TestCase {
      */
     @Before
     public void setUp() throws Exception {
+        //set up
     }
 
     /**

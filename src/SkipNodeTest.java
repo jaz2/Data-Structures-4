@@ -19,6 +19,7 @@ public class SkipNodeTest {
      */
     @Before
     public void setUp() throws Exception {
+        //something
     }
 
     /**
